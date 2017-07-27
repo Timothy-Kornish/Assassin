@@ -11,9 +11,9 @@ const dist = (x1,y1,x2,y2) => {
 }
 
 let person00 = [46.8656510, -113.9776997] // latitude, longitude
-let person01 = [46.8656510, -113.9776993] // y, x
+let person01 = [46.8663421, -113.9771954] // y, x
 let person20 = [46.8656088, -113.9776878]
-let person21 = [46.8656094, -113.9776870]
+let person21 = [46.8663548, -113.9771735]
 
 const vector =(player1X, player1Y, player2X, player2Y) =>{
 		let x = player1X - player2X ;

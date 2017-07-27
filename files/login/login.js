@@ -33,19 +33,28 @@ if(error) {
   console.log("eror", error)
 }
   console.log("Wubba lubba dub dub!!!!!!!")
-  let sql = "CREATE TABLE players (name VARCHAR(255), address VARCHAR(255))"
+  let sql = "CREATE TABLE players \n \
+            ( \n \
+             id INT unsigned NOT NULL AUTO_INCREMENT, \n \
+             name VARCHAR(255) NOT NULL, \n \
+             longitude VARCHAR(255) NOT NULL, \n \
+             latitude VARCHAR(255) NOT NULL, \n \
+             alive VARCHAR(5) NOT NULL, \n \
+             target VARCHAR(100) NOT NULL, \n \
+             PRIMARY KEY (id) \n \
+           );\n"
   connection.query(sql, (error, result) => {
     if(error) {
       console.log("error ", error)
     }
     console.log("table created: ", result)
   })
-  let rick = "('Rick','eltomo', 'morty')"
-  let tableCol = "INSERT INTO players (name, owner, birth) VALUES" + rick
+  let newPlayer = "('Rick', '0', '0', 'true', 'morty')"
+  let tableCol = "INSERT INTO players (name, longitude, latitude, alive, target) VALUES" + newPlayer + ";"
   connection.query(tableCol, (err, result) => {
     if(err){
-      throw err
+      console.log("ERRROROROR ", err)
     }
-    console.log("connected to ", result)
+    console.log("Added player ", result)
   })
 })
