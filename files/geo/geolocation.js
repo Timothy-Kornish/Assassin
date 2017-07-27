@@ -37,6 +37,9 @@ class Geolocation extends Component {
     );
 
   }
+  sendData(){
+    return this.state
+  }
 
   componentDidMount() {
     this.location()
@@ -49,7 +52,7 @@ class Geolocation extends Component {
   render() {
     return (
 
-              <View style={{ position: 'relative', top: 70, flexGrow: 1, alignItems: 'center', justifyContent: 'center' }}>
+              <View style={{ position: 'relative', top: 70, flexGrow: 1 }}>
                 <Text>Latitude: {this.state.latitude}</Text>
                 <Text>Longitude: {this.state.longitude}</Text>
                 {this.state.error ? <Text>Error: {this.state.error}</Text> : null}
