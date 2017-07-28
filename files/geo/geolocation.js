@@ -64,9 +64,9 @@ class Geolocation extends Component {
 }
 
 const Geolocate = (Component) => {
-  <Geolocation>
+  return(<Geolocation>
     <Component>
-  </Geolocation>
+  </Geolocation>)
 }
 
 
