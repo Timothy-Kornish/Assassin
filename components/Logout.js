@@ -6,7 +6,7 @@ import {connect} from 'react-redux'
 class Logout extends Component {
   render(){
     if (this.props.username) {
-      return <Button onClick={this.props.logout}>Logout</Button>
+      return <Button onPress={this.props.logout} title="Logout"/>
     } else {
       return <View></View>
     }

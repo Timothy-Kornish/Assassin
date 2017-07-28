@@ -1,11 +1,11 @@
-export const login = (username, token) => {
+export function login(username, token) {
   return {
     type: 'login',
     username,
     token
   }
 }
-export const logout = () => {
+export function logout(){
   return {
     type: 'logout'
   }
