@@ -51,15 +51,23 @@ class Geolocation extends Component {
 
   render() {
     return (
-
-              <View style={{ position: 'relative', top: 70, flexGrow: 1 }}>
-                <Text>Latitude: {this.state.latitude}</Text>
-                <Text>Longitude: {this.state.longitude}</Text>
-                {this.state.error ? <Text>Error: {this.state.error}</Text> : null}
-              </View>
-
+      <div>
+        this.props.children.map(child => React.cloneElement(child,
+        {
+          ...this.props,
+          ...this.state
+        }
+        ))
+      </div>
     );
   }
 }
 
-export default Geolocation;
+const Geolocate = (Component) => {
+  <Geolocation>
+    <Component>
+  </Geolocation>
+}
+
+
+export default Geolocate;

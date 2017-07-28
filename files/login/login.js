@@ -1,7 +1,6 @@
 const mysql = require('mysql')
 const geo = require('../geo/geolocation')
 
-
 export default class Login{
   constructor(){
     this.connection = mysql.createConnection({
@@ -11,7 +10,6 @@ export default class Login{
       database: "assDB"
     })
   }
-
 
 // ---------------------------------------------------------------------
 // needed for intial database creation
@@ -31,8 +29,6 @@ if(error) {
   })
 })
 */
-
-
 
   this.connection.connect( (error) =>{
     let self = this
