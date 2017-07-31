@@ -5,7 +5,7 @@ import geolocation from './geolocation'
 class DisplayGeoLocationData extends Component {
 
   render(){
-    return <Text>You are at {this.props.lat}, {this.props.lng}</Text>
+    return <Text>You are at {this.props.latitude}, {this.props.longitude}</Text>
   }
 }
 
