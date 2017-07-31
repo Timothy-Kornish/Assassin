@@ -1,6 +1,7 @@
 export default function reducer(state, action){
   switch(action.type){
     case 'login':
+    console.log("login firing");
       return {
         ...state,
         username: action.username,
@@ -11,6 +12,15 @@ export default function reducer(state, action){
         ...state,
         username: undefined,
         token: undefined
+      }
+    case 'locate':
+    console.log("locate firing", action);
+      return {
+        ...state,
+        longitude: action.longitude,
+        latitude: action.latitude,
+        watchId: action.watchId,
+        error: action.error
       }
     default:
       return state

@@ -1,15 +1,16 @@
 import React, {Component} from 'react'
-import {Button, View} from 'react-native'
+import {Button, View, TextInput} from 'react-native'
 import {login} from '../redux/actions'
 import {connect} from 'react-redux'
 
 class Login extends Component {
   render(){
 
-    return <Button onPress={this.props.login} title="Login"/>
+    return <View> 
+    		<Button onPress={this.props.login} title="Login"/>
+    	</View>
   }
 }
-
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -18,6 +19,7 @@ const mapDispatchToProps = (dispatch) => {
     }
   }
 }
+
 
 const LoginConnector = connect(null, mapDispatchToProps)
 
