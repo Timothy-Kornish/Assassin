@@ -21,9 +21,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    logout : () => {
-      dispatch(logout())
-    }
+    logout : () => {dispatch(logout())}
   }
 }
 

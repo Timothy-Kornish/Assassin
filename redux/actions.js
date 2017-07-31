@@ -11,13 +11,12 @@ export function logout(){
   }
 }
 
-export function locate(longitude, latitude, watchId, error) {
-	console.log("inlocate actions", longitude);
+export function locate(latitude, longitude, error) {
+	console.log("locate actions firing", longitude);
   return {
   	type: 'locate',
   	longitude,
   	latitude,
-  	watchId,
   	error
   }
 }

@@ -14,13 +14,12 @@ export default function reducer(state, action){
         token: undefined
       }
     case 'locate':
-    console.log("locate firing", action);
+    console.log("locate reducer firing", action);
       return {
         ...state,
         longitude: action.longitude,
         latitude: action.latitude,
-        watchId: action.watchId,
-        error: action.error
+        locationError: action.error
       }
     default:
       return state
