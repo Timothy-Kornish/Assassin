@@ -25,6 +25,7 @@
     "react-native": "^0.46.1",
     "react-native-background-geolocation": "^2.8.4",
     "react-native-heading": "^1.1.0",
+    "react-native-material-design": "^0.3.7",
     "react-native-simple-compass": "^1.0.0",
     "react-redux": "^5.0.5",
     "redux": "^3.7.2"

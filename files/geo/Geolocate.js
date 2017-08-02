@@ -14,10 +14,17 @@ class Geolocation extends Component {
 
     setInterval(this.location.bind(this),1000)
   }
+  const mapStateToProps(){
+    this.location()
+  }
+
+
 
   location(){
     //console.log(this.watchId)
     navigator.geolocation.clearWatch(this.watchId);
+
+  const mapDispatchToProps(){
 
     this.watchId = navigator.geolocation.watchPosition(
 
@@ -52,22 +59,13 @@ class Geolocation extends Component {
   render() {
     return (
       <div>
-        this.props.children.map(child => React.cloneElement(child,
-        {
-          ...this.props,
-          ...this.state
-        }
-        ))
+        <Text> You are here: {this.props.latitude, this.props.longitude}</Text>
       </div>
     );
   }
 }
 
-const Geolocate = (Component) => {
-  return(<Geolocation>
-    <Component>
-  </Geolocation>)
 }
 
 
-export default Geolocate;
+      export default Geolocate;

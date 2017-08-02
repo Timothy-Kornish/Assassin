@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Text } from 'react-native'
-import geolocation from './geolocation'
+import AutoLocate from './AutoLocate'
 
 class DisplayGeoLocationData extends Component {
 
   render(){
-    return <Text>You are at {this.props.lat}, {this.props.lng}</Text>
+    return <Text>Here you are: {this.state.lat}, {this.state.lng}</Text>
   }
 }
 
