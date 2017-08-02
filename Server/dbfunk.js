@@ -45,7 +45,7 @@ export class DBfunk{
         console.log("The fallen tributes:", userData.username)
       })
     })
-  }
+  } 
   addPlayer(userData, roomCode){
     this.connection.connect((error) => {
       if(error)console.error("Oopsie-doopsy, we muffed it again", error)
