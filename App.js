@@ -4,11 +4,38 @@ import { Provider } from 'react-redux'
 import BackgroundTimer from 'react-native-background-timer';
 import Login from "./components/Login"
 import Logout from "./components/Logout"
+import Lobby from "./components/Lobby"
+import Room from "./components/Room"
+import Loading from "./components/Loading"
+import Game from "./components/Game"
+import GhostRoom from "./components/GhostRoom"
 import LocationWatcher from "./components/LocationWatcher"
 import store from './redux/store'
 import {locate} from './redux/actions'
+import {StackNavigator} from 'react-navigation'
+
+console.log('Login', Login)
 
 
+  const Header = (Component) => (props) => {
+    return (<View>
+        <Button title="Logout" onPress={()=>props.navigation.navigate('Login')} />
+        <Component {...props}/>
+      </View>)
+
+
+  }
+  const Navigator = StackNavigator({
+    Login: { screen: Login },
+    Lobby: { screen: Header(Lobby) },
+    Room: { screen: Header(Room) },
+    Loading: { screen: Header(Loading) },
+    Game: { screen: Header(Game) },
+    GhostRoom: {screen: Header(GhostRoom)},
+    Logout: {screen: Login}
+  });
+
+  AppRegistry.registerComponent('Navigator', () => Navigator);
 
 export default class App extends Component {
   constructor(props){
@@ -20,21 +47,15 @@ export default class App extends Component {
         { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
       )
     }, 3000);
+   // this.logout = this.logout.bind(this)
   }
+
+
 
   render() {
     return (
       <Provider store = {store}>
-        <View>
-          <Text>This is hidden in the tool bar</Text>
-          <Text>Hello. My name is Inigo Montoya. You killed my father. Prepare to die.</Text>
-          <Login/>
-          <Logout/>
-          <View>
-            <Text> Here is your location, the assassins are coming for you. </Text>
-            <LocationWatcher/>
-          </View>
-        </View>
+         <Navigator/>
       </Provider>
     );
   }
