@@ -1,5 +1,9 @@
 [
     {
+        "merged": "/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/res/merged/debug/mipmap-xhdpi/ic_launcher.png",
+        "source": "/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
         "merged": "/Users/macuser/mtcs/Assassin/android/app/build/intermediates/res/merged/debug/mipmap-xhdpi/ic_launcher.png",
         "source": "/Users/macuser/mtcs/Assassin/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png"
     }

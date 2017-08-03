@@ -3,228 +3,228 @@
 
     <item
         is-multidex="false"
-        jar="/Users/macuser/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.6.0/69edde9fc4b01c9fd51d25b83428837478c27254/okhttp-3.6.0.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="69edde9fc4b01c9fd51d25b83428837478c27254">
-        <dex dex="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/pre-dexed/debug/okhttp-3.6.0_302c5b583cf0a63eda8a1a9847c93c55d80a0750.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.46.4/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="c5526d30278eb171f4a1325bd6b927c9057c91f4">
-        <dex dex="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/pre-dexed/debug/com.facebook.react-react-native-0.46.4_3143d62fc4e2bb5744e1dac2c6660a22f35c0b8a.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/exploded-aar/com.joshblour.discovery/discovery/0.0.3/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="3f62a1341523eed3cbe8d2d842aea6a81d2cdac1">
-        <dex dex="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/pre-dexed/debug/com.joshblour.discovery-discovery-0.0.3_0e693a81f984c7df20cb4da3a5bc11d6071b7a1c.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline/1.0.1/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="d9c4402c3057225d80cbbbec52154e7a25b0ebdf">
-        <dex dex="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-1.0.1_494365ef23507fcd39ceb501d5f5632827714559.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/exploded-aar/Assassins/react-native-simple-compass/unspecified/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="7b6dfb406c5fb2f0468119160888c228bc324b99">
-        <dex dex="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/pre-dexed/debug/Assassins-react-native-simple-compass-unspecified_e668997f387f52d81eceb3312862b175f21b0018.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/libs/internal_impl-23.1.1.jar"
+        jar="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/libs/internal_impl-23.1.1.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.1"
         sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
-        <dex dex="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/pre-dexed/debug/internal_impl-23.1.1_7f9d1b6f9ea19ab73f3a5105f177e8eb6ff90705.jar" />
+        <dex dex="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/pre-dexed/debug/internal_impl-23.1.1_3dc2207d874a088a83b8a16b107c2a48ce7d44da.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="5c5699834e9722f1c288fea2de82725d078ba127">
-        <dex dex="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-23.1.1_30b30235efa8203507ef18ccd8afc132c24d1303.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/classes.jar"
+        jar="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.1"
         sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
-        <dex dex="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-23.1.1_7221ef3610530fdfbd0df9f1cf34ce938878b695.jar" />
+        <dex dex="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-23.1.1_2c53b9c622f4f264e2e64471909cf951a3141672.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/exploded-aar/com.facebook.fresco/drawee/1.0.1/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="5a61f17cd72e20aa4323cbf5f909b7c609619275">
-        <dex dex="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-drawee-1.0.1_40225ed128def39fb693cb64b7f6aa99d546ce46.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/exploded-aar/com.facebook.fresco/fresco/1.0.1/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="cf836a435a496eb22ff2aa69aa1e619462549f81">
-        <dex dex="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fresco-1.0.1_5f25bdd6619c65599802dcac139b7674cc2fe6fd.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.46.4/jars/libs/infer-annotations-4.0.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="9809e90be788acdb479b2b44e2112f3295a03068">
-        <dex dex="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/pre-dexed/debug/infer-annotations-4.0_934daf28f44e75d0e1c6c0c4758c6badfecd2920.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/macuser/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.1.1/support-annotations-23.1.1.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
-        <dex dex="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/pre-dexed/debug/support-annotations-23.1.1_c0a6fa08b6861001c36da500587bf4c4d85b0755.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline-base/1.0.1/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="050f688115ea65a0292d8483a6ffe6bcdab1e2ef">
-        <dex dex="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-base-1.0.1_9894777eb3bdc51332b388cb22ecc20224986183.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/exploded-aar/Assassins/react-native-heading/unspecified/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="49ce1534483671bc12b90807bd2a2334e16fadee">
-        <dex dex="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/pre-dexed/debug/Assassins-react-native-heading-unspecified_62b280c5efeeca505595da9c42b8271b3be04420.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline-okhttp3/1.0.1/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="ba9b39366b723ccff6359d1117332968e98a4aca">
-        <dex dex="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-okhttp3-1.0.1_65570ade436699703976d61b2e403bce07b68657.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/exploded-aar/com.facebook.fbui.textlayoutbuilder/textlayoutbuilder/1.0.0/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="f90b593491e4044903f0bbf68dc3fa2790b151b9">
-        <dex dex="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/pre-dexed/debug/com.facebook.fbui.textlayoutbuilder-textlayoutbuilder-1.0.0_4db44a735600ea5fb7bd96ff308a9d04f0d405d1.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/macuser/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.0/5871fb60dc68d67da54a663c3fd636a10a532948/jsr305-3.0.0.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="5871fb60dc68d67da54a663c3fd636a10a532948">
-        <dex dex="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/pre-dexed/debug/jsr305-3.0.0_9b3d646f0ca87406fd58491919e8fb711159ff49.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/exploded-aar/com.facebook.fresco/fbcore/1.0.1/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="2668e49e4e31c7d451b76a36009b902bf44e0d70">
-        <dex dex="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fbcore-1.0.1_2f6e32f2ee49e08050111ca2ba5927b13fb6444e.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/macuser/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="a9283170b7305c8d92d25aff02a6ab7e45d06cbe">
-        <dex dex="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/pre-dexed/debug/okio-1.13.0_7b22c3f0f015323d6928d493a9c9cc746004f150.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/macuser/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp-urlconnection/3.6.0/3f9b16b774f2c36cfd86dd2053d0b3059531dacc/okhttp-urlconnection-3.6.0.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="3f9b16b774f2c36cfd86dd2053d0b3059531dacc">
-        <dex dex="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/pre-dexed/debug/okhttp-urlconnection-3.6.0_ad5ef2b664a5bca25cddc8be8ad39b83640960a3.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/exploded-aar/com.facebook.soloader/soloader/0.1.0/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="8f615bca00639150c9eb6175d4b5471193f70794">
-        <dex dex="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/pre-dexed/debug/com.facebook.soloader-soloader-0.1.0_c07918776c38270e8d65e6343d6055dddf3081dc.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/macuser/.gradle/caches/modules-2/files-2.1/com.facebook.fbui.textlayoutbuilder/staticlayout-proxy/1.0/f162442a19fff13995fbd51ba414d9ee05579080/staticlayout-proxy-1.0.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="f162442a19fff13995fbd51ba414d9ee05579080">
-        <dex dex="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/pre-dexed/debug/staticlayout-proxy-1.0_efa8a961931b565ad4fba1020790d1ebc8e6ce9a.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/macuser/.gradle/caches/modules-2/files-2.1/javax.inject/javax.inject/1/6975da39a7040257bd51d21a231b76c915872d38/javax.inject-1.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="6975da39a7040257bd51d21a231b76c915872d38">
-        <dex dex="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/pre-dexed/debug/javax.inject-1_87481c7350f901b3ad1e34cf18b5ddfb6f5c1311.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/macuser/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-tasks/1.4.0/d85884acf6810a3bbbecb587f239005cbc846dc4/bolts-tasks-1.4.0.jar"
+        jar="/Users/kelseyiverson/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-tasks/1.4.0/d85884acf6810a3bbbecb587f239005cbc846dc4/bolts-tasks-1.4.0.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.1"
         sha1="d85884acf6810a3bbbecb587f239005cbc846dc4">
-        <dex dex="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/pre-dexed/debug/bolts-tasks-1.4.0_2c4b17574fd946bb9f079be5160aac460f388d4c.jar" />
+        <dex dex="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/pre-dexed/debug/bolts-tasks-1.4.0_1ccb397ec98bbda8a10ff204a7c5c82e515be765.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/exploded-aar/Assassins/react-native-background-timer/unspecified/jars/classes.jar"
+        jar="/Users/kelseyiverson/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.6.0/69edde9fc4b01c9fd51d25b83428837478c27254/okhttp-3.6.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="69edde9fc4b01c9fd51d25b83428837478c27254">
+        <dex dex="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/pre-dexed/debug/okhttp-3.6.0_fc2f227e2f5fd25855cec911e4f480b71b21d2e9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/exploded-aar/Assassins/react-native-background-timer/unspecified/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.1"
         sha1="674be24595058b623fb3338615ce68e92d6b5eeb">
-        <dex dex="/Users/macuser/mtcs/Assassin/android/app/build/intermediates/pre-dexed/debug/Assassins-react-native-background-timer-unspecified_a91d3b22ab02c90dfd3fab4ec8ade07ad3e3bd0f.jar" />
+        <dex dex="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/pre-dexed/debug/Assassins-react-native-background-timer-unspecified_c34d7945ed434084122b0d396b222e53f70f061c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/exploded-aar/Assassins/react-native-simple-compass/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="7b6dfb406c5fb2f0468119160888c228bc324b99">
+        <dex dex="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/pre-dexed/debug/Assassins-react-native-simple-compass-unspecified_1541ffe7d93ba3093b44d905e1bbeb299e302f88.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/exploded-aar/com.facebook.fbui.textlayoutbuilder/textlayoutbuilder/1.0.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="f90b593491e4044903f0bbf68dc3fa2790b151b9">
+        <dex dex="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/pre-dexed/debug/com.facebook.fbui.textlayoutbuilder-textlayoutbuilder-1.0.0_7b3bcfb467675f82329646606508cf43bb0fd5bf.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/kelseyiverson/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp-urlconnection/3.6.0/3f9b16b774f2c36cfd86dd2053d0b3059531dacc/okhttp-urlconnection-3.6.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="3f9b16b774f2c36cfd86dd2053d0b3059531dacc">
+        <dex dex="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/pre-dexed/debug/okhttp-urlconnection-3.6.0_0c8061e73442bda98539a670b214c3bc740afd91.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/exploded-aar/com.joshblour.discovery/discovery/0.0.3/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="3f62a1341523eed3cbe8d2d842aea6a81d2cdac1">
+        <dex dex="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/pre-dexed/debug/com.joshblour.discovery-discovery-0.0.3_043369765c9064a80e64ccb5f16fc7e05ee3a94e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.46.4/jars/libs/infer-annotations-4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="9809e90be788acdb479b2b44e2112f3295a03068">
+        <dex dex="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/pre-dexed/debug/infer-annotations-4.0_b2e3ab9f23f1ce733153c0537ebafae8d99f18e1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/exploded-aar/com.facebook.soloader/soloader/0.1.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="8f615bca00639150c9eb6175d4b5471193f70794">
+        <dex dex="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/pre-dexed/debug/com.facebook.soloader-soloader-0.1.0_ee1c816c76467e6b44fa6d75f8d79ec8be035440.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/exploded-aar/com.facebook.fresco/fbcore/1.0.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="2668e49e4e31c7d451b76a36009b902bf44e0d70">
+        <dex dex="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fbcore-1.0.1_61f90316e8ac7fe485514e666718435a3a97bdbf.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/exploded-aar/Assassins/react-native-heading/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="49ce1534483671bc12b90807bd2a2334e16fadee">
+        <dex dex="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/pre-dexed/debug/Assassins-react-native-heading-unspecified_16e2bc98ae34ef8d4ae7421e0d4435fb627c5d9a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/kelseyiverson/.gradle/caches/modules-2/files-2.1/com.facebook.fbui.textlayoutbuilder/staticlayout-proxy/1.0/f162442a19fff13995fbd51ba414d9ee05579080/staticlayout-proxy-1.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="f162442a19fff13995fbd51ba414d9ee05579080">
+        <dex dex="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/pre-dexed/debug/staticlayout-proxy-1.0_fe6fcd8f9a7d5744a185bd1c30688c43e1f79c01.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline-okhttp3/1.0.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="ba9b39366b723ccff6359d1117332968e98a4aca">
+        <dex dex="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-okhttp3-1.0.1_da9f0773264dc6567effb7f2bc5a1b9bc3085289.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="5c5699834e9722f1c288fea2de82725d078ba127">
+        <dex dex="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-23.1.1_a9f1693712e27d3097201c884443f4fc2443275f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/exploded-aar/com.facebook.fresco/fresco/1.0.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="cf836a435a496eb22ff2aa69aa1e619462549f81">
+        <dex dex="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fresco-1.0.1_f74efa7e205f7d507e8d4b8c58077ea3d41f991a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.46.4/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="c5526d30278eb171f4a1325bd6b927c9057c91f4">
+        <dex dex="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/pre-dexed/debug/com.facebook.react-react-native-0.46.4_2d24736100575b113be223ea451043161f02fbc2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/kelseyiverson/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="a9283170b7305c8d92d25aff02a6ab7e45d06cbe">
+        <dex dex="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/pre-dexed/debug/okio-1.13.0_104abef2e4ceddb5f87516b98cc215507e3ddd05.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/kelseyiverson/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.1.1/support-annotations-23.1.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
+        <dex dex="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/pre-dexed/debug/support-annotations-23.1.1_9d192414993605675ac338f0a5adbc2a102ba554.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/kelseyiverson/.gradle/caches/modules-2/files-2.1/javax.inject/javax.inject/1/6975da39a7040257bd51d21a231b76c915872d38/javax.inject-1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="6975da39a7040257bd51d21a231b76c915872d38">
+        <dex dex="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/pre-dexed/debug/javax.inject-1_235a310f01ccc6295726464876b30be8af02ab27.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline-base/1.0.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="050f688115ea65a0292d8483a6ffe6bcdab1e2ef">
+        <dex dex="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-base-1.0.1_d40b0a20c2971ca84ae91f66ac03233f87ab1287.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/exploded-aar/com.facebook.fresco/drawee/1.0.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="5a61f17cd72e20aa4323cbf5f909b7c609619275">
+        <dex dex="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-drawee-1.0.1_b54afe8c3e8b47516c7f71f7f273955be530d6cf.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/kelseyiverson/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.0/5871fb60dc68d67da54a663c3fd636a10a532948/jsr305-3.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="5871fb60dc68d67da54a663c3fd636a10a532948">
+        <dex dex="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/pre-dexed/debug/jsr305-3.0.0_0453a6f47095a4c80857d7ff88b4eeed287619c9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline/1.0.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="d9c4402c3057225d80cbbbec52154e7a25b0ebdf">
+        <dex dex="/Users/kelseyiverson/mtcs/Assassins/Assassin/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-1.0.1_e6fa6c59b5c1775d52c080266d73ddd77152b0d3.jar" />
     </item>
 
 </items>
