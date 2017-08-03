@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
 import {Button, View, Text} from 'react-native'
 import {connect} from 'react-redux'
+import {StackNavigator} from 'react-navigation'
 
-class Lobby extends Component {
+export default class Lobby extends Component {
 
 //create a room and generate a roomcode
   createRoom (){
@@ -43,21 +44,10 @@ class Lobby extends Component {
   render(){
         return (
           <View>
-              <Text>{text}</Text>
-              <Button onPress={()=>props.navigation.navigate(link)} title={'Go to ' + link}/>
+          <Text>create room or join room here</Text>
+              <Button onPress={()=>this.props.navigation.navigate('Room')} title={'Go to da room'}/>
           </View>
          )
 
   }
 }
-
-const mapStateToProps = (state) => {
-  return {
-    longitude: state.longitude,
-    latitude: state.latitude
-  }
-}
-
-const LocateConnector = connect(mapStateToProps)
-
-export default LocateConnector(LocationWatcher)

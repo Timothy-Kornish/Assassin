@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Button, View, Text} from 'react-native'
 import {connect} from 'react-redux'
+import {StackNavigator} from 'react-navigation'
 
 export default class GhostRoom extends Component {
 
@@ -20,8 +21,8 @@ export default class GhostRoom extends Component {
   render(){
     return (
       <View>
-          <Text>{text}</Text>
-          <Button onPress={()=>props.navigation.navigate(link)} title={'Go to ' + link}/>
+      <Text>told you not to get got</Text>
+          <Button onPress={()=>this.props.navigation.navigate('Lobby')} title={'try again'}/>
       </View>
      )
   }

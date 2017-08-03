@@ -1,9 +1,10 @@
 import React, {Component} from 'react'
 import {Button, View, Text} from 'react-native'
 import {connect} from 'react-redux'
+import {StackNavigator} from 'react-navigation'
 
 export default class Game extends Component {
-  
+
 
   kill(){
     fetch('/user/kill', {
@@ -41,8 +42,8 @@ export default class Game extends Component {
   render(){
     return (
       <View>
-          <Text>{text}</Text>
-          <Button onPress={()=>props.navigation.navigate(link)} title={'Go to ' + link}/>
+      <Text>DONT GET GOT, also look! a compass!</Text>
+        <Button onPress={()=>this.props.navigation.navigate('GhostRoom')} title={'you got got'}/>
       </View>
      )
   }

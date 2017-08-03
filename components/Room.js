@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Button, View, Text} from 'react-native'
 import {connect} from 'react-redux'
+import {StackNavigator} from 'react-navigation'
 
 export default class Room extends Component {
 
@@ -25,8 +26,8 @@ export default class Room extends Component {
   render(){
       return (
         <View>
-            <Text>{text}</Text>
-            <Button onPress={()=>props.navigation.navigate(link)} title={'Go to ' + link}/>
+        <Text>wait for your targets</Text>
+            <Button onPress={()=>this.props.navigation.navigate('Loading')} title={'start game'}/>
         </View>
     )
   }

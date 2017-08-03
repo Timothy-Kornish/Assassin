@@ -4,38 +4,38 @@ import { Provider } from 'react-redux'
 import BackgroundTimer from 'react-native-background-timer';
 import Login from "./components/Login"
 import Logout from "./components/Logout"
+import Lobby from "./components/Lobby"
+import Room from "./components/Room"
+import Loading from "./components/Loading"
+import Game from "./components/Game"
+import GhostRoom from "./components/GhostRoom"
 import LocationWatcher from "./components/LocationWatcher"
 import store from './redux/store'
 import {locate} from './redux/actions'
 import {StackNavigator} from 'react-navigation'
 
-
-  const rc = (text, link)=> (props) => {
-                        console.log('perps', props)
-                        return (<View>
-                              <Text>{text}</Text>
-                              <Button onPress={()=>props.navigation.navigate(link)} title={'Go to ' + link}/>
-                           </View>)
-                      }
+console.log('Login', Login)
 
 
   const Header = (Component) => (props) => {
     return (<View>
-        <Button title="Logout" onPress={()=>'BON JOVI'} />
+        <Button title="Logout" onPress={()=>props.navigation.navigate('Login')} />
         <Component {...props}/>
       </View>)
 
 
   }
   const Navigator = StackNavigator({
-    Login: { screen: rc('Login', 'Lobby')},
-    Lobby: { screen: Header(rc('Lobby', 'Room')) },
-    Room: { screen: Header(rc('Room', 'Loading')) },
-    Loading: { screen: Header(rc('Loading', 'Game')) },
-    Game: { screen: Header(rc('Game', 'GhostRoom')) },
-    GhostRoom: {screen: Header(rc('GhostRoom', 'Lobby'))},
-    Logout: {screen: rc('Logout', 'Login')}
+    Login: { screen: Login },
+    Lobby: { screen: Header(Lobby) },
+    Room: { screen: Header(Room) },
+    Loading: { screen: Header(Loading) },
+    Game: { screen: Header(Game) },
+    GhostRoom: {screen: Header(GhostRoom)},
+    Logout: {screen: Login}
   });
+
+  AppRegistry.registerComponent('Navigator', () => Navigator);
 
 export default class App extends Component {
   constructor(props){
@@ -55,7 +55,7 @@ export default class App extends Component {
   render() {
     return (
       <Provider store = {store}>
-          <Navigator/>
+         <Navigator/>
       </Provider>
     );
   }
