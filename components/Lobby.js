@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Button, View, Text} from 'react-native'
 import {connect} from 'react-redux'
 import {StackNavigator} from 'react-navigation'
+import JoinRoom from './JoinRoom/JoinRoom'
 
 export default class Lobby extends Component {
 
@@ -17,18 +18,6 @@ export default class Lobby extends Component {
                            longitude: this.longitude})
      })
    }
-
-//adds user to an existing room
- joinRoom(){
-   fetch('/room/add', {
-     method: 'PUT',
-     headers: {
-       "Content-Type": 'application/json'
-     },
-     body: JSON.stringify({username: this.username,
-                           roomCode: roomCode})
-   })
- }
 
 //logout of game
   logout(){
@@ -46,6 +35,7 @@ export default class Lobby extends Component {
           <View>
           <Text>create room or join room here</Text>
               <Button onPress={()=>this.props.navigation.navigate('Room')} title={'Go to da room'}/>
+          < JoinRoom />  
           </View>
          )
 

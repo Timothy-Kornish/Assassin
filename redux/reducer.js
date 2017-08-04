@@ -22,6 +22,12 @@ export default function reducer(state, action){
         latitude: action.latitude,
         locationError: action.error
       }
+      case 'joinroom':
+      console.log("joinroom reducer firing", action);
+        return {
+          ...state,
+          roomCode: action.roomCode
+        }
     default:
       return state
   }

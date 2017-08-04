@@ -19,3 +19,11 @@ export function locate(latitude, longitude, error) {
   	error
   }
 }
+
+export function joinroom(roomCode, username) {
+  return {
+    type: 'joinroom',
+    roomCode,
+    username
+  }
+}
