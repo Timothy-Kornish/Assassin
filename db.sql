@@ -11,8 +11,8 @@ CREATE TABLE games (
 CREATE TABLE players(
   username VARCHAR(100) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL,
-  longitude VARCHAR(255) NOT NULL,
-  latitude VARCHAR(255) NOT NULL,
+  longitude VARCHAR(255) DEFAULT '' NOT NULL,
+  latitude VARCHAR(255) DEFAULT '' NOT NULL,
   alive VARCHAR(5),
   target VARCHAR(100),
   targetStatus VARCHAR(5),
