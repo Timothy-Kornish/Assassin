@@ -22,7 +22,16 @@ console.log('Login', Login)
         <Button title="Logout" onPress={()=>props.navigation.navigate('Login')} />
         <Component {...props}/>
       </View>)
-
+      //logout of game
+      //   logout(){
+      //    fetch('/logout', {
+      //      method: 'PUT',
+      //      headers: {
+      //        "Content-Type": 'application/json'
+      //      },
+      //      body: JSON.stringify({username: this.username})
+      //    })
+      //  }
 
   }
   const Navigator = StackNavigator({

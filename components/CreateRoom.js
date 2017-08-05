@@ -7,14 +7,14 @@ class CreateRoom extends Component {
   constructor(props){
     super(props)
     this.state = {
-      text: '',
       roomCode: ''
     }
     this.createRoom = this.createRoom.bind(this)
+    this.codeGen = this.codeGen.bind(this)
   }
 
-  componentDidMount(){
-    codeGen(){
+  codeGen(){
+      //const codeGen = () => {
       const codeVal = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
       let val = ''
       for (var i = 0; i < 4; i++){
@@ -22,10 +22,21 @@ class CreateRoom extends Component {
       }
       this.setState({roomCode: val})
       return val
-    }
+    //}
  }
 
  createRoom(){
+
+   this.codeGen()
+
+   fetch('/room/admin', {
+      method: 'PUT',
+      headers: {
+        "Content-Type": 'application/json'
+      },
+      body: JSON.stringify({username: this.props.username})
+   })
+
    fetch('/room', {
      method: 'POST',
      headers: {
@@ -44,8 +55,9 @@ class CreateRoom extends Component {
      <Text>Create Room</Text>
      <Button
       onPress={() => this.createRoom()}
-      title={'Join Game'}>
+      title={'Create Game'}>
      </Button>
+     <Text>{this.state.roomCode}</Text>
      </View>
    )
  }
@@ -53,7 +65,8 @@ class CreateRoom extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    username: state.username
+    username: state.username,
+    roomCode: state.roomCode
   }
 }
 
@@ -63,4 +76,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(JoinRoom)
+export default connect(mapStateToProps, mapDispatchToProps)(CreateRoom)
