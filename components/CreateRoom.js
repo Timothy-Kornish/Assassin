@@ -41,7 +41,7 @@ class CreateRoom extends Component {
  render(){
    return(
      <View>
-     <Text>Join Room</Text>
+     <Text>Create Room</Text>
      <Button
       onPress={() => this.createRoom()}
       title={'Join Game'}>
