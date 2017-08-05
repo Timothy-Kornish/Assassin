@@ -28,6 +28,12 @@ export default function reducer(state, action){
           ...state,
           roomCode: action.roomCode
         }
+      case 'createroom':
+      console.log("createroom reducer firing", action);
+        return {
+          ...state,
+          roomCode: action.roomCode 
+        }
     default:
       return state
   }

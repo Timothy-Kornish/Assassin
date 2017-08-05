@@ -27,3 +27,11 @@ export function joinroom(roomCode, username) {
     username
   }
 }
+
+export function createroom(roomCode, username) {
+  return {
+    type: 'createroom',
+    roomCode,
+    username
+  }
+}
