@@ -4,10 +4,8 @@
   "private": true,
   "devDependencies": {
     "jest-expo": "~19.0.0",
-    "react-native-scripts": "1.0.0",
     "react-test-renderer": "16.0.0-alpha.12"
   },
-  "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
     "start": "react-native-scripts start",
     "eject": "react-native-scripts eject",
@@ -25,10 +23,11 @@
     "mysql": "^2.14.0",
     "react": "16.0.0-alpha.12",
     "react-native": "^0.46.1",
-    "react-native-background-geolocation": "^2.8.4",
+    "react-native-background-timer": "^1.1.0",
     "react-native-heading": "^1.1.0",
     "react-native-material-design": "^0.3.7",
     "react-native-simple-compass": "^1.0.0",
+    "react-navigation": "^1.0.0-beta.11",
     "react-redux": "^5.0.5",
     "redux": "^3.7.2"
   }

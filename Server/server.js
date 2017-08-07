@@ -287,15 +287,5 @@ app.get('/showPlayersTables', (req, res) => {
   })
 })
 
-
-
-
-
-
-
-
-
-
-
 app.listen(port)
 console.log("The server is working on Port", port)
