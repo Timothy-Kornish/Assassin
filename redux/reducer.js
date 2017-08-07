@@ -32,7 +32,8 @@ export default function reducer(state, action){
       console.log("createroom reducer firing", action);
         return {
           ...state,
-          roomCode: action.roomCode 
+          roomCode: action.roomCode,
+          roomCreator: action.roomCreator
         }
     default:
       return state
