@@ -1,22 +1,37 @@
 import React, {Component} from 'react'
-import {Button, View} from 'react-native'
-import {logout} from '../redux/actions'
+import {Button, View, TextInput, AppRegistry, Text} from 'react-native'
+import {login} from '../redux/actions'
 import {connect} from 'react-redux'
+import {StackNavigator} from 'react-navigation'
+
 
 class Logout extends Component {
+  logout(){
+    fetch('/logout', {
+     method: 'POST',
+     headers: {
+       'Content-Type': 'application/json'
+     },
+     body: JSON.stringify({username: this.username})
+    })
+  }
+
   render(){
-    if (this.props.username) {
-      return <Button onPress={this.props.logout} title="Logout"/>
-    } else {
-      return <View></View>
+    <View>
+      {this.props.username}
+        return <Button onPress={this.props.logout} title="Logout"/>
+
+        </View>
     }
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    username : state.username
-  }
+// const mapStateToProps = (state) => {
+//   return {
+//     username : state.auth.username
+//
+//   }
+
 }
 
 const mapDispatchToProps = (dispatch) => {
