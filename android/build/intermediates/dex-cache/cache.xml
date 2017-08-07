@@ -3,6 +3,24 @@
 
     <item
         is-multidex="false"
+        jar="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline/1.0.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="d9c4402c3057225d80cbbbec52154e7a25b0ebdf">
+        <dex dex="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-1.0.1_16ad5106dbfbf11172f706b13414226f7cc51317.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/exploded-aar/Assassins/react-native-heading/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="49ce1534483671bc12b90807bd2a2334e16fadee">
+        <dex dex="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/pre-dexed/debug/Assassins-react-native-heading-unspecified_2957557d320fbc11710e97b8dfd2eb711cd4c737.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/Users/mac/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.6.0/69edde9fc4b01c9fd51d25b83428837478c27254/okhttp-3.6.0.jar"
         jumboMode="false"
         optimize="true"
@@ -30,120 +48,21 @@
     </item>
     <item
         is-multidex="false"
-        jar="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/exploded-aar/com.facebook.fresco/fresco/1.0.1/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="cf836a435a496eb22ff2aa69aa1e619462549f81">
-        <dex dex="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fresco-1.0.1_d4f2d87e6dad85e7fccf1bfe075bffe74dd81f21.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/exploded-aar/com.joshblour.discovery/discovery/0.0.3/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="3f62a1341523eed3cbe8d2d842aea6a81d2cdac1">
-        <dex dex="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/pre-dexed/debug/com.joshblour.discovery-discovery-0.0.3_5273d71fbbd73469d9dddc76e705254a1d011ec0.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline-okhttp3/1.0.1/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="ba9b39366b723ccff6359d1117332968e98a4aca">
-        <dex dex="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-okhttp3-1.0.1_4ae64334d5588cf9bddf9dbd27080e25264f96f1.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/exploded-aar/Assassins/react-native-background-timer/unspecified/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="674be24595058b623fb3338615ce68e92d6b5eeb">
-        <dex dex="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/pre-dexed/debug/Assassins-react-native-background-timer-unspecified_13f4fbad650709dcd3a6683e4b22782f12ccb341.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/mac/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-tasks/1.4.0/d85884acf6810a3bbbecb587f239005cbc846dc4/bolts-tasks-1.4.0.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="d85884acf6810a3bbbecb587f239005cbc846dc4">
-        <dex dex="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/pre-dexed/debug/bolts-tasks-1.4.0_3c50eeb440e9dd58845524e0d8c6f931a3ddc072.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/exploded-aar/Assassins/react-native-simple-compass/unspecified/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="7b6dfb406c5fb2f0468119160888c228bc324b99">
-        <dex dex="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/pre-dexed/debug/Assassins-react-native-simple-compass-unspecified_8b0452ec9f976c7b5988816fd94a6b552646614b.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.46.4/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="c5526d30278eb171f4a1325bd6b927c9057c91f4">
-        <dex dex="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/pre-dexed/debug/com.facebook.react-react-native-0.46.4_1fad35ea179d88500f7ebed3d16e23d8c72c916e.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/mac/.gradle/caches/modules-2/files-2.1/javax.inject/javax.inject/1/6975da39a7040257bd51d21a231b76c915872d38/javax.inject-1.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="6975da39a7040257bd51d21a231b76c915872d38">
-        <dex dex="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/pre-dexed/debug/javax.inject-1_81f63147293c80992186865712de6648b741fa96.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/mac/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp-urlconnection/3.6.0/3f9b16b774f2c36cfd86dd2053d0b3059531dacc/okhttp-urlconnection-3.6.0.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="3f9b16b774f2c36cfd86dd2053d0b3059531dacc">
-        <dex dex="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/pre-dexed/debug/okhttp-urlconnection-3.6.0_912aedf677fea61545c26e16ef249fbf363359cd.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/mac/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="a9283170b7305c8d92d25aff02a6ab7e45d06cbe">
-        <dex dex="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/pre-dexed/debug/okio-1.13.0_c02d03f74531908d709b1d2e7e82034acbbe5a5b.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline/1.0.1/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="d9c4402c3057225d80cbbbec52154e7a25b0ebdf">
-        <dex dex="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-1.0.1_16ad5106dbfbf11172f706b13414226f7cc51317.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/exploded-aar/Assassins/react-native-heading/unspecified/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="49ce1534483671bc12b90807bd2a2334e16fadee">
-        <dex dex="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/pre-dexed/debug/Assassins-react-native-heading-unspecified_2957557d320fbc11710e97b8dfd2eb711cd4c737.jar" />
-    </item>
-    <item
-        is-multidex="false"
         jar="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/exploded-aar/com.facebook.fresco/fbcore/1.0.1/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.1"
         sha1="2668e49e4e31c7d451b76a36009b902bf44e0d70">
         <dex dex="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fbcore-1.0.1_3213923ae44a5b5c012610e96cb76f3f769dfc1b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/exploded-aar/com.facebook.fresco/fresco/1.0.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="cf836a435a496eb22ff2aa69aa1e619462549f81">
+        <dex dex="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fresco-1.0.1_d4f2d87e6dad85e7fccf1bfe075bffe74dd81f21.jar" />
     </item>
     <item
         is-multidex="false"
@@ -165,12 +84,48 @@
     </item>
     <item
         is-multidex="false"
+        jar="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/exploded-aar/com.joshblour.discovery/discovery/0.0.3/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="3f62a1341523eed3cbe8d2d842aea6a81d2cdac1">
+        <dex dex="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/pre-dexed/debug/com.joshblour.discovery-discovery-0.0.3_5273d71fbbd73469d9dddc76e705254a1d011ec0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/exploded-aar/Assassins/react-native-background-timer/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="5d3ae2ba29bd07deb9728db92b511d02a6abeb94">
+        <dex dex="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/pre-dexed/debug/Assassins-react-native-background-timer-unspecified_13f4fbad650709dcd3a6683e4b22782f12ccb341.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline-okhttp3/1.0.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="ba9b39366b723ccff6359d1117332968e98a4aca">
+        <dex dex="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-okhttp3-1.0.1_4ae64334d5588cf9bddf9dbd27080e25264f96f1.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/exploded-aar/com.facebook.fresco/drawee/1.0.1/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.1"
         sha1="5a61f17cd72e20aa4323cbf5f909b7c609619275">
         <dex dex="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-drawee-1.0.1_892e512122e5a1eb5278be9fa8dbb441a211e9b0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-tasks/1.4.0/d85884acf6810a3bbbecb587f239005cbc846dc4/bolts-tasks-1.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="d85884acf6810a3bbbecb587f239005cbc846dc4">
+        <dex dex="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/pre-dexed/debug/bolts-tasks-1.4.0_3c50eeb440e9dd58845524e0d8c6f931a3ddc072.jar" />
     </item>
     <item
         is-multidex="false"
@@ -183,12 +138,30 @@
     </item>
     <item
         is-multidex="false"
+        jar="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/exploded-aar/Assassins/react-native-simple-compass/unspecified/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="7b6dfb406c5fb2f0468119160888c228bc324b99">
+        <dex dex="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/pre-dexed/debug/Assassins-react-native-simple-compass-unspecified_8b0452ec9f976c7b5988816fd94a6b552646614b.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline-base/1.0.1/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.1"
         sha1="050f688115ea65a0292d8483a6ffe6bcdab1e2ef">
         <dex dex="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-base-1.0.1_baa7da38dd9eefcab59f3a4bbe5cf8bfd073e13b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.46.4/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="c5526d30278eb171f4a1325bd6b927c9057c91f4">
+        <dex dex="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/pre-dexed/debug/com.facebook.react-react-native-0.46.4_1fad35ea179d88500f7ebed3d16e23d8c72c916e.jar" />
     </item>
     <item
         is-multidex="false"
@@ -201,12 +174,39 @@
     </item>
     <item
         is-multidex="false"
+        jar="/Users/mac/.gradle/caches/modules-2/files-2.1/javax.inject/javax.inject/1/6975da39a7040257bd51d21a231b76c915872d38/javax.inject-1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="6975da39a7040257bd51d21a231b76c915872d38">
+        <dex dex="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/pre-dexed/debug/javax.inject-1_81f63147293c80992186865712de6648b741fa96.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/libs/internal_impl-23.1.1.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.1"
         sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
         <dex dex="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/pre-dexed/debug/internal_impl-23.1.1_fcb0dd40353d82a9303234c52657a838aa1bbe0e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp-urlconnection/3.6.0/3f9b16b774f2c36cfd86dd2053d0b3059531dacc/okhttp-urlconnection-3.6.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="3f9b16b774f2c36cfd86dd2053d0b3059531dacc">
+        <dex dex="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/pre-dexed/debug/okhttp-urlconnection-3.6.0_912aedf677fea61545c26e16ef249fbf363359cd.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/mac/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.13.0/a9283170b7305c8d92d25aff02a6ab7e45d06cbe/okio-1.13.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="a9283170b7305c8d92d25aff02a6ab7e45d06cbe">
+        <dex dex="/Users/mac/assassins/gitpulls/Assassin/android/app/build/intermediates/pre-dexed/debug/okio-1.13.0_c02d03f74531908d709b1d2e7e82034acbbe5a5b.jar" />
     </item>
     <item
         is-multidex="false"
