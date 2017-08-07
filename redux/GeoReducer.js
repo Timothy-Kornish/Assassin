@@ -1,3 +1,4 @@
+
 export default function reducer(state, action){
   switch(action.type){
     case 'login':
@@ -20,7 +21,7 @@ export default function reducer(state, action){
         ...state,
         longitude: action.longitude,
         latitude: action.latitude,
-        locationError: action.error
+        locationerror: action.error,
       }
       case 'joinroom':
       console.log("joinroom reducer firing", action);
@@ -32,9 +33,9 @@ export default function reducer(state, action){
       console.log("createroom reducer firing", action);
         return {
           ...state,
-          roomCode: action.roomCode 
+          roomCode: action.roomCode
         }
-    default:
-      return state
+      default:
+        return state
   }
 }
