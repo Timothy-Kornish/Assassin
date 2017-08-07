@@ -7,32 +7,19 @@ import {StackNavigator} from 'react-navigation'
 
 class Logout extends Component {
   logout(){
-    fetch('/logout', {
-     method: 'POST',
-     headers: {
-       'Content-Type': 'application/json'
-     },
-     body: JSON.stringify({username: this.username})
-    })
+    //need to see login in page so I know what to set to null #undefined
   }
 
   render(){
-    <View>
-      {this.props.username}
-        return <Button onPress={this.props.logout} title="Logout"/>
-
-        </View>
+    return(
+      <View>
+        {this.props.username}
+        <Button onPress={()=>this.props.navigation.navigate('Lobby')} title="Log out"/>
+      </View>
+      )
     }
   }
-}
 
-// const mapStateToProps = (state) => {
-//   return {
-//     username : state.auth.username
-//
-//   }
-
-}
 
 const mapDispatchToProps = (dispatch) => {
   return {
