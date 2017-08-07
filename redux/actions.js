@@ -20,11 +20,10 @@ export function locate(latitude, longitude, error) {
   }
 }
 
-export function joinroom(roomCode, username) {
+export function joinroom(roomCode) {
   return {
     type: 'joinroom',
     roomCode,
-    username
   }
 }
 
@@ -32,6 +31,6 @@ export function createroom(roomCode, username) {
   return {
     type: 'createroom',
     roomCode,
-    username
+    roomCreator: username
   }
 }
