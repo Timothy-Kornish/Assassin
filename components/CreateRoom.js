@@ -22,18 +22,18 @@ class CreateRoom extends Component {
 
  createOnClick(){
    const roomCode = this.codeGen()
-   this.props.createroom(roomCode, 'daveEvil')
-  //  fetch('/room', {
-  //    method: 'POST',
-  //    headers: {
-  //      "Content-Type": 'application/json'
-  //    },
-  //    body: JSON.stringify({
-  //                          username: this.props.username,
-  //                          roomCode: roomCode
-  //                        })
-  //   })
-  //   .then(()=>this.props.navigation.navigate('Room'))
+   this.props.createroom(roomCode, this.props.username)
+   fetch('/room', {
+     method: 'POST',
+     headers: {
+       "Content-Type": 'application/json'
+     },
+     body: JSON.stringify({
+                           username: this.props.username,
+                           roomCode: roomCode
+                         })
+    })
+    .then(()=>this.props.navigation.navigate('Room'))
   }
 
  render(){
@@ -44,8 +44,6 @@ class CreateRoom extends Component {
         onPress={() => this.createOnClick()}
         title={'Create Game'}>
       </Button>
-      <Text>{this.props.roomCode}</Text>
-      <Text>{this.props.roomCreator}</Text>
      </View>
    )
  }
