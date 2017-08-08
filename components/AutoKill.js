@@ -7,9 +7,9 @@ class AutoKiller extends Component {
       const {targetDistance, isAlive, kill}  = this.props
       if (targetDistance < 50 && isAlive){
         this.props.kill()
-        return <Text>PWNED!!!!! Automatically</Text>
+        return <Text>Target located!</Text>
       } else {
-        return <Text>Scanning for n00bs</Text>
+        return <Text>Kill your mark!</Text>
       }
     }
 }

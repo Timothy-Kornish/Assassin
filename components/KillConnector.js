@@ -2,6 +2,9 @@ import {connect} from 'react-redux'
 
 const mapStateToProps = (state) => {
   return {
+    username: state.username,
+    target: state.target;
+    targetsTarget: state.targetsTarget
     isAlive : state.isAlive,
     targetDistance: state.target.distance
   }

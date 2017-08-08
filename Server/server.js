@@ -93,7 +93,7 @@ app.put('/room/add',(req, res) => {
 
 app.put('/room/start', (req, res) => {
   const {roomCode} = req.body
-  const sql = `UPDATE games SET active = 1 WHERE roomCode = ?`
+  const sql = ` UPDATE players, games SET alive = 'true', active = 1 WHERE roomCode = ?`
   req.query(sql, [roomCode], (err, result) => {
     if (err){
       res.status(500).json({message: "Imma feed you to da gators, Butch!", err})
@@ -163,13 +163,48 @@ app.put('/user/targets/assign', (req, res) => {
 
 })
 
+
+
+app.put('/user/heartbeat', (req, res) => {
+  const {username, time, latitude, longitude} = req.body
+  const sql = `UPDATE players SET lastUpdated = ?, latitude = ?, longitude = ? WHERE username = ?`
+  req.query(sql, [time, latitude, longitude, username], (err, result) => {
+    if(err){
+      res.status(500).json({message: "Cletus, stop peein on Butch's practicing tree!", err})
+    } else {
+      res.json({success: "This here tree is the happiest darned tree in Louisiana!", result})
+    }
+  })
+})
+//----------------------------------------------------------
+//app.post('/user/kill')
+// this needs to be altered, possibly multiple routes
+//----------------------------------------------------------
+app.get('/user/list', (req, res) => {
+  const sql = `SELECT * FROM players`
+  req.query(sql,(err, result) => {
+    if(err){
+      res.status(500).json({message: "Butch, go help yer Uncle!", err})
+    } else {
+      res.json({success: "That horse needs help, Cletus", result})
+    }
+  })
+})
+
 app.post('/user/kill', (req, res) => {
-  const {target, username, targetsTarget} = req.body
+  const {list, username} = req.body
+  obj = {}
+  console.log("list", list)
+  for(var i = 0; i < list.length; i++){
+
+    let user = list[i].username
+    obj[user] = list[i]
+    console.log("obj", obj)
+  }
+
+  const target = obj[username].target
+  const targetsTarget = obj[target].target
   const sql = `UPDATE players SET alive =
-                CASE username
-                WHEN ? THEN 'false'
-                END,
-                targetStatus =
                 CASE username
                 WHEN ? THEN 'false'
                 END,
@@ -178,14 +213,15 @@ app.post('/user/kill', (req, res) => {
                 WHEN ? THEN ?
                 END`
 //might need to change false on line 174
-  req.query(sql, [target, username, username, targetsTarget], (err, result) => {
+  req.query(sql, [target, username, targetsTarget], (err, result) => {
     if (err){
       res.status(500).json({message: "Shudda ate more of them there gator brains, they make you smart", err})
-    }else {
+    }else { //check if timestamp is recent and if radius is small enough for a kill
       res.json({success: 'Take a swig of this here moonshine, and party it up, Butch', result})
     }
   })
 })
+//do we need route for updating the target???
 
 app.put('/user/location', (req, res) => {
   const {latitude, longitude, username} = req.body
@@ -223,18 +259,33 @@ app.put('/user/hireable', (req, res) => {
   })
 })
 
-app.put('/logout', (req, res) => {
-  const {roomCode, username} = req.body
-  const sql = `UPDATE players SET alive = 'out' WHERE username  = ? AND roomCode = ?`
-  req.query(sql, [username, roomCode], (err, result) => {
+app.put('user/logout', (req, res) => {
+  const {username} = req.body
+  //if lastUpdated is greater than two hours then set automatically to logged out
+  const sql = `UPDATE players SET hireable = 'false' WHERE username = ?`
+  req.query(sql, [username], (err, result) => {
     if(err){
-      res.status(500).json({message: "errrrrrrror", err})
+      res.status(500).json({message: "Cletus, leave that poor scarecrow alone, now!", err})
     } else {
-      res.redirect('/lobby').json({success: "clever message, Butch", result})
+      res.json({success: "Weeehooo! That there is some good shooting, Cletus. That scarecrow aint even seen that comin!", result})
     }
   })
-
 })
+
+app.put('/bringOutYerDead', (req, res) => {
+  const {roomCode} = req.body
+  const sql = `UPDATE players SET alive = 'false' WHEN username = ?`
+  req.query(sql, [username], (err, result) => {
+    if(err){
+      res.status(500).json({message: "Here lies Butch, worst darned gator wrastler both sides of the Mississippi", err})
+    } else {
+      res.json({success: "Cletus done got that there Gator that kill't his best buddy Butch", success})
+    }
+  })
+})
+
+
+
 
 // app.get('/user/timeTest', (req, res) => {
 //   const sql =`Select lastUpdated from players `
