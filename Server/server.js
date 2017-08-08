@@ -10,6 +10,7 @@ const port = process.env.PORT || 3001;
 const Database = require('./dbfunk')
 const db = new Database()
 const users = {}
+
 const codeGen = () => {
   const codeVal = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
   let val = ""
@@ -163,6 +164,19 @@ app.put('/user/targets/assign', (req, res) => {
 
 })
 
+app.put('/user/heartbeat', (req, res) => {
+  const {username, time, latitude, longitude} = req.body
+  const sql = `UPDATE players SET time = ?, latitude = ?, longitude = ? WHERE username = ?`
+  req.query(sql, [time, latitude, longitude, username], (err, result) => {
+    if(err){
+      res.status(500).json({message: "Cletus, stop peein on Butch's practicing tree!", err})
+    } else {
+      res.json({success: "This here tree is the happiest darned tree in Louisiana!", result})
+    }
+  })
+})
+
+
 app.post('/user/kill', (req, res) => {
   const {target, username, targetsTarget} = req.body
   const sql = `UPDATE players SET alive =
@@ -181,11 +195,12 @@ app.post('/user/kill', (req, res) => {
   req.query(sql, [target, username, username, targetsTarget], (err, result) => {
     if (err){
       res.status(500).json({message: "Shudda ate more of them there gator brains, they make you smart", err})
-    }else {
+    } else { //check if timestamp is recent and if radius is small enough for a kill
       res.json({success: 'Take a swig of this here moonshine, and party it up, Butch', result})
     }
   })
 })
+//do we need route for updating the target???
 
 app.put('/user/location', (req, res) => {
   const {latitude, longitude, username} = req.body
@@ -223,16 +238,90 @@ app.put('/user/hireable', (req, res) => {
   })
 })
 
-app.put('/logout', (req, res) => {
-  const {roomCode, username} = req.body
-  const sql = `UPDATE players SET alive = 'out' WHERE username  = ? AND roomCode = ?`
-  req.query(sql, [username, roomCode], (err, result) => {
+app.put('user/logout', (req, res) => {
+  const {username} = req.body
+  //if lastUpdated is greater than two hours then set automatically to logged out
+  const sql = `UPDATE players SET hireable = 'false' WHERE username = ?`
+  req.query(sql, [username], (err, result) => {
     if(err){
-      res.status(500).json({message: "errrrrrrror", err})
+      res.status(500).json({message: "Cletus, leave that poor scarecrow alone, now!", err})
     } else {
-      res.redirect('/lobby').json({success: "clever message, Butch", result})
+      res.json({success: "Weeehooo! That there is some good shooting, Cletus. That scarecrow aint even seen that comin!", result})
     }
   })
+})
+
+app.put('/bringOutYerDead', (req, res) = {
+  const {roomCode} = req.body
+  const sql = `UPDATE players SET alive = 'false' WHEN username = ?`
+  req.query(sql, [username], (err, result) => {
+    if(err){
+      res.status(500).json({message: "Here lies Butch, worst darned gator wrastler both sides of the Mississippi", err})
+    } else {
+      res.json({success: "Cletus done got that there Gator that kill't his best buddy Butch", success})
+    }
+  })
+})
+
+
+
+
+// app.get('/user/timeTest', (req, res) => {
+//   const sql =`Select lastUpdated from players `
+//     req.query(sql, (err, result) => {
+//       if(err){
+//         res.status(500).json({message: "gator got ye", err})
+//       } else {
+//           const timeLast = result[0].lastUpdated.getTime()
+//           console.log(timeLast)
+//           const timeNow = new Date().getTime()
+//           console.log(timeNow)
+//           const timeDiff = (Math.floor((timeNow - timeLast)/1000)/60).toFixed(2)
+//           console.log(timeDiff)
+//         res.json({success: "Yeehaw, that gator got got!"})
+//
+//       }
+//     })
+// })
+
+app.get('/showPlayersToGamesTables', (req, res) => {
+  const sql = `SELECT * from playersToGames`
+  req.query(sql, (err, result) => {
+    if(err){
+      res.status(500).json({message: "Git on outta here", err})
+    } else {
+      res.json({success: "MMM-hmmm, this here gator dick moonshine is da best in de bayou", result})
+    }
+  })
+})
+
+app.get('/showGamesTables', (req, res) => {
+  const sql = `SELECT * from GAMES`
+  req.query(sql,(err, result) => {
+    if(err){
+      res.status(500).json({message: "Get away from that horse!!!", err})
+    } else {
+      res.json({success: "Weeee-ooooo, git them glators, Cletus!", result})
+    }
+  })
+})
+
+app.get('/showPlayersTables', (req, res) => {
+  const sql = `SELECT * from players`
+  req.query(sql,(err, result) => {
+    if(err){
+      res.status(500).json({message: "Gator dun got ye, Cletus!", err})
+    } else {
+      res.json({success: "Yeehaw, Butch!  Them gator steaks are gooood eatin!", result})
+    }
+  })
+})
+
+
+
+
+
+
 
 })
 
