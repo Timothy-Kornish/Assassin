@@ -50,9 +50,7 @@ class Login extends Component {
     		  <Button onPress={()=>this.props.navigation.navigate('Lobby')} title="go to lobby boo ton"/>
         </View>
       )
-
     }
-
 }
 
 

@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+<<<<<<< HEAD
 import {Button, View, Text, FlatList} from 'react-native'
 import {connect} from 'react-redux'
 import {StackNavigator} from 'react-navigation'
@@ -55,10 +56,42 @@ class Room extends Component {
           <Text>wait for your targets</Text>
           {this.props.roomCreator === this.props.username ? <Button onPress={this.pressButton.bind(this)} title={'start game'}/>
                                                            : <Text>Waiting for {this.props.roomCreator} to start the game</Text>}
+=======
+import {Button, View, Text} from 'react-native'
+import {connect} from 'react-redux'
+import {StackNavigator} from 'react-navigation'
+
+export default class Room extends Component {
+
+
+
+//the room creator needs to be able to start the game and
+//send all to the loading page,
+
+
+
+//logout of game
+  logout(){
+    fetch('/logout', {
+      method: 'PUT',
+      headers: {
+        "Content-Type": 'application/json'
+      },
+      body: JSON.stringify({username: this.username})
+    })
+  }
+
+  render(){
+      return (
+        <View>
+        <Text>wait for your targets</Text>
+            <Button onPress={()=>this.props.navigation.navigate('Loading')} title={'start game'}/>
+>>>>>>> 62023b835aec4aebd7b431267c2a481bc897413b
         </View>
     )
   }
 }
+<<<<<<< HEAD
 
 
 const mapStateToProps = (state) => ({
@@ -77,3 +110,5 @@ const mapDispatchToProps = (dispatch) => {
 const RoomConnector = connect(mapStateToProps, mapDispatchToProps)
 
 export default RoomConnector(Room)
+=======
+>>>>>>> 62023b835aec4aebd7b431267c2a481bc897413b

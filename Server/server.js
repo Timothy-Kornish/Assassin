@@ -10,6 +10,7 @@ const port = process.env.PORT || 3001;
 const Database = require('./dbfunk')
 const db = new Database()
 const users = {}
+
 const codeGen = () => {
   const codeVal = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
   let val = ""
@@ -163,11 +164,17 @@ app.put('/user/targets/assign', (req, res) => {
 
 })
 
+<<<<<<< HEAD
 
 
 app.put('/user/heartbeat', (req, res) => {
   const {username, time, latitude, longitude} = req.body
   const sql = `UPDATE players SET lastUpdated = ?, latitude = ?, longitude = ? WHERE username = ?`
+=======
+app.put('/user/heartbeat', (req, res) => {
+  const {username, time, latitude, longitude} = req.body
+  const sql = `UPDATE players SET time = ?, latitude = ?, longitude = ? WHERE username = ?`
+>>>>>>> 62023b835aec4aebd7b431267c2a481bc897413b
   req.query(sql, [time, latitude, longitude, username], (err, result) => {
     if(err){
       res.status(500).json({message: "Cletus, stop peein on Butch's practicing tree!", err})
@@ -176,6 +183,7 @@ app.put('/user/heartbeat', (req, res) => {
     }
   })
 })
+<<<<<<< HEAD
 //----------------------------------------------------------
 //app.post('/user/kill')
 // this needs to be altered, possibly multiple routes
@@ -190,6 +198,9 @@ app.get('/user/list', (req, res) => {
     }
   })
 })
+=======
+
+>>>>>>> 62023b835aec4aebd7b431267c2a481bc897413b
 
 app.post('/user/kill', (req, res) => {
   const {list, username} = req.body
@@ -216,7 +227,11 @@ app.post('/user/kill', (req, res) => {
   req.query(sql, [target, username, targetsTarget], (err, result) => {
     if (err){
       res.status(500).json({message: "Shudda ate more of them there gator brains, they make you smart", err})
+<<<<<<< HEAD
     }else { //check if timestamp is recent and if radius is small enough for a kill
+=======
+    } else { //check if timestamp is recent and if radius is small enough for a kill
+>>>>>>> 62023b835aec4aebd7b431267c2a481bc897413b
       res.json({success: 'Take a swig of this here moonshine, and party it up, Butch', result})
     }
   })
@@ -272,7 +287,11 @@ app.put('user/logout', (req, res) => {
   })
 })
 
+<<<<<<< HEAD
 app.put('/bringOutYerDead', (req, res) => {
+=======
+app.put('/bringOutYerDead', (req, res) = {
+>>>>>>> 62023b835aec4aebd7b431267c2a481bc897413b
   const {roomCode} = req.body
   const sql = `UPDATE players SET alive = 'false' WHEN username = ?`
   req.query(sql, [username], (err, result) => {
@@ -344,9 +363,58 @@ app.get('/showPlayersTables', (req, res) => {
 
 
 
+})
 
+// app.get('/user/timeTest', (req, res) => {
+//   const sql =`Select lastUpdated from players `
+//     req.query(sql, (err, result) => {
+//       if(err){
+//         res.status(500).json({message: "gator got ye", err})
+//       } else {
+//           const timeLast = result[0].lastUpdated.getTime()
+//           console.log(timeLast)
+//           const timeNow = new Date().getTime()
+//           console.log(timeNow)
+//           const timeDiff = (Math.floor((timeNow - timeLast)/1000)/60).toFixed(2)
+//           console.log(timeDiff)
+//         res.json({success: "Yeehaw, that gator got got!"})
+//
+//       }
+//     })
+// })
 
+app.get('/showPlayersToGamesTables', (req, res) => {
+  const sql = `SELECT * from playersToGames`
+  req.query(sql, (err, result) => {
+    if(err){
+      res.status(500).json({message: "Git on outta here", err})
+    } else {
+      res.json({success: "MMM-hmmm, this here gator dick moonshine is da best in de bayou", result})
+    }
+  })
+})
 
+app.get('/showGamesTables', (req, res) => {
+  const sql = `SELECT * from GAMES`
+  req.query(sql,(err, result) => {
+    if(err){
+      res.status(500).json({message: "Get away from that horse!!!", err})
+    } else {
+      res.json({success: "Weeee-ooooo, git them glators, Cletus!", result})
+    }
+  })
+})
+
+app.get('/showPlayersTables', (req, res) => {
+  const sql = `SELECT * from players`
+  req.query(sql,(err, result) => {
+    if(err){
+      res.status(500).json({message: "Gator dun got ye, Cletus!", err})
+    } else {
+      res.json({success: "Yeehaw, Butch!  Them gator steaks are gooood eatin!", result})
+    }
+  })
+})
 
 app.listen(port)
 console.log("The server is working on Port", port)
