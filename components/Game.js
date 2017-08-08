@@ -3,7 +3,8 @@ import React, {Component} from 'react'
 import {Button, View, Text, TouchableOpacity} from 'react-native'
 import {connect} from 'react-redux'
 import {StackNavigator} from 'react-navigation'
-
+import Compass from './CompassComponents/Compass'
+console.log('Compass', Compass)
 export default class Game extends Component {
 //   constructor(props){
 //     super(props)
@@ -72,6 +73,7 @@ kill(){
       <View>
         <Text>DONT GET GOT, also look! a compass!</Text>
         <Button onPress={()=>this.props.navigation.navigate('GhostRoom')} title={'you got got'}/>
+        <Compass />
       </View>
      )
   }
