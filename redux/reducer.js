@@ -40,7 +40,13 @@ export default function reducer(state, action){
           ...state,
           target: action.target
         }
-
+      case 'newPlayersWaiting':
+      console.log("newPlayersWaiting is firing", action)
+        return {
+          ...state,
+          waitingPlayers: action.players,
+          roomCreator: action.creator
+        }
     default:
       return state
   }

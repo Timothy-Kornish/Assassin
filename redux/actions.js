@@ -41,3 +41,10 @@ export function newAssignedTarget(target){
     target
   }
 }
+export function newPlayersWaiting(players, creator){
+  return {
+    type: 'newPlayersWaiting',
+    players,
+    creator
+  }
+}
