@@ -54,11 +54,13 @@ class Room extends Component {
           <FlatList data={ players } renderItem={ (player) => <Text>{player.key}</Text>} />
           <Text>wait for your targets</Text>
           {this.props.roomCreator === this.props.username ? <Button onPress={this.pressButton.bind(this)} title={'start game'}/>
-                                                           : <Text>Waiting for {this.props.roomCreator} to start the game</Text>}
+          : <Text>Waiting for {this.props.roomCreator} to start the game</Text>}
+
         </View>
     )
   }
 }
+
 
 
 const mapStateToProps = (state) => ({

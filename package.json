@@ -4,29 +4,30 @@
   "private": true,
   "devDependencies": {
     "jest-expo": "~19.0.0",
-    "react-native-scripts": "1.0.0",
     "react-test-renderer": "16.0.0-alpha.12"
   },
-  "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
-    "start": "react-native-scripts start",
-    "eject": "react-native-scripts eject",
-    "android": "react-native-scripts android",
-    "ios": "react-native-scripts ios",
+    "start": "react-native start",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
     "test": "node node_modules/jest/bin/jest.js --watch"
+    "setupDB”: “mysql -u root assassins < db.sql"
   },
   "jest": {
     "preset": "jest-expo"
   },
   "dependencies": {
+    "body-parser": "^1.17.2",
     "expo": "^19.0.0",
+    "react-native-material-design": "^0.3.7",
     "mysql": "^2.14.0",
     "react": "16.0.0-alpha.12",
     "react-native": "^0.46.1",
-    "react-native-background-geolocation": "^2.8.4",
+    "react-native-background-timer": "^1.1.0",
     "react-native-heading": "^1.1.0",
     "react-native-material-design": "^0.3.7",
     "react-native-simple-compass": "^1.0.0",
+    "react-navigation": "^1.0.0-beta.11",
     "react-redux": "^5.0.5",
     "redux": "^3.7.2"
   }
