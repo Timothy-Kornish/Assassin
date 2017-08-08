@@ -35,6 +35,13 @@ export default function reducer(state, action){
           roomCode: action.roomCode,
           roomCreator: action.roomCreator
         }
+      case 'newPlayersWaiting':
+      console.log("newPlayersWaiting is firing", action)
+        return {
+          ...state,
+          waitingPlayers: action.players,
+          roomCreator: action.creator
+        }
     default:
       return state
   }

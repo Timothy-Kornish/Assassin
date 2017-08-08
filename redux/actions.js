@@ -34,3 +34,10 @@ export function createroom(roomCode, username) {
     roomCreator: username
   }
 }
+export function newPlayersWaiting(players, creator){
+  return {
+    type: 'newPlayersWaiting',
+    players,
+    creator
+  }
+}

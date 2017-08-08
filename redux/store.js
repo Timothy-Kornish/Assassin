@@ -1,4 +1,9 @@
 import{ createStore }from 'redux'
 import reducer from './reducer'
+// import devToolsEnhancer from 'remote-redux-devtools';
 
-export default createStore(reducer, {})
+const defaultState = {
+	waitingPlayers: []
+}
+
+export default createStore(reducer, defaultState)
