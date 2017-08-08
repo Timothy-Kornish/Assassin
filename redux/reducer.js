@@ -35,6 +35,12 @@ export default function reducer(state, action){
           roomCode: action.roomCode,
           roomCreator: action.roomCreator
         }
+      case 'newAssignedTarget':
+        return{
+          ...state,
+          target: action.target
+        }
+
     default:
       return state
   }

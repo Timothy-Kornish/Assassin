@@ -34,3 +34,10 @@ export function createroom(roomCode, username) {
     roomCreator: username
   }
 }
+
+export function newAssignedTarget(target){  
+  return {
+    type: 'newAssignedTarget',
+    target
+  }
+}
