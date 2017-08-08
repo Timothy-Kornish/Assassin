@@ -164,17 +164,9 @@ app.put('/user/targets/assign', (req, res) => {
 
 })
 
-<<<<<<< HEAD
-
-
 app.put('/user/heartbeat', (req, res) => {
   const {username, time, latitude, longitude} = req.body
   const sql = `UPDATE players SET lastUpdated = ?, latitude = ?, longitude = ? WHERE username = ?`
-=======
-app.put('/user/heartbeat', (req, res) => {
-  const {username, time, latitude, longitude} = req.body
-  const sql = `UPDATE players SET time = ?, latitude = ?, longitude = ? WHERE username = ?`
->>>>>>> 62023b835aec4aebd7b431267c2a481bc897413b
   req.query(sql, [time, latitude, longitude, username], (err, result) => {
     if(err){
       res.status(500).json({message: "Cletus, stop peein on Butch's practicing tree!", err})
@@ -183,7 +175,6 @@ app.put('/user/heartbeat', (req, res) => {
     }
   })
 })
-<<<<<<< HEAD
 //----------------------------------------------------------
 //app.post('/user/kill')
 // this needs to be altered, possibly multiple routes
@@ -198,9 +189,7 @@ app.get('/user/list', (req, res) => {
     }
   })
 })
-=======
 
->>>>>>> 62023b835aec4aebd7b431267c2a481bc897413b
 
 app.post('/user/kill', (req, res) => {
   const {list, username} = req.body
@@ -227,11 +216,8 @@ app.post('/user/kill', (req, res) => {
   req.query(sql, [target, username, targetsTarget], (err, result) => {
     if (err){
       res.status(500).json({message: "Shudda ate more of them there gator brains, they make you smart", err})
-<<<<<<< HEAD
-    }else { //check if timestamp is recent and if radius is small enough for a kill
-=======
+
     } else { //check if timestamp is recent and if radius is small enough for a kill
->>>>>>> 62023b835aec4aebd7b431267c2a481bc897413b
       res.json({success: 'Take a swig of this here moonshine, and party it up, Butch', result})
     }
   })
@@ -287,11 +273,7 @@ app.put('user/logout', (req, res) => {
   })
 })
 
-<<<<<<< HEAD
 app.put('/bringOutYerDead', (req, res) => {
-=======
-app.put('/bringOutYerDead', (req, res) = {
->>>>>>> 62023b835aec4aebd7b431267c2a481bc897413b
   const {roomCode} = req.body
   const sql = `UPDATE players SET alive = 'false' WHEN username = ?`
   req.query(sql, [username], (err, result) => {
@@ -356,12 +338,6 @@ app.get('/showPlayersTables', (req, res) => {
     }
   })
 })
-
-
-
-
-
-
 
 })
 
