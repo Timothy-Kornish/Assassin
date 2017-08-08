@@ -22,7 +22,7 @@ export function locate(latitude, longitude, error) {
 
 export function joinroom(roomCode) {
   return {
-    type: 'joinroom',
+    type: 'joi nroom',
     roomCode,
   }
 }

@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {Button, View, Text, FlatList, StyleSheet} from 'react-native'
 import {connect} from 'react-redux'
 import {StackNavigator} from 'react-navigation'
-import { newPlayersWaiting } from '../redux/actions'
+import {newPlayersWaiting} from '../redux/actions'
 
 let startTime = Date.now()
 
