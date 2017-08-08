@@ -25,6 +25,7 @@
     "react-native": "^0.46.1",
     "react-native-background-timer": "^1.1.0",
     "react-native-heading": "^1.1.0",
+    "react-native-material-design": "^0.3.7",
     "react-native-simple-compass": "^1.0.0",
     "react-navigation": "^1.0.0-beta.11",
     "react-redux": "^5.0.5",
