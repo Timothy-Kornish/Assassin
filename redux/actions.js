@@ -34,6 +34,13 @@ export function createroom(roomCode, username) {
     roomCreator: username
   }
 }
+
+export function newAssignedTarget(target){  
+  return {
+    type: 'newAssignedTarget',
+    target
+  }
+}
 export function newPlayersWaiting(players, creator){
   return {
     type: 'newPlayersWaiting',
