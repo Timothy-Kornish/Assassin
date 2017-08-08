@@ -29,7 +29,7 @@ export default class Loading extends Component {
       method: 'PUT',
       header:{
         'Content-Type' : 'application/json',
-        'x-access-toke' : this.props.token
+        'x-access-token' : this.props.token
       }
     })
     .then(response => response.json())
