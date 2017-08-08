@@ -11,11 +11,15 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "test": "node node_modules/jest/bin/jest.js --watch"
+    "setupDB”: “mysql -u root assassins < db.sql"
   },
   "jest": {
     "preset": "jest-expo"
   },
   "dependencies": {
+    "body-parser": "^1.17.2",
+    "expo": "^19.0.0",
+    "react-native-material-design": "^0.3.7",
     "mysql": "^2.14.0",
     "react": "16.0.0-alpha.12",
     "react-native": "^0.46.1",
