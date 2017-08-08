@@ -46,11 +46,13 @@ class Login extends Component {
 
       return(
         <View>
-          <Text>LAWG in page</Text>
+        <Text>LAWG in page</Text>
     		  <Button onPress={()=>this.props.navigation.navigate('Lobby')} title="go to lobby boo ton"/>
         </View>
       )
+
     }
+
 }
 
 

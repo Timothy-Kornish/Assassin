@@ -10,7 +10,6 @@ const port = process.env.PORT || 3001;
 const Database = require('./dbfunk')
 const db = new Database()
 const users = {}
-
 const codeGen = () => {
   const codeVal = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
   let val = ""
@@ -223,7 +222,6 @@ app.post('/user/kill', (req, res) => {
     }
   })
 })
-//do we need route for updating the target???
 
 app.put('/user/location', (req, res) => {
   const {latitude, longitude, username} = req.body
@@ -397,9 +395,9 @@ app.get('/showPlayersTables', (req, res) => {
   const sql = `SELECT * from players`
   req.query(sql,(err, result) => {
     if(err){
-      res.status(500).json({message: "Gator dun got ye, Cletus!", err})
+      res.status(500).json({message: "errrrrrrror", err})
     } else {
-      res.json({success: "Yeehaw, Butch!  Them gator steaks are gooood eatin!", result})
+      res.redirect('/lobby').json({success: "clever message, Butch", result})
     }
   })
 })

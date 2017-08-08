@@ -39,4 +39,4 @@ INSERT INTO players
 
 INSERT INTO GAMES
   (roomCode, active)
-  VALUES("S6xy", 1);
+VALUES("S6xy", 1);
