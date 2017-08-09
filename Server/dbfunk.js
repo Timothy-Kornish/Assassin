@@ -7,7 +7,7 @@ class DBFunk{
     this.connection = mysql.createConnection({
       host: 'localhost',
       user: 'root',
-      password: "eltimo", //enter in command line after yarn run setupDB
+      password: "",
       database: "assassins"
 
     })
