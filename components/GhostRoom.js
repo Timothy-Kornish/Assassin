@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
-import {Button, View, Text, FlatList} from 'react-native'
+import {Button, View, Text, StyleSheet} from 'react-native'
 import {connect} from 'react-redux'
 import {StackNavigator} from 'react-navigation'
 
 
-export default class GhostRoom extends Component {
+class GhostRoom extends Component {
   logout(){
     fetch('/logout', {
       method: 'PUT',
@@ -41,7 +41,8 @@ export default class GhostRoom extends Component {
           </View>
           )
       }
-
+  }
+}
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -51,9 +52,9 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 15,
     height: 44
-  }
+  },
   Text: {
-    color: red,
+    color: 'red',
   }
 })
 
