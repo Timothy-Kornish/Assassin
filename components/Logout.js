@@ -16,6 +16,7 @@ class Logout extends Component {
         <Button onPress={()=>this.props.navigation.navigate('Lobby')} title="Log out"/>
       </View>
     )
+
   }
 }
 
