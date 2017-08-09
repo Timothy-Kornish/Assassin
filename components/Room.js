@@ -27,11 +27,11 @@ class Room extends Component {
   }
 
   updatePlayers(){
-    fetch(`/user/targets?room=${this.props.roomCode}`, { 
+    fetch(`/user/targets?room=${this.props.roomCode}`, {
      method: 'GET',
      headers: {
        'Content-Type' : 'application/json',
-       'x-access-token' : this.props.token   
+       'x-access-token' : this.props.token
      }
     })
     .then(response => response.json())
@@ -46,7 +46,7 @@ class Room extends Component {
   }
 
   componentWillUnmount(){
-    stopInterval(this.interval)
+    clearInterval(this.interval)
   }
 
   render(){
@@ -56,12 +56,12 @@ class Room extends Component {
       <View>
         <View>
         <Text>Total Player: {this.props.waitingPlayers.length}</Text>
-        
+
         </View>
         <Text>{names}</Text>
-        
+
         <View>
-           {(this.props.roomCreator === this.props.username) && this.props.username ? <Button onPress={this.pressButton.bind(this)} title={'start game'}/> 
+           {(this.props.roomCreator === this.props.username) && this.props.username ? <Button onPress={this.pressButton.bind(this)} title={'start game'}/>
                                                            : <Text>Waiting for {this.props.roomCreator} to start the game</Text>}
         </View>
       </View>
