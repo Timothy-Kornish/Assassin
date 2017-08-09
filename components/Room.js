@@ -8,27 +8,29 @@ let startTime = Date.now()
 
 class Room extends Component {
 
+  let url = "http://192.168.137.249:3001"
+
  pressButton(){
-    fetch('/room/start', {
+    fetch(url + '/room/start', {
      method: 'PUT',
      headers: {
        'Content-Type': 'application/json'
      },
         body: JSON.stringify({
-          token: this.props.token,
+          //token: this.props.token,
           roomCode: this.props.roomCode
         })
      })
       .then((response) => {
         if (response.status === 200){
-          this.props.navigation.navigate('Loading')
+        this.props.navigation.navigate('Loading')
         }
      })
   }
 
   updatePlayers(){
 
-    fetch('http://192.168.137.169:3001/user/list/123a', {
+    fetch(url + `/user/list/?room=${this.props.roomCode}`, {
      method: 'GET',
      headers: {
        'Content-Type' : 'application/json',
@@ -62,8 +64,8 @@ class Room extends Component {
         <Text>{names}</Text>
 
         <View>
-           {(this.props.roomCreator === this.props.username) && this.props.username ? <Button onPress={this.pressButton.bind(this)} title={'start game'}/>
-                                                           : <Text>Waiting for {this.props.roomCreator} to start the game</Text>}
+          <Button onPress={this.pressButton.bind(this)} title={'start game'}/>
+
         </View>
       </View>
       )

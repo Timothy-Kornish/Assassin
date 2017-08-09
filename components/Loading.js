@@ -38,6 +38,7 @@ class Loading extends Component {
 
   render(){
     return (
+      
       <View>
       <Text>LOADING!!!!!</Text>
        <Text>Your mission, {this.props.username} is to KILL {this.props.target}
