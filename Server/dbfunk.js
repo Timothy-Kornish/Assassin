@@ -4,7 +4,8 @@ const mysql = require('mysql')
 
 class DBFunk{
   constructor(){
-    this.connection = mysql.createConnection({
+    this.connection = mysql.createPool({
+      connectionLimit: 10,
       host: 'localhost',
       user: 'root',
       password: "",
