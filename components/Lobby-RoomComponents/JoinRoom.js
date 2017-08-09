@@ -3,6 +3,7 @@ import {Button, View, Text, TextInput} from 'react-native'
 import {connect} from 'react-redux'
 import {StackNavigator} from 'react-navigation'
 import {joinroom} from '../../redux/actions'
+let apiUrl = "http://192.168.137.119:3001"
 
 class JoinRoom extends Component {
 
@@ -16,13 +17,13 @@ class JoinRoom extends Component {
 
  joinOnClick(){
    Promise.resolve(this.props.joinroom(this.state.text))
-   .then(fetch('/room/add', {
+   .then(fetch(apiUrl + '/room/add', {
           method: 'PUT',
           headers: {
             "Content-Type": 'application/json'
           },
-          body: JSON.stringify({username: this.state.text,
-                           roomCode: this.props.username})
+          body: JSON.stringify({username: "Tim",
+                           roomCode: this.state.text})
     }))
     .then(()=>this.props.navigation.navigate('Room'))
  }

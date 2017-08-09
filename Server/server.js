@@ -81,7 +81,7 @@ app.post('/login', (req, res) => {
   })
 
 app.post('/room', (req, res) => {
-  const {roomCode, username} = req.body
+  const {roomCode} = req.body
   const code = codeGen()
   const sql = `INSERT INTO games (roomCode, active) VALUES (?, ?)`
 

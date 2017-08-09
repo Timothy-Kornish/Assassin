@@ -17,7 +17,7 @@ class Room extends Component {
      },
         body: JSON.stringify({
           //token: this.props.token,
-          roomCode: this.props.roomCode
+          roomCode: "CFYZ"
         })
      })
       .then((response) => {
@@ -29,7 +29,7 @@ class Room extends Component {
 
   updatePlayers(){
 
-    fetch(apiUrl + `/user/list/?room=${this.props.roomCode}`, {
+    fetch(apiUrl + `/user/list/CFYZ`, {
      method: 'GET',
      headers: {
        'Content-Type' : 'application/json',
