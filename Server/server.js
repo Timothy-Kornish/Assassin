@@ -189,6 +189,7 @@ app.get('/user/list/:roomCode', (req, res) => {
       res.status(500).json({message: "Butch, go help yer Uncle!", err})
     } else {
       let creator = ""
+      targets = result.slice()
       result.forEach(val => {
         if (val.admin == 'true'){
           creator = val.username
@@ -196,7 +197,7 @@ app.get('/user/list/:roomCode', (req, res) => {
       })
       let players = organizer(result)
 
-      res.json({success: "That horse needs help, Cletus", players: players, creator: creator})
+      res.json({success: "That horse needs help, Cletus", targets, players: players, creator: creator})
     }
   })
 })

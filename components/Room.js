@@ -17,7 +17,7 @@ class Room extends Component {
      },
         body: JSON.stringify({
           //token: this.props.token,
-          roomCode: "CFYZ"
+          roomCode: this.props.roomCode
         })
      })
       .then((response) => {
@@ -29,7 +29,7 @@ class Room extends Component {
 
   updatePlayers(){
 
-    fetch(apiUrl + `/user/list/CFYZ`, {
+    fetch(apiUrl + `/user/list/${this.props.roomCode}`, {
      method: 'GET',
      headers: {
        'Content-Type' : 'application/json',
@@ -52,11 +52,12 @@ class Room extends Component {
   }
 
   render(){
-    const names = this.props.waitingPlayers.map(name => (<Text> {name + '\n'} </Text>))
+    const names = this.props.waitingPlayers.map(name => (<Text key={name}> {name + '\n'} </Text>))
     console.log("you son of a render", this.props.waitingPlayers)
     return (
       <View>
         <View>
+        <Text>Room Code is: {this.props.roomCode}</Text>
         <Text>Total Player: {this.props.waitingPlayers.length}</Text>
 
         </View>

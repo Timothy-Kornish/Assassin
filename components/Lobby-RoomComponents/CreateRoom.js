@@ -3,7 +3,7 @@ import {Button, View, Text, TextInput} from 'react-native'
 import {connect} from 'react-redux'
 import {StackNavigator} from 'react-navigation'
 import {createroom} from '../../redux/actions'
-let apiUrl = "http://192.168.137.119:3001"
+import {apiUrl} from '../../localConfig'
 
 class CreateRoom extends Component {
 
@@ -19,7 +19,7 @@ class CreateRoom extends Component {
  createOnClick(){
    var self = this
    const roomCode = this.codeGen()
-   this.props.createroom(roomCode, "Thomas")
+   this.props.createroom(roomCode, self.props.username)
    fetch(apiUrl + '/room', {
      method: 'POST',
      headers: {
@@ -36,7 +36,7 @@ class CreateRoom extends Component {
           "Content-Type": 'application/json'
         },
         body: JSON.stringify({
-          username: "Thomas",
+          username: self.props.username,
           roomCode: roomCode
         })
       })
@@ -48,7 +48,7 @@ class CreateRoom extends Component {
         "Content-Type": 'application/json'
       },
       body: JSON.stringify({
-                            username: "Thomas",
+                            username: self.props.username,
                             roomCode: roomCode
         })
       })
