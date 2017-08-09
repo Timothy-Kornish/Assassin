@@ -58,7 +58,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => {
-assignTarget : (target) => {dispatch(newAssignTarget(target))}
+
+  assignTarget : (target) => {dispatch(newAssignTarget(target))};
 }
 
 const LoadingConnector = connect(mapStateToProps, mapDispatchToProps)

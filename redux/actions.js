@@ -35,7 +35,7 @@ export function createroom(roomCode, username) {
   }
 }
 
-export function newAssignedTarget(target){  
+export function newAssignedTarget(target){
   return {
     type: 'newAssignedTarget',
     target
@@ -48,3 +48,5 @@ export function newPlayersWaiting(players, creator){
     creator
   }
 }
+
+export function ghostRoom

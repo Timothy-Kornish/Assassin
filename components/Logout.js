@@ -15,10 +15,10 @@ class Logout extends Component {
         {this.props.username}
         <Button onPress={()=>this.props.navigation.navigate('Lobby')} title="Log out"/>
       </View>
-      )
+    )
 
-    }
   }
+}
 
 const mapStateToProps = (state) => {
   return {

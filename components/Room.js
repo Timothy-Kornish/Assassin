@@ -28,7 +28,6 @@ class Room extends Component {
   }
 
   updatePlayers(){
-
     fetch(apiUrl + `/user/list/${this.props.roomCode}`, {
      method: 'GET',
      headers: {
@@ -48,7 +47,7 @@ class Room extends Component {
   }
 
   componentWillUnmount(){
-    stopInterval(this.interval)
+    clearInterval(this.interval)
   }
 
   render(){
@@ -64,8 +63,8 @@ class Room extends Component {
         <Text>{names}</Text>
 
         <View>
-          <Button onPress={this.pressButton.bind(this)} title={'start game'}/>
-
+           {(this.props.roomCreator === this.props.username) && this.props.username ? <Button onPress={this.pressButton.bind(this)} title={'start game'}/>
+                                                           : <Text>Waiting for {this.props.roomCreator} to start the game</Text>}
         </View>
       </View>
       )
