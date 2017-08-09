@@ -32,11 +32,3 @@ CREATE TABLE playersToGames (
   FOREIGN KEY (username)
     REFERENCES players(username)
 );
-
-INSERT INTO players
-  (username, password, longitude, latitude)
-  VALUES ("ElTimo", "URATIMO", "43", "13");
-
-INSERT INTO GAMES
-  (roomCode, active)
-VALUES("S6xy", 1);

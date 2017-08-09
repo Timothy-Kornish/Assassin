@@ -11,19 +11,23 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "test": "node node_modules/jest/bin/jest.js --watch",
-    "setupDB": "mysql -u root assassins < db.sql"
+    "setupDB": "mysql -u root -p < db.sql"
   },
   "jest": {
     "preset": "jest-expo"
   },
   "dependencies": {
+    "babel-plugin-transform-inline-environment-variables": "^0.1.1",
     "body-parser": "^1.17.2",
     "expo": "^19.0.1",
+    "express": "^4.15.4",
+    "jsonwebtoken": "^7.4.2",
     "mysql": "^2.14.1",
     "react": "16.0.0-alpha.12",
     "react-native": "^0.46.1",
     "react-native-background-timer": "^1.1.0",
     "react-native-material-design": "^0.3.7",
+    "react-native-network-info": "^3.0.0",
     "react-native-simple-compass": "^1.0.0",
     "react-navigation": "^1.0.0-beta.11",
     "react-redux": "^5.0.5",

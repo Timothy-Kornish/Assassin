@@ -3,31 +3,32 @@ import {Button, View, Text, FlatList, StyleSheet} from 'react-native'
 import {connect} from 'react-redux'
 import {StackNavigator} from 'react-navigation'
 import {newPlayersWaiting} from '../redux/actions'
-
+import {apiUrl} from '../localConfig'
 let startTime = Date.now()
-
+console.log('api url', apiUrl)
 class Room extends Component {
 
  pressButton(){
-    fetch('/room/start', {
+
+    fetch(apiUrl + '/room/start', {
      method: 'PUT',
      headers: {
        'Content-Type': 'application/json'
      },
         body: JSON.stringify({
-          token: this.props.token,
+          //token: this.props.token,
           roomCode: this.props.roomCode
         })
      })
       .then((response) => {
         if (response.status === 200){
-          this.props.navigation.navigate('Loading')
+        this.props.navigation.navigate('Loading')
         }
      })
   }
 
   updatePlayers(){
-    fetch(`/user/targets?room=${this.props.roomCode}`, {
+    fetch(apiUrl + `/user/list/?room=${this.props.roomCode}`, {
      method: 'GET',
      headers: {
        'Content-Type' : 'application/json',
