@@ -23,7 +23,8 @@ class CreateRoom extends Component {
    fetch(apiUrl + '/room', {
      method: 'POST',
      headers: {
-       "Content-Type": 'application/json'
+       "Content-Type": 'application/json',
+       "x-access-token": self.props.token
      },
      body: JSON.stringify({
                            roomCode: roomCode
@@ -33,7 +34,8 @@ class CreateRoom extends Component {
       fetch(apiUrl + `/room/add`, {
         method: "PUT",
         headers: {
-          "Content-Type": 'application/json'
+          "Content-Type": 'application/json',
+          "x-access-token": this.props.token
         },
         body: JSON.stringify({
           username: self.props.username,
@@ -73,7 +75,8 @@ const mapStateToProps = (state) => {
   return {
     roomCode: state.roomCode,
     roomCreator: state.roomCreator,
-    username: state.username
+    username: state.username,
+    token: state.token
   }
 }
 
