@@ -37,7 +37,8 @@ export default class GhostRoom extends Component {
               <Text>Abandon All Hope Ye Who Enter Here!</Text>
               <Button onPress={() => this.props.logout} title={'LogOut'}/>
             </View>
-            <Text>Into the eternal darkness, into fire and ice...</Text>
+            <Text>Into the eternal darkness, into fire and ice...I regret to inform you that you have been eliminated.  If you
+            wish, you may remain here and watch for the last heir.</Text>
           </View>
           )
       }
