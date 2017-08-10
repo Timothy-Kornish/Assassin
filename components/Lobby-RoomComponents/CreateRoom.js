@@ -3,13 +3,9 @@ import {Button, View, Text, TextInput} from 'react-native'
 import {connect} from 'react-redux'
 import {StackNavigator} from 'react-navigation'
 import {createroom} from '../../redux/actions'
+import {apiUrl} from '../../localConfig'
 
 class CreateRoom extends Component {
-  constructor(props){
-    super(props)
-    this.createOnClick = this.createOnClick.bind(this)
-    this.codeGen = this.codeGen.bind(this)
-  }
 
   codeGen(){
       const codeVal = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -21,17 +17,43 @@ class CreateRoom extends Component {
   }
 
  createOnClick(){
+   var self = this
    const roomCode = this.codeGen()
-   this.props.createroom(roomCode, this.props.username)
-   fetch('/room', {
+   this.props.createroom(roomCode, self.props.username)
+   fetch(apiUrl + '/room', {
      method: 'POST',
      headers: {
-       "Content-Type": 'application/json'
+       "Content-Type": 'application/json',
+       "x-access-token": self.props.token
      },
      body: JSON.stringify({
-                           username: this.props.username,
                            roomCode: roomCode
                          })
+    })
+    .then(() => {
+      fetch(apiUrl + `/room/add`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": 'application/json',
+          "x-access-token": this.props.token
+        },
+        body: JSON.stringify({
+          username: self.props.username,
+          roomCode: roomCode
+        })
+      })
+    })
+    .then(()=>{
+      fetch(apiUrl + '/room/admin', {
+      method: 'PUT',
+      headers: {
+        "Content-Type": 'application/json'
+      },
+      body: JSON.stringify({
+                            username: self.props.username,
+                            roomCode: roomCode
+        })
+      })
     })
     .then(()=>this.props.navigation.navigate('Room'))
   }
@@ -41,7 +63,7 @@ class CreateRoom extends Component {
      <View>
       <Text>Create Room</Text>
       <Button
-        onPress={() => this.createOnClick()}
+        onPress={this.createOnClick.bind(this)}
         title={'Create Game'}>
       </Button>
      </View>
@@ -53,7 +75,8 @@ const mapStateToProps = (state) => {
   return {
     roomCode: state.roomCode,
     roomCreator: state.roomCreator,
-    username: state.username
+    username: state.username,
+    token: state.token
   }
 }
 

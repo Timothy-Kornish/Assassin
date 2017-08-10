@@ -1,21 +1,21 @@
 export default function reducer(state, action){
   switch(action.type){
     case 'login':
-    console.log("login reducer firing");
+      console.log("login reducer firing");
       return {
         ...state,
         username: action.username,
         token: action.token
       }
     case 'logout':
-    console.log("logout reducer firing");
+      console.log("logout reducer firing");
       return {
         ...state,
         username: undefined,
         token: undefined
       }
     case 'locate':
-    console.log("locate reducer firing", action);
+      console.log("locate reducer firing", action);
       return {
         ...state,
         longitude: action.longitude,
@@ -29,7 +29,7 @@ export default function reducer(state, action){
           roomCode: action.roomCode
         }
       case 'createroom':
-      console.log("createroom reducer firing", action);
+        console.log("createroom reducer firing", action);
         return {
           ...state,
           roomCode: action.roomCode,
@@ -47,12 +47,15 @@ export default function reducer(state, action){
           waitingPlayers: action.players,
           roomCreator: action.creator
         }
-      case 'kill':
-      console.log("kill function is working", action)
-        return {
+
+      case 'killTarget':
+      console.log("killTarget is firing", action)
+        return{
           ...state,
-          target: action.target,
-          username: action.username
+          target: state.target,
+          targetsTarget: state.targetsTarget,
+          targetDistance: state.target.distance,
+
         }
     default:
       return state
