@@ -69,6 +69,9 @@
   getTargetsTarget(){
     return this.targetsTarget
   }
+  getListObj(){
+    return this.listObj
+  }
 
 }
 module.exports = ServerFunk
