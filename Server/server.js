@@ -2,7 +2,7 @@ const express = require('express')
 const path = require('path')
 const jwt = require('jsonwebtoken')
 var bodyParser = require('body-parser')
-const serverFunk = require('./server_funcs')
+const ServerFunk = require('./server_funcs')
 
 const app = express()
 const players = []
@@ -134,9 +134,9 @@ app.put('/room/start', (req, res) => {
   })
 })
 
-app.post('/user/targets', (req, res) => {
+app.put('/user/targets', (req, res) => {
   const {roomCode} = req.body
-  const sql = `SELECT username, admin FROM playersToGames
+  const sql = `SELECT username, admin FROM , playersToGames
               WHERE roomCode = ?`
   req.query(sql, [roomCode], (err, result) => {
     if(err){
@@ -167,6 +167,8 @@ app.put('/user/targets/assign', (req, res) => {
 
 
 
+
+
 app.put('/user/heartbeat', (req, res) => {
   const {username, time, latitude, longitude} = req.body
   const sql = `UPDATE players SET lastUpdated = ?, latitude = ?, longitude = ? WHERE username = ?`
@@ -178,10 +180,27 @@ app.put('/user/heartbeat', (req, res) => {
     }
   })
 })
-//----------------------------------------------------------
-//app.post('/user/kill')
-// this needs to be altered, possibly multiple routes
-//----------------------------------------------------------
+
+app.get('/user/game/data/:username', (req, res) => {
+  let username = req.params.username
+  let sql = `SELECT * FROM players`
+  req.query(sql, (err, result) => {
+     let serve = new ServerFunk(result,username)
+     let theta = serve.getTheta()
+     let distance = serve.getDistance()
+     let target = serve.getTarget()
+     let targetsTarget = serve.getTargetsTarget()
+
+    if(err) {
+      res.status(500).json({message:"I'm Daniel Boon, checkout my coon hat", err})
+    }
+    else {
+      res.json({success: "sup Daniel Boon", result, theta, distance, target, targetsTarget})
+    }
+  })
+})
+
+
 app.get('/user/list/:roomCode', (req, res) => {
   const roomCode = req.params.roomCode
   const sql = `SELECT username, admin FROM playersToGames WHERE roomCode = ?`
@@ -206,34 +225,34 @@ app.get('/user/list/:roomCode', (req, res) => {
 
 app.post('/user/kill', (req, res) => {
   const {list, username} = req.body
-  obj = {}
-  console.log("list", list)
-  for(var i = 0; i < list.length; i++){
+  let serve = new serverFunk(list, username)
+  let theta = serve.getTheta()
+  let distance = serve.getDistance()
+  let target = serve.getTarget()
+  let targetsTarget = server.getTargetsTarget()
 
-    let user = list[i].username
-    obj[user] = list[i]
-    console.log("obj", obj)
+  if(distance > 50){
+    res.json({message: "You are out of range", distance})
   }
+  else {
+    const sql = `UPDATE players SET alive =
+                  CASE username
+                  WHEN ? THEN 'false'
+                  END,
+                  target =
+                  CASE username
+                  WHEN ? THEN ?
+                  END`
+  //might need to change false on line 174
+    req.query(sql, [target, username, targetsTarget], (err, result) => {
+      if (err){
+        res.status(500).json({message: "Shudda ate more of them there gator brains, they make you smart", err})
 
-  const target = obj[username].target
-  const targetsTarget = obj[target].target
-  const sql = `UPDATE players SET alive =
-                CASE username
-                WHEN ? THEN 'false'
-                END,
-                target =
-                CASE username
-                WHEN ? THEN ?
-                END`
-//might need to change false on line 174
-  req.query(sql, [target, username, targetsTarget], (err, result) => {
-    if (err){
-      res.status(500).json({message: "Shudda ate more of them there gator brains, they make you smart", err})
-
-    } else { //check if timestamp is recent and if radius is small enough for a kill
-      res.json({success: 'Take a swig of this here moonshine, and party it up, Butch', result})
-    }
-  })
+      } else { //check if timestamp is recent and if radius is small enough for a kill
+        res.json({success: 'Take a swig of this here moonshine, and party it up, Butch', result})
+      }
+    })
+  }
 })
 
 app.put('/user/location', (req, res) => {
