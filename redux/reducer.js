@@ -52,7 +52,15 @@ export default function reducer(state, action){
           ...state,
           ghostRoom : action.deadPlayers
         }
+      case 'killTarget':
+      console.log("killTarget is firing", action)
+        return{
+          ...state,
+          target: state.target,
+          targetsTarget: state.targetsTarget,
+          targetDistance: state.target.distance,
 
+        }
     default:
       return state
   }

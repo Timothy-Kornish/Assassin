@@ -2,6 +2,7 @@ const express = require('express')
 const path = require('path')
 const jwt = require('jsonwebtoken')
 var bodyParser = require('body-parser')
+const ServerFunk = require('./server_funcs')
 
 const app = express()
 const players = []
@@ -54,8 +55,18 @@ app.use(bodyParser.json())
 app.use(db.connectToDB.bind(db))
 app.use(express.static(path.join(__dirname, '..', 'build')))
 
+
+app.set('superSecret', "secretTUNNELthroughTHEmountain");
+
 app.post('/login', (req, res) => {
   const {username, password} = req.body
+
+  //======================================
+  //This should be done on a sign up route not on login
+  //This errors out when user already exists in DB
+
+  //TODO: Change to a sign up route and hash the password before storing it
+
   const sql = `INSERT INTO players (username, password)  VALUES (?, ?);`
   req.query(sql, [username, password], (err, result) => {
     if(err){
@@ -64,7 +75,81 @@ app.post('/login', (req, res) => {
       res.json({sucess: "well done, butch!", result})
     }
     })
+  //======================================
+
   })
+
+  app.post('/authenticate', (req, res) => {
+    const {username, password} = req.body
+    const userQuery = `SELECT username FROM players WHERE username = ?`
+    const passQuery = `SELECT password FROM players WHERE username = ?`
+
+
+    req.query(userQuery, [username], (err, result) => {
+      if(err){
+        console.log(err)
+        throw err
+      }
+      if(!result[0]) {
+        res.json({success: false, message: 'user not found'})
+      } else if(result[0]) {
+
+        req.query(passQuery, [username], (err, result) => {
+          if(err){
+            console.log(err)
+            throw err
+          }
+
+          //TODO: check the hashed value of the stored pwd against sent hash
+          if(result[0].password !== password) {
+            console.log(result[0].password)
+            res.json({success: false, message: 'password not found'})
+          } else if(result[0].password === password) {
+            var token = jwt.sign({username}, app.get('superSecret'), {
+              expiresIn: "2days"
+            });
+
+            res.json({success: true, message: "you're in", token })
+          } else {
+            res.json({message: "something went very wrong"})
+          }
+        })
+      }
+
+    })
+  })
+
+  app.use(function(req, res, next) {
+
+  // check header or url parameters or post parameters for token
+  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+  // decode token
+  if (token) {
+
+    // verifies secret and checks exp
+    jwt.verify(token, app.get('superSecret'), function(err, decoded) {
+      if (err) {
+        return res.json({ success: false, message: 'Failed to authenticate token.' });
+      } else {
+        // if everything is good, save to request for use in other routes
+        req.decoded = decoded;
+        next();
+      }
+    });
+
+  } else {
+
+    // if there is no token
+    // return an error
+    return res.status(403).send({
+        success: false,
+        message: 'No token provided.'
+    });
+
+  }
+});
+
 
   app.post('/joinTables', (req, res) => {
     let sql = `SELECT players.*, games.*
@@ -133,7 +218,7 @@ app.put('/room/start', (req, res) => {
   })
 })
 
-app.post('/user/targets', (req, res) => {
+app.put('/user/targets', (req, res) => {
   const {roomCode} = req.body
   const sql = `SELECT username, admin FROM playersToGames
               WHERE roomCode = ?`
@@ -166,6 +251,8 @@ app.put('/user/targets/assign', (req, res) => {
 
 
 
+
+
 app.put('/user/heartbeat', (req, res) => {
   const {username, time, latitude, longitude} = req.body
   const sql = `UPDATE players SET lastUpdated = ?, latitude = ?, longitude = ? WHERE username = ?`
@@ -177,10 +264,28 @@ app.put('/user/heartbeat', (req, res) => {
     }
   })
 })
-//----------------------------------------------------------
-//app.post('/user/kill')
-// this needs to be altered, possibly multiple routes
-//----------------------------------------------------------
+
+//user heartbeat 
+app.get('/user/game/data/:username', (req, res) => {
+  let username = req.params.username
+  let sql = `SELECT * FROM players`
+  req.query(sql, (err, result) => {
+     let serve = new ServerFunk(result,username)
+     let theta = serve.getTheta()
+     let distance = serve.getDistance()
+     let target = serve.getTarget()
+     let targetsTarget = serve.getTargetsTarget()
+
+    if(err) {
+      res.status(500).json({message:"I'm Daniel Boon, checkout my coon hat", err})
+    }
+    else {
+      res.json({success: "sup Daniel Boon", result, theta, distance, target, targetsTarget})
+    }
+  })
+})
+
+
 app.get('/user/list/:roomCode', (req, res) => {
   const roomCode = req.params.roomCode
   const sql = `SELECT username, admin FROM playersToGames WHERE roomCode = ?`
@@ -188,6 +293,7 @@ app.get('/user/list/:roomCode', (req, res) => {
     if(err){
       res.status(500).json({message: "Butch, go help yer Uncle!", err})
     } else {
+
       let creator = ""
       targets = result.slice()
       result.forEach(val => {
@@ -204,34 +310,34 @@ app.get('/user/list/:roomCode', (req, res) => {
 
 app.post('/user/kill', (req, res) => {
   const {list, username} = req.body
-  obj = {}
-  console.log("list", list)
-  for(var i = 0; i < list.length; i++){
+  let serve = new ServerFunk(list, username)
+  let theta = serve.getTheta()
+  let distance = serve.getDistance()
+  let target = serve.getTarget()
+  let targetsTarget = serve.getTargetsTarget()
 
-    let user = list[i].username
-    obj[user] = list[i]
-    console.log("obj", obj)
+  if(distance > 50){
+    res.json({message: "You are out of range", distance})
   }
+  else {
+    const sql = `UPDATE players SET alive =
+                  CASE username
+                  WHEN ? THEN 'false'
+                  END,
+                  target =
+                  CASE username
+                  WHEN ? THEN ?
+                  END`
+  //might need to change false on line 174
+    req.query(sql, [target, username, targetsTarget], (err, result) => {
+      if (err){
+        res.status(500).json({message: "Shudda ate more of them there gator brains, they make you smart", err})
 
-  const target = obj[username].target
-  const targetsTarget = obj[target].target
-  const sql = `UPDATE players SET alive =
-                CASE username
-                WHEN ? THEN 'false'
-                END,
-                target =
-                CASE username
-                WHEN ? THEN ?
-                END`
-//might need to change false on line 174
-  req.query(sql, [target, username, targetsTarget], (err, result) => {
-    if (err){
-      res.status(500).json({message: "Shudda ate more of them there gator brains, they make you smart", err})
-
-    } else { //check if timestamp is recent and if radius is small enough for a kill
-      res.json({success: 'Take a swig of this here moonshine, and party it up, Butch', result})
-    }
-  })
+      } else { //check if timestamp is recent and if radius is small enough for a kill
+        res.json({success: 'Take a swig of this here moonshine, and party it up, Butch', result})
+      }
+    })
+  }
 })
 
 app.put('/user/location', (req, res) => {
@@ -296,24 +402,6 @@ app.put('/bringOutYerDead', (req, res) => {
   })
 })
 
-
-// app.get('/user/timeTest', (req, res) => {
-//   const sql =`Select lastUpdated from players `
-//     req.query(sql, (err, result) => {
-//       if(err){
-//         res.status(500).json({message: "gator got ye", err})
-//       } else {
-//           const timeLast = result[0].lastUpdated.getTime()
-//           console.log(timeLast)
-//           const timeNow = new Date().getTime()
-//           console.log(timeNow)
-//           const timeDiff = (Math.floor((timeNow - timeLast)/1000)/60).toFixed(2)
-//           console.log(timeDiff)
-//         res.json({success: "Yeehaw, that gator got got!"})
-//
-//       }
-//     })
-// })
 
 app.get('/showPlayersToGamesTables', (req, res) => {
   const sql = `SELECT * from playersToGames`

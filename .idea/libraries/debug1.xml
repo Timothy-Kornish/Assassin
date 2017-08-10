@@ -1,0 +1,35 @@
+<component name="libraryTable">
+  <library name="debug1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/files/push_notifications/android/app/build/intermediates/pre-dexed/debug/okio-1.13.0_7b22c3f0f015323d6928d493a9c9cc746004f150.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/push_notifications/android/app/build/intermediates/pre-dexed/debug/jsr305-3.0.0_9b3d646f0ca87406fd58491919e8fb711159ff49.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/push_notifications/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-1.0.1_9bb19ee8005e8a030464eae94987ec88f0b0e631.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/push_notifications/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-okhttp3-1.0.1_da07932eff2a6f0a23b927b2a1e408f2c4c8a5a2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/push_notifications/android/app/build/intermediates/pre-dexed/debug/me.leolin-ShortcutBadger-1.1.8_e47561d3e016fa630eb1def5819dc48f0dc5079f.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/push_notifications/android/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-23.1.1_c43550552cc37eb9981891adc28ac32cd16eb287.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/push_notifications/android/app/build/intermediates/pre-dexed/debug/infer-annotations-4.0_d3d8630271cff2ebfaf11cd8cc27e72a15b00705.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/push_notifications/android/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-base-8.1.0_f0ebfe2f324ff49cacce7fc66a96dbcda16ef85a.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/push_notifications/android/app/build/intermediates/pre-dexed/debug/com.facebook.fbui.textlayoutbuilder-textlayoutbuilder-1.0.0_75db21310e98c931bef625d556e9645cd0dad1b5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/push_notifications/android/app/build/intermediates/pre-dexed/debug/com.facebook.soloader-soloader-0.1.0_ae17e4c6518e29097b819d90fb26bcf5562c742e.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/push_notifications/android/app/build/intermediates/pre-dexed/debug/debug_20dac016110f0cba5a45f89da51da292da790b3b.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/push_notifications/android/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-gcm-8.1.0_b121c5b925cbf277fbabb1480f8f70691c069c23.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/push_notifications/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fbcore-1.0.1_1cd9fcaf50f1e2828dd112257cc0f4da5e8232fd.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/push_notifications/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-drawee-1.0.1_59e4b401457814c4cfc34efe575b7f7967f90d3f.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/push_notifications/android/app/build/intermediates/pre-dexed/debug/com.facebook.react-react-native-0.46.4_7ebca429c2c31e42d7e93e7ea875fb258c223b0c.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/push_notifications/android/app/build/intermediates/pre-dexed/debug/internal_impl-23.1.1_6af24d3f06d5f558c52b6e5a3935be08aa7e9fda.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/push_notifications/android/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-basement-8.1.0_81c52a6ca2d22e671dce15d13b35418aa5636773.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/push_notifications/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fresco-1.0.1_ad8bcce01079079b57cc2abcc4fce6c39fb8a2f5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/push_notifications/android/app/build/intermediates/pre-dexed/debug/okhttp-3.6.0_302c5b583cf0a63eda8a1a9847c93c55d80a0750.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/push_notifications/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-23.1.1_224294e76e3589bf6b3f3840c645f3c34444ca0b.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/push_notifications/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-base-1.0.1_0ab1d40850bc6ef4fb0e6bda1954f97bb2d3ad9d.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/push_notifications/android/app/build/intermediates/pre-dexed/debug/javax.inject-1_87481c7350f901b3ad1e34cf18b5ddfb6f5c1311.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/push_notifications/android/app/build/intermediates/pre-dexed/debug/okhttp-urlconnection-3.6.0_ad5ef2b664a5bca25cddc8be8ad39b83640960a3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/push_notifications/android/app/build/intermediates/pre-dexed/debug/support-annotations-23.1.1_c0a6fa08b6861001c36da500587bf4c4d85b0755.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/push_notifications/android/app/build/intermediates/pre-dexed/debug/bolts-tasks-1.4.0_2c4b17574fd946bb9f079be5160aac460f388d4c.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/push_notifications/android/app/build/intermediates/pre-dexed/debug/staticlayout-proxy-1.0_efa8a961931b565ad4fba1020790d1ebc8e6ce9a.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/push_notifications/android/app/build/intermediates/pre-dexed/debug/pushnotifications-react-native-push-notification-unspecified_6fdf82c839525967ee297d3c13fdd7e8825d345f.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

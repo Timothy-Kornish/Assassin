@@ -1,0 +1,120 @@
+import React, {Component} from 'react';
+import {AsyncStorage, Alert, Text, TextInput, TouchableOpacity, View, Button} from 'react-native';
+import {login} from '../redux/actions'
+import {connect} from 'react-redux'
+import {StackNavigator} from 'react-navigation'
+import {apiUrl} from "../localConfig"
+
+class Authentication extends Component {
+
+  constructor() {
+    super();
+    this.state = { username: null, password: null };
+  }
+
+  async saveItem(item, selectedValue) {
+    try {
+      await AsyncStorage.setItem(item, selectedValue);
+    } catch (error) {
+      console.error('AsyncStorage error: ' + error.message);
+    }
+  }
+
+  async userLogout() {
+    try {
+      await AsyncStorage.removeItem('x-access_token');
+    } catch (error) {
+      console.log('AsyncStorage error: ' + error.message);
+    }
+  }
+
+  userSignup() {
+    if (!this.state.username || !this.state.password) return;
+    // localhost doesn't work because the app is running inside an emulator. Get the IP address with ifconfig.
+    fetch(apiUrl + '/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: this.state.username,
+        password: this.state.password,
+      })
+    })
+    .then((response) => response.json())
+    .then((responseData) => {
+      this.saveItem('x-access_token', responseData.token),
+      Alert.alert( 'Signup Success!'),
+      this.goToLobby();
+    })
+    .done();
+  }
+
+  userLogin() {
+    if (!this.state.username || !this.state.password) return;
+    // localhost doesn't work because the app is running inside an emulator. Get the IP address with ifconfig.
+    fetch(apiUrl + '/authenticate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: this.state.username,
+        password: this.state.password,
+      })
+    })
+    .then((response) => response.json())
+    .then((responseData) => {
+      this.saveItem('x-access_token', responseData.token),
+      Alert.alert('Login Success!', responseData.token),
+      this.goToLobby(responseData.token);
+    })
+    .done();
+  }
+
+  goToLobby(token){
+    this.props.login(this.state.username, token)
+    this.props.navigation.navigate('Lobby')
+  }
+
+  render() {
+    return (
+      <View>
+        <Text> Welcome </Text>
+
+        <View>
+          <TextInput
+            editable={true}
+            onChangeText={(username) => this.setState({username})}
+            placeholder='Username'
+            ref='username'
+            returnKeyType='next'
+            value={this.state.username}
+          />
+
+          <TextInput
+            editable={true}
+            onChangeText={(password) => this.setState({password})}
+            placeholder='Password'
+            ref='password'
+            returnKeyType='next'
+            secureTextEntry={true}
+            value={this.state.password}
+          />
+
+          <TouchableOpacity onPress={this.userLogin.bind(this)}>
+            <Text> Log In </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={this.userSignup.bind(this)}>
+            <Text> Sign Up </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    login : (username, token) => {dispatch(login(username, token))}
+  }
+}
+
+export default connect(()=>({}), mapDispatchToProps)(Authentication)

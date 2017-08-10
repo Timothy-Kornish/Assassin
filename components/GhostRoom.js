@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Button, View, Text, FlatList} from 'react-native'
+import {Button, View, Text, StyleSheet} from 'react-native'
 import {connect} from 'react-redux'
 import {StackNavigator} from 'react-navigation'
 import {apiUrl} from '../localConfig'

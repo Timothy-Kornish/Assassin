@@ -1,0 +1,30 @@
+<component name="libraryTable">
+  <library name="debug">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/files/compass/android/app/build/intermediates/pre-dexed/debug/jsr305-3.0.0_6237cb659935fe231c8d403264e04eddc286592a.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/compass/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fbcore-1.0.1_89451332da88178dfedb953ed16be3045760a258.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/compass/android/app/build/intermediates/pre-dexed/debug/bolts-tasks-1.4.0_3c50eeb440e9dd58845524e0d8c6f931a3ddc072.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/compass/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-okhttp3-1.0.1_5a31fd51dbcf8b90246135ab3be85daaf215cc73.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/compass/android/app/build/intermediates/pre-dexed/debug/support-annotations-23.0.1_47c2cb1d030fe59780ce01046a2a48167134339e.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/compass/android/app/build/intermediates/pre-dexed/debug/javax.inject-1_81f63147293c80992186865712de6648b741fa96.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/compass/android/app/build/intermediates/pre-dexed/debug/internal_impl-23.0.1_3c30ee68d980dbf99bfa16861040478a335ca456.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/compass/android/app/build/intermediates/pre-dexed/debug/com.facebook.soloader-soloader-0.1.0_f640eb45b697cfd997a8ea07a38fbcf848e96c57.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/compass/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fresco-1.0.1_4fdd053e5fb6f0b943d2de3450744a2e23ae3499.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/compass/android/app/build/intermediates/pre-dexed/debug/com.facebook.react-react-native-0.46.4_1e45efffd40228f8f1208e4f9ce3d7ee7bf5487a.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/compass/android/app/build/intermediates/pre-dexed/debug/infer-annotations-4.0_73bab884cfbe7a2e438a37af4df52e7a0db2493c.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/compass/android/app/build/intermediates/pre-dexed/debug/okhttp-3.6.0_0a6b128861e7781a2bf4f70049616c364a95eb97.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/compass/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-23.0.1_51f9f526f6040ce36d37f5e4aaeb8bd9d5c9a99b.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/compass/android/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-23.0.1_7417dbbaf4b62975929f8ffa70006c3be785932c.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/compass/android/app/build/intermediates/pre-dexed/debug/com.facebook.fbui.textlayoutbuilder-textlayoutbuilder-1.0.0_16a0cd745ad05f7ff693adcb2797a6ba5abbab89.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/compass/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-1.0.1_5c97a569a8e1b217dfc2b9c3609e38123d2dd001.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/compass/android/app/build/intermediates/pre-dexed/debug/okio-1.13.0_c02d03f74531908d709b1d2e7e82034acbbe5a5b.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/compass/android/app/build/intermediates/pre-dexed/debug/okhttp-urlconnection-3.6.0_912aedf677fea61545c26e16ef249fbf363359cd.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/compass/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-base-1.0.1_1d8a189d474cf3fbcc6c25d4705d17d48b3177ce.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/compass/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-drawee-1.0.1_398c0abf8f01478b9253de5fb8bbc6af21f4c62a.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/compass/android/app/build/intermediates/pre-dexed/debug/debug_286d53e496eecfe767b7a338990ef0f00a48a52a.jar!/" />
+      <root url="jar://$PROJECT_DIR$/files/compass/android/app/build/intermediates/pre-dexed/debug/staticlayout-proxy-1.0_d0460bbb868471577f9eb543de2348658531efbd.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
