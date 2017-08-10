@@ -48,6 +48,7 @@ export function newPlayersWaiting(players, creator){
     creator
   }
 }
+
 export function killTarget(target, username, targetsTarget){
   type: 'killTarget',
   target,
@@ -57,3 +58,4 @@ export function killTarget(target, username, targetsTarget){
 }
 
 //export function ghostRoom
+
