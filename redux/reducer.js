@@ -33,7 +33,7 @@ export default function reducer(state, action){
         return {
           ...state,
           roomCode: action.roomCode,
-          roomCreator: action.roomCreator
+          roomCreator: action.username
         }
       case 'newAssignedTarget':
         return{
@@ -41,13 +41,17 @@ export default function reducer(state, action){
           target: action.target
         }
       case 'newPlayersWaiting':
-      console.log("newPlayersWaiting is firing", action)
+        console.log("newPlayersWaiting is firing", action)
         return {
           ...state,
           waitingPlayers: action.players,
           roomCreator: action.creator
         }
-
+      case 'newGhostRoom':
+        return {
+          ...state,
+          ghostRoom : action.deadPlayers
+        }
       case 'killTarget':
       console.log("killTarget is firing", action)
         return{
