@@ -47,6 +47,14 @@ export default function reducer(state, action){
           waitingPlayers: action.players,
           roomCreator: action.creator
         }
+      case 'killTarget':
+      console.log("killTarget is firing", action)
+        return{
+          ...state,
+          target: state.target,
+          targetsTarget: state.targetsTarget,
+          targetDistance: state.target.distance,
+        }
     default:
       return state
   }
