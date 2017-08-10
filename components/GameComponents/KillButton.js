@@ -8,6 +8,7 @@ class KillButton extends Component {
 
   handleKill(){
 
+//this first route needs to be changed
     fetch(`/user/list/${this.props.roomCode}`,{
       method: 'GET',
       headers:{
@@ -22,13 +23,13 @@ class KillButton extends Component {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({username: this.username,
+        body: JSON.stringify({username: this.props.username,
                               list: result
         })
       })
     })
 
-    this.props.kill()
+    this.props.killTargetButton(this.props.target, this.props.username, this.props.targetsTarget)
   }
 
   render(){
@@ -41,9 +42,9 @@ const mapStateToProps = (state) => {
     username: state.username,
     target: state.target,
     targetsTarget: state.targetsTarget,
-    isAlive : true,
-    targetDistance: 20,//state.target.distance
-    killable: true,//state.killable,
+    isAlive : state.isAlive,
+    targetDistance: state.target.distance,
+    killable: state.killable,
     roomCode: state.roomCode,
     token: state.token
 
