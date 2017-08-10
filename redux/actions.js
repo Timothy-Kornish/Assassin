@@ -49,4 +49,9 @@ export function newPlayersWaiting(players, creator){
   }
 }
 
-export function ghostRoom
+export function ghostRoom(deadPlayers){
+  return {
+    type: 'newGhostRoom',
+    deadPlayers
+  }
+}
