@@ -3,32 +3,20 @@ import {Button, View, Text, FlatList, StyleSheet} from 'react-native'
 import {connect} from 'react-redux'
 import {StackNavigator} from 'react-navigation'
 import {newPlayersWaiting} from '../redux/actions'
+import {newAssignTarget} from '../redux/actions'
 import {apiUrl} from '../localConfig'
+
 let startTime = Date.now()
-console.log('api url', apiUrl)
+
 class Room extends Component {
 
- pressButton(){
-
-    fetch(apiUrl + '/room/start', {
-     method: 'PUT',
-     headers: {
-       'Content-Type': 'application/json'
-     },
-        body: JSON.stringify({
-          //token: this.props.token,
-          roomCode: this.props.roomCode
-        })
-     })
-      .then((response) => {
-        if (response.status === 200){
-        this.props.navigation.navigate('Loading')
-        }
-     })
-  }
+  componentDidMount(){
+      this.interval = setInterval(this.updatePlayers.bind(this), 3000)
+      console.log("interval is firing every 3 seconds", (Date.now() - startTime) /1000)
+    }
 
   updatePlayers(){
-    fetch(apiUrl + `/user/list/?room=${this.props.roomCode}`, {
+    fetch(apiUrl + `/user/list/${this.props.roomCode}`, {
      method: 'GET',
      headers: {
        'Content-Type' : 'application/json',
@@ -41,29 +29,65 @@ class Room extends Component {
     console.log('updatePlayers is firing with', this.props.playersWaiting, (Date.now() - startTime) /1000);
    }
 
-  componentDidMount(){
-    this.interval = setInterval(this.updatePlayers.bind(this), 3000)
-    console.log("interval is firing every 3 seconds", (Date.now() - startTime) /1000)
-  }
-
   componentWillUnmount(){
     clearInterval(this.interval)
   }
+ 
+ pressButton(){
 
+    fetch(apiUrl + '/room/start', {
+     method: 'PUT',
+     headers: {
+       'Content-Type': 'application/json'
+     },
+        body: JSON.stringify({
+          //token: this.props.token,
+          roomCode: this.props.roomCode
+        })
+     })
+    .then(()=> {
+      fetch(apiUrl + `/user/targets`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          roomCode: this.props.roomCode
+        })
+      })
+    })
+    .then(response => response.json())
+    .then((responseData) =>{
+      fetch(apiUrl + `/user/targets/assign`, { 
+          method: 'PUT',
+          header:{
+            'Content-Type' : 'application/json',
+          // 'x-access-token' : this.props.token
+        }
+          body: JSON.stringify({
+            result: responseData.result
+          })
+      })
+    })
+    .then(response => response.json())
+    .then(result => this.props.assignTarget(result.target))
+    .then((response) => {
+        if (response.status === 200){
+        this.props.navigation.navigate('Loading')
+        }
+     })
+    
+  }
   render(){
-    const names = this.props.waitingPlayers.map(name => (<Text> {name + '\n'} </Text>))
+    const names = this.props.waitingPlayers.map(name => (<Text key={name}> {name + '\n'} </Text>))
     console.log("you son of a render", this.props.waitingPlayers)
     return (
       <View>
         <View>
+        <Text>Room Code is: {this.props.roomCode}</Text>
         <Text>Total Player: {this.props.waitingPlayers.length}</Text>
-
-        </View>
         <Text>{names}</Text>
-
-        <View>
-           {(this.props.roomCreator === this.props.username) && this.props.username ? <Button onPress={this.pressButton.bind(this)} title={'start game'}/>
-                                                           : <Text>Waiting for {this.props.roomCreator} to start the game</Text>}
+        <Button onPress={this.pressButton.bind(this)} title={'start game'}/>
         </View>
       </View>
       )
@@ -79,6 +103,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
+  assignTarget : (target) => {dispatch(newAssignTarget(target))},
   playersWaiting : (players, creator) => {dispatch(newPlayersWaiting(players, creator))}
 })
 

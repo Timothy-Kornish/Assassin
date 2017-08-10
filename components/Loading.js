@@ -6,7 +6,9 @@ import {apiUrl} from '../localConfig'
 
 class Loading extends Component {
 
+
  pressButton(){
+
     fetch(apiUrl + '/user/startCountDown', {
      method: 'PUT',
      headers: {
@@ -14,8 +16,10 @@ class Loading extends Component {
      },
         body: JSON.stringify({
           // token: this.props.token,
-          roomCode: this.roomCode,
-          username: "kelsey"
+
+          roomCode: this.props.roomCode,
+          username: this.props.username
+
         })
     })
     .then(()=>this.props.navigation.navigate('Game'))
@@ -24,6 +28,7 @@ class Loading extends Component {
 
  render(){
     return (
+
 
      <View>
        <Text>From the offices of Gamboni and Valenicci</Text>
@@ -43,7 +48,7 @@ class Loading extends Component {
          and permentantly and irrevocably disinherited. Press continue to accept.
          With regards and best wishes,
          Gamboni and Valenicci LLC
-      </Text>
+
           <Button onPress={this.pressButton.bind(this)} title={'Continue'}/>
       </View>
      )

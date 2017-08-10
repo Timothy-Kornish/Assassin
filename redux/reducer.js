@@ -1,21 +1,21 @@
 export default function reducer(state, action){
   switch(action.type){
     case 'login':
-    console.log("login reducer firing");
+      console.log("login reducer firing");
       return {
         ...state,
         username: action.username,
         token: action.token
       }
     case 'logout':
-    console.log("logout reducer firing");
+      console.log("logout reducer firing");
       return {
         ...state,
         username: undefined,
         token: undefined
       }
     case 'locate':
-    console.log("locate reducer firing", action);
+      console.log("locate reducer firing", action);
       return {
         ...state,
         longitude: action.longitude,
@@ -29,11 +29,11 @@ export default function reducer(state, action){
           roomCode: action.roomCode
         }
       case 'createroom':
-      console.log("createroom reducer firing", action);
+        console.log("createroom reducer firing", action);
         return {
           ...state,
           roomCode: action.roomCode,
-          roomCreator: action.roomCreator
+          roomCreator: action.username
         }
       case 'newAssignedTarget':
         return{
@@ -41,18 +41,25 @@ export default function reducer(state, action){
           target: action.target
         }
       case 'newPlayersWaiting':
-      console.log("newPlayersWaiting is firing", action)
+        console.log("newPlayersWaiting is firing", action)
         return {
           ...state,
           waitingPlayers: action.players,
           roomCreator: action.creator
         }
-      case 'kill':
-      console.log("kill function is working", action)
+      case 'newGhostRoom':
         return {
           ...state,
-          target: action.target,
-          username: action.username
+          ghostRoom : action.deadPlayers
+        }
+      case 'killTarget':
+      console.log("killTarget is firing", action)
+        return{
+          ...state,
+          target: state.target,
+          targetsTarget: state.targetsTarget,
+          targetDistance: state.target.distance,
+
         }
     default:
       return state

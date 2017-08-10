@@ -100,6 +100,7 @@ kill(){
   render(){
     return (
       <View>
+
         <Text>Be advised that Mother has laid out a set of rules in her last will and testament.  The rules must be
           followed and obeyed or you will be disqualified from the pool of potential heirs. Mother has gifted you with a
           locator to aid you in your quest.  I must also disclose that you have also been tagged with a locator and are
@@ -115,5 +116,7 @@ kill(){
           <KillButton />
           </View>
           )
+
+
   }
 }

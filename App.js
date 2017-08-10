@@ -2,13 +2,14 @@ import React, {Component} from 'react';
 import { AppRegistry, StyleSheet, Text, View,Button } from 'react-native';
 import { Provider } from 'react-redux'
 import BackgroundTimer from 'react-native-background-timer';
+import Authentication from "./components/Authentication"
 import Login from "./components/Login"
 import Logout from "./components/Logout"
 import Lobby from "./components/Lobby"
 import Room from "./components/Room"
 import Loading from "./components/Loading"
 import Game from "./components/Game"
-import GhostRoom from "./components/GhostRoom"
+//import GhostRoom from "./components/GhostRoom"
 import LocationWatcher from "./components/LocationWatcher"
 import store from './redux/store'
 import {locate} from './redux/actions'
@@ -35,12 +36,13 @@ console.log('Login', Login)
 
   }
   const Navigator = StackNavigator({
+    Authentication: {screen: Authentication},
     Login: { screen: Login },
     Lobby: { screen: Header(Lobby) },
     Room: { screen: Header(Room) },
     Loading: { screen: Header(Loading) },
     Game: { screen: Header(Game) },
-    GhostRoom: {screen: Header(GhostRoom)},
+    //GhostRoom: {screen: Header(GhostRoom)},
     Logout: {screen: Login}
   });
 
