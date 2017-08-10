@@ -275,12 +275,13 @@ app.get('/user/game/data/:username', (req, res) => {
      let distance = serve.getDistance()
      let target = serve.getTarget()
      let targetsTarget = serve.getTargetsTarget()
+     let listObj = serve.getListObj()
 
     if(err) {
       res.status(500).json({message:"I'm Daniel Boon, checkout my coon hat", err})
     }
     else {
-      res.json({success: "sup Daniel Boon", result, theta, distance, target, targetsTarget})
+      res.json({success: "sup Daniel Boon", result, theta, distance, target, targetsTarget, listObj})
     }
   })
 })
