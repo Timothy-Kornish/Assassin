@@ -21,10 +21,11 @@ class KillButton extends Component {
       fetch('/user/kill', {
         method : 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'x-access-token': this.props.token
         },
         body: JSON.stringify({username: this.props.username,
-                              list: result
+                              list: result.targets
         })
       })
     })

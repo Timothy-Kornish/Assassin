@@ -309,11 +309,11 @@ app.get('/user/list/:roomCode', (req, res) => {
 
 app.post('/user/kill', (req, res) => {
   const {list, username} = req.body
-  let serve = new serverFunk(list, username)
+  let serve = new ServerFunk(list, username)
   let theta = serve.getTheta()
   let distance = serve.getDistance()
   let target = serve.getTarget()
-  let targetsTarget = server.getTargetsTarget()
+  let targetsTarget = serve.getTargetsTarget()
 
   if(distance > 50){
     res.json({message: "You are out of range", distance})
