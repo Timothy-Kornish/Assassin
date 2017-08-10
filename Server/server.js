@@ -265,6 +265,7 @@ app.put('/user/heartbeat', (req, res) => {
   })
 })
 
+//user heartbeat 
 app.get('/user/game/data/:username', (req, res) => {
   let username = req.params.username
   let sql = `SELECT * FROM players`

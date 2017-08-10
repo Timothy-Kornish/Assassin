@@ -3,6 +3,7 @@ import { AppRegistry, StyleSheet, Text, View, Animated, Image, Easing  } from 'r
 import RNSimpleCompass from 'react-native-simple-compass'
 import {connect} from 'react-redux'
 
+
 class Compass extends Component {
 
   constructor(props) {
@@ -43,8 +44,8 @@ class Compass extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  angle: 270,//state.angleToTarget,
-  distance: 20//state.distanceToTarget
+  angle: 270,//state.theta,
+  distance: 20//state.distance
 })
 
 const centering = StyleSheet.create({

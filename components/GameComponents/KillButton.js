@@ -43,8 +43,8 @@ const mapStateToProps = (state) => {
     username: state.username,
     target: state.target,
     targetsTarget: state.targetsTarget,
-    isAlive : state.isAlive,
-    targetDistance: state.target.distance,
+    isAlive : state.alive,
+    targetDistance: state.distance,
     killable: state.killable,
     roomCode: state.roomCode,
     token: state.token
