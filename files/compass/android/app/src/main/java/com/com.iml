@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/compass" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="classes96" level="project" />
+    <orderEntry type="library" name="classes50" level="project" />
+    <orderEntry type="library" name="classes79" level="project" />
+    <orderEntry type="library" name="classes107" level="project" />
+    <orderEntry type="library" name="classes114" level="project" />
+    <orderEntry type="library" name="classes69" level="project" />
+    <orderEntry type="library" name="classes12" level="project" />
+    <orderEntry type="library" name="classes28" level="project" />
+    <orderEntry type="library" name="classes75" level="project" />
+    <orderEntry type="library" name="classes119" level="project" />
+    <orderEntry type="library" name="classes120" level="project" />
+    <orderEntry type="library" name="classes37" level="project" />
+    <orderEntry type="library" name="classes110" level="project" />
+    <orderEntry type="library" name="mockable-android-23" level="project" />
+    <orderEntry type="library" name="classes62" level="project" />
+    <orderEntry type="library" name="classes88" level="project" />
+    <orderEntry type="library" name="mockable-android-25" level="project" />
+    <orderEntry type="module" module-name="r" />
+    <orderEntry type="module" module-name="main3" />
+    <orderEntry type="module" module-name="r5" />
+    <orderEntry type="module" module-name="r4" />
+    <orderEntry type="module" module-name="androidTest4" />
+    <orderEntry type="module" module-name="test" />
+    <orderEntry type="module" module-name="r2" />
+    <orderEntry type="module" module-name="main4" />
+    <orderEntry type="module" module-name="r6" />
+    <orderEntry type="module" module-name="androidTest" />
+    <orderEntry type="module" module-name="androidTest1" />
+  </component>
+</module>
