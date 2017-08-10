@@ -136,7 +136,7 @@ app.put('/room/start', (req, res) => {
 
 app.put('/user/targets', (req, res) => {
   const {roomCode} = req.body
-  const sql = `SELECT username, admin FROM , playersToGames
+  const sql = `SELECT username, admin FROM playersToGames
               WHERE roomCode = ?`
   req.query(sql, [roomCode], (err, result) => {
     if(err){
