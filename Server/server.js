@@ -54,8 +54,18 @@ app.use(bodyParser.json())
 app.use(db.connectToDB.bind(db))
 app.use(express.static(path.join(__dirname, '..', 'build')))
 
+
+app.set('superSecret', "secretTUNNELthroughTHEmountain");
+
 app.post('/login', (req, res) => {
   const {username, password} = req.body
+
+  //======================================
+  //This should be done on a sign up route not on login
+  //This errors out when user already exists in DB
+
+  //TODO: Change to a sign up route and hash the password before storing it
+
   const sql = `INSERT INTO players (username, password)  VALUES (?, ?);`
   req.query(sql, [username, password], (err, result) => {
     if(err){
@@ -64,7 +74,81 @@ app.post('/login', (req, res) => {
       res.json({sucess: "well done, butch!", result})
     }
     })
+  //======================================
+
   })
+
+  app.post('/authenticate', (req, res) => {
+    const {username, password} = req.body
+    const userQuery = `SELECT username FROM players WHERE username = ?`
+    const passQuery = `SELECT password FROM players WHERE username = ?`
+
+
+    req.query(userQuery, [username], (err, result) => {
+      if(err){
+        console.log(err)
+        throw err
+      }
+      if(!result[0]) {
+        res.json({success: false, message: 'user not found'})
+      } else if(result[0]) {
+
+        req.query(passQuery, [username], (err, result) => {
+          if(err){
+            console.log(err)
+            throw err
+          }
+
+          //TODO: check the hashed value of the stored pwd against sent hash
+          if(result[0].password !== password) {
+            console.log(result[0].password)
+            res.json({success: false, message: 'password not found'})
+          } else if(result[0].password === password) {
+            var token = jwt.sign({username}, app.get('superSecret'), {
+              expiresIn: "2days"
+            });
+
+            res.json({success: true, message: "you're in", token })
+          } else {
+            res.json({message: "something went very wrong"})
+          }
+        })
+      }
+
+    })
+  })
+
+  app.use(function(req, res, next) {
+
+  // check header or url parameters or post parameters for token
+  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+  // decode token
+  if (token) {
+
+    // verifies secret and checks exp
+    jwt.verify(token, app.get('superSecret'), function(err, decoded) {
+      if (err) {
+        return res.json({ success: false, message: 'Failed to authenticate token.' });
+      } else {
+        // if everything is good, save to request for use in other routes
+        req.decoded = decoded;
+        next();
+      }
+    });
+
+  } else {
+
+    // if there is no token
+    // return an error
+    return res.status(403).send({
+        success: false,
+        message: 'No token provided.'
+    });
+
+  }
+});
+
 
   app.post('/joinTables', (req, res) => {
     let sql = `SELECT players.*, games.*
