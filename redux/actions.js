@@ -48,5 +48,3 @@ export function newPlayersWaiting(players, creator){
     creator
   }
 }
-
-export function ghostRoom
