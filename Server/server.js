@@ -2,6 +2,7 @@ const express = require('express')
 const path = require('path')
 const jwt = require('jsonwebtoken')
 var bodyParser = require('body-parser')
+const serverFunk = require('./server_funcs')
 
 const app = express()
 const players = []
@@ -188,6 +189,7 @@ app.get('/user/list/:roomCode', (req, res) => {
     if(err){
       res.status(500).json({message: "Butch, go help yer Uncle!", err})
     } else {
+
       let creator = ""
       targets = result.slice()
       result.forEach(val => {
@@ -296,24 +298,6 @@ app.put('/bringOutYerDead', (req, res) => {
   })
 })
 
-
-// app.get('/user/timeTest', (req, res) => {
-//   const sql =`Select lastUpdated from players `
-//     req.query(sql, (err, result) => {
-//       if(err){
-//         res.status(500).json({message: "gator got ye", err})
-//       } else {
-//           const timeLast = result[0].lastUpdated.getTime()
-//           console.log(timeLast)
-//           const timeNow = new Date().getTime()
-//           console.log(timeNow)
-//           const timeDiff = (Math.floor((timeNow - timeLast)/1000)/60).toFixed(2)
-//           console.log(timeDiff)
-//         res.json({success: "Yeehaw, that gator got got!"})
-//
-//       }
-//     })
-// })
 
 app.get('/showPlayersToGamesTables', (req, res) => {
   const sql = `SELECT * from playersToGames`
