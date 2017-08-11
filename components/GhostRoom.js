@@ -27,11 +27,15 @@ class GhostRoom extends Component {
   }
 
   render(){
-    const names = 'bob' //this.props.ghostRoom.map(name => (<Text> {name + '/n'} </Text>))
-       return(
+    const names = this.props.username
+    const theFallen = names
+    if(theFallen.alive === 'false'){
+      return this.props.theFallen.map( => {} <Text>{theFallen + '/n'} </Text>)
+        }//this.props.username.map( => {}(<Text> {names + '/n'} </Text>)) do an if statement to determine life status?
+        return(
+        <View>
           <View>
-            <View>
-              <Text>The Fallen: {names}</Text>
+            <Text>The Fallen: {names}</Text>
               <Text>"Through me you go into a city of weeping; through me you go into eternal pain; through me you go amongst the lost people"</Text>
               <Text>Abandon All Hope Ye Who Enter Here!</Text>
               <Button onPress={() => this.props.logout} title={'LogOut'}/>
