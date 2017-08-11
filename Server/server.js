@@ -58,23 +58,38 @@ app.use(express.static(path.join(__dirname, '..', 'build')))
 
 app.set('superSecret', "secretTUNNELthroughTHEmountain");
 
-app.post('/login', (req, res) => {
+app.post('/signup', (req, res) => {
   const {username, password} = req.body
+  const userQuery = `SELECT username FROM players WHERE username = ?`
 
+  req.query(userQuery, [username], (err, result) => {
+    if(err){
+      console.log(err)
+      throw err
+    }
+    if(!result[0]) {
+      const sql = `INSERT INTO players (username, password)  VALUES (?, ?);`
+      req.query(sql, [username, password], (err, result) => {
+        if(err){
+          res.status(500).json({message: 'Da database done broke, cuz', err})
+        } else {
+          var token = jwt.sign({username}, app.get('superSecret'), {
+            expiresIn: "2days"
+          });
+          res.json({sucess: "well done, butch!", result, token})
+        }
+      })
+    } else if(result[0]){
+      res.status(500).json({message: 'That there user already exists hog'})
+    }
+  })
   //======================================
   //This should be done on a sign up route not on login
   //This errors out when user already exists in DB
 
   //TODO: Change to a sign up route and hash the password before storing it
 
-  const sql = `INSERT INTO players (username, password)  VALUES (?, ?);`
-  req.query(sql, [username, password], (err, result) => {
-    if(err){
-      res.status(500).json({message: 'Da database done broke, cuz', err})
-    } else {
-      res.json({sucess: "well done, butch!", result})
-    }
-    })
+
   //======================================
 
   })
@@ -265,7 +280,7 @@ app.put('/user/heartbeat', (req, res) => {
   })
 })
 
-//user heartbeat 
+//user heartbeat
 app.get('/user/game/data/:username', (req, res) => {
   let username = req.params.username
   let sql = `SELECT * FROM players`
