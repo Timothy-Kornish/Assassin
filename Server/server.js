@@ -60,9 +60,11 @@ app.set('superSecret', "secretTUNNELthroughTHEmountain");
 
 app.post('/signup', (req, res) => {
   const {username, password} = req.body
-  const userQuery = `SELECT username FROM players WHERE username = ?`
+  const userQuery = `SELECT * FROM players WHERE username = ?`
 
   req.query(userQuery, [username], (err, result) => {
+    console.log("error in select * ",err)
+    console.log("result is ",result)
     if(err){
       console.log(err)
       throw err

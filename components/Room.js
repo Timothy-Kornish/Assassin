@@ -16,6 +16,7 @@ class Room extends Component {
     }
 
   updatePlayers(){
+    console.log("token ",this.props.token)
     fetch(apiUrl + `/user/list/${this.props.roomCode}`, {
      method: 'GET',
      headers: {
