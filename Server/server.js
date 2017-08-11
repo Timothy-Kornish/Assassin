@@ -58,11 +58,14 @@ app.use(express.static(path.join(__dirname, '..', 'build')))
 
 app.set('superSecret', "secretTUNNELthroughTHEmountain");
 
+//TODO: hash the password before storing it
 app.post('/signup', (req, res) => {
   const {username, password} = req.body
-  const userQuery = `SELECT username FROM players WHERE username = ?`
+  const userQuery = `SELECT * FROM players WHERE username = ?`
 
   req.query(userQuery, [username], (err, result) => {
+    console.log("error in select * ",err)
+    console.log("result is ",result)
     if(err){
       console.log(err)
       throw err
@@ -83,16 +86,7 @@ app.post('/signup', (req, res) => {
       res.status(500).json({message: 'That there user already exists hog'})
     }
   })
-  //======================================
-  //This should be done on a sign up route not on login
-  //This errors out when user already exists in DB
-
-  //TODO: Change to a sign up route and hash the password before storing it
-
-
-  //======================================
-
-  })
+})
 
   app.post('/authenticate', (req, res) => {
     const {username, password} = req.body
@@ -249,7 +243,6 @@ app.put('/user/targets', (req, res) => {
 
 app.put('/user/targets/assign', (req, res) => {
   let {result} = req.body
-  console.log(result)
   result = organizer(result)
   result = shuffle(result)
   let sql = SQLgen(result)

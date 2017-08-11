@@ -10,23 +10,26 @@ class GhostRoom extends Component {
     fetch(apiUrl + '/logout', {
       method: 'PUT',
       headers: {
-        "Content-Type": 'application/json'
+        "Content-Type": 'application/json',
+        'x-access-token' : this.props.token
       },
       body: JSON.stringify({username: this.props.username})
     })
   }
 
   RIP(){
+
     fetch(apiUrl + `/bringOutYerDead/${this.props.roomCode}`, {
      method: 'GET',
      headers: {
        'Content-Type' : 'application/json',
        'x-access-token' : this.props.token
      }
+
     })
     .then(response => response.json())
     .then(result => this.props.deadPlayers(result.players))
-    //this.props.playersWaiting(['Lauren','El Timo','Shannon','Kelsey'], 'Lauren');
+  
     console.log('GhostRoom is haunting', this.props.deadPlayers, (Date.now() - startTime) /1000);
    }
 
