@@ -8,11 +8,12 @@ class Loading extends Component {
 
 
  pressButton(){
-
+    var self = this;
     fetch(apiUrl + '/user/startCountDown', {
      method: 'PUT',
      headers: {
-       'Content-Type': 'application/json'
+       'Content-Type': 'application/json',
+       'x-access-token' : this.props.token
      },
         body: JSON.stringify({
           // token: this.props.token,
@@ -22,7 +23,7 @@ class Loading extends Component {
 
         })
     })
-    .then(()=>this.props.navigation.navigate('Game'))
+    .then(()=>self.props.navigation.navigate('Game'))
  }
 
 

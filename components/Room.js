@@ -16,18 +16,17 @@ class Room extends Component {
     }
 
   updatePlayers(){
-    console.log("token ",this.props.token)
-    fetch(apiUrl + `/user/list/${this.props.roomCode}`, {
+    var self = this;
+    fetch(apiUrl + `/user/list/${self.props.roomCode}`, {
      method: 'GET',
      headers: {
        'Content-Type' : 'application/json',
-       'x-access-token' : this.props.token
+       'x-access-token' : self.props.token
      }
     })
     .then(response => response.json())
-    .then(result => this.props.playersWaiting(result.players, result.creator))
-    //this.props.playersWaiting(['Lauren','El Timo','Shannon','Kelsey'], 'Lauren');
-    console.log('updatePlayers is firing with', this.props.playersWaiting, (Date.now() - startTime) /1000);
+    .then(result => self.props.playersWaiting(result.players, result.creator))
+    console.log('updatePlayers is firing with', self.props.playersWaiting, (Date.now() - startTime) /1000);
    }
 
   componentWillUnmount(){
@@ -35,46 +34,57 @@ class Room extends Component {
   }
 
  pressButton(){
-
+    var self = this;
     fetch(apiUrl + '/room/start', {
      method: 'PUT',
      headers: {
-       'Content-Type': 'application/json'
+       'Content-Type': 'application/json',
+       'x-access-token' : self.props.token
      },
         body: JSON.stringify({
-          //token: this.props.token,
-          roomCode: this.props.roomCode
+          roomCode: self.props.roomCode
         })
      })
     .then(()=> {
+      console.log("user/targets fired ")
       fetch(apiUrl + `/user/targets`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'x-access-token' : self.props.token
         },
         body: JSON.stringify({
-          roomCode: this.props.roomCode
+          roomCode: self.props.roomCode
         })
       })
     })
-    .then(response => response.json())
+    .then(response => {
+      console.log("response numero uno ", response)
+      return response.json()
+    })
     .then((responseData) =>{
+      console.log("grab targets ", responseData)
       fetch(apiUrl + `/user/targets/assign`, {
           method: 'PUT',
           header:{
             'Content-Type' : 'application/json',
-          // 'x-access-token' : this.props.token
+            'x-access-token' : self.props.token
       },
           body: JSON.stringify({
               result: responseData.result
           })
       })
     })
-    .then(response => response.json())
-    .then(result => this.props.assignTarget(result.target))
+    .then(response => {
+      return response.json()
+    })
+    .then(result => {
+      console.log("result is ",result)
+      self.props.assignTarget(result.target)
+    })
     .then((response) => {
         if (response.status === 200){
-        this.props.navigation.navigate('Loading')
+        self.props.navigation.navigate('Loading')
         }
      })
 
