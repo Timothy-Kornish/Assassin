@@ -399,10 +399,10 @@ app.put('user/logout', (req, res) => {
   })
 })
 
-app.put('/bringOutYerDead', (req, res) => {
-  const {roomCode} = req.body
-  const sql = `UPDATE players SET alive = 'false' WHEN username = ?`
-  req.query(sql, [username], (err, result) => {
+app.get('/bringOutYerDead/:roomCode', (req, res) => {
+  const deadRoomCode = roomcode req.params 
+  const sql = `SELECT players SET alive = 'false' WHEN username = ?`
+  req.query(sql, [roomCode], (err, result) => {
     if(err){
       res.status(500).json({message: "Here lies Butch, worst darned gator wrastler both sides of the Mississippi", err})
     } else {

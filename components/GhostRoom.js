@@ -18,29 +18,36 @@ class GhostRoom extends Component {
   }
 
   RIP(){
-    fetch(apiUrl + '/bringOutYerDead', {
-      method: 'PUT',
-      headers: {
-        "Content-Type": 'application/json',
-        'x-access-token' : this.props.token
-      },
-      body: JSON.stringify({username: this.props.username})
+
+    fetch(apiUrl + `/bringOutYerDead/${this.props.roomCode}`, {
+     method: 'GET',
+     headers: {
+       'Content-Type' : 'application/json',
+       'x-access-token' : this.props.token
+     }
+
     })
-  }
+    .then(response => response.json())
+    .then(result => this.props.deadPlayers(result.players))
+  
+    console.log('GhostRoom is haunting', this.props.deadPlayers, (Date.now() - startTime) /1000);
+   }
 
   render(){
-    const names = 'bob' //this.props.ghostRoom.map(name => (<Text> {name + '/n'} </Text>))
-       return(
+    const names = this.props.deadPlayers.map(names => (<Text key={names}> {names + '\n'} </Text>))
+    console.log("happy haunting", this.props.deadPlayers)
+        }
+        return(
+        <View>
           <View>
-            <View>
-              <Text>The Fallen: {names}</Text>
-              <Text>"Through me you go into a city of weeping; through me you go into eternal pain; through me you go amongst the lost people"</Text>
-              <Text>Abandon All Hope Ye Who Enter Here!</Text>
-              <Button onPress={() => this.props.logout} title={'LogOut'}/>
-            </View>
-            <Text>Into the eternal darkness, into fire and ice...I regret to inform you that you have been eliminated.  If you
-            wish, you may remain here and watch for the last heir.</Text>
+            <Text>The Fallen: {names}</Text>
+            <Text>"Through me you go into a city of weeping; through me you go into eternal pain; through me you go amongst the lost people"</Text>
+            <Text>Abandon All Hope Ye Who Enter Here!</Text>
+            <Button onPress={() => this.props.logout} title={'LogOut'}/>
           </View>
+          <Text>Into the eternal darkness, into fire and ice...I regret to inform you that you have been eliminated.  If you
+          wish, you may remain here and watch for the last heir.</Text>
+        </View>
           )
     }
   }
