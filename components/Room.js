@@ -98,6 +98,7 @@ class Room extends Component {
         <Text>Room Code is: {this.props.roomCode}</Text>
         <Text>Total Player: {this.props.waitingPlayers.length}</Text>
         <Text>{names}</Text>
+        <Text>Room Creator: {this.props.roomCreator}</Text>
         <Button onPress={this.pressButton.bind(this)} title={'start game'}/>
         </View>
       </View>

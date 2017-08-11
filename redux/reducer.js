@@ -15,7 +15,7 @@ export default function reducer(state, action){
         token: undefined
       }
     case 'locate':
-      console.log("locate reducer firing", action);
+      //console.log("locate reducer firing", action);
       return {
         ...state,
         longitude: action.longitude,

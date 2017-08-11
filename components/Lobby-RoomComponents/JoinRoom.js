@@ -17,16 +17,20 @@ class JoinRoom extends Component {
 
  joinOnClick(){
    var self = this;
-   Promise.resolve(this.props.joinroom(this.state.text))
-   .then(fetch(apiUrl + '/room/add', {
-          method: 'PUT',
-          headers: {
-            "Content-Type": 'application/json',
-            'x-access-token' : this.props.token
-          },
-          body: JSON.stringify({username: this.props.username,
-                           roomCode: this.state.text})
-    }))
+   console.log("Join On Click fired and kels is ", self.props.username)
+   self.props.joinroom(self.state.text)
+    console.log("then on fetch fired")
+    fetch(apiUrl + `/room/add`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": 'application/json',
+        "x-access-token": self.props.token
+      },
+      body: JSON.stringify({
+        username: self.props.username,
+        roomCode: self.state.text
+      })
+    })
     .then(()=>self.props.navigation.navigate('Room'))
  }
 

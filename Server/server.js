@@ -202,7 +202,7 @@ app.put('/room/admin', (req, res) => {
 
 app.put('/room/add',(req, res) => {
   const {username, roomCode} = req.body
-  console.log(username, roomCode)
+  console.log("the passed in user and room are ", username, roomCode)
   const sql = `INSERT INTO PlayersToGames
                 (roomCode, username)
                 VALUES (?,?);`
