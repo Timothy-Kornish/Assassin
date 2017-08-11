@@ -10,7 +10,8 @@ class GhostRoom extends Component {
     fetch(apiUrl + '/logout', {
       method: 'PUT',
       headers: {
-        "Content-Type": 'application/json'
+        "Content-Type": 'application/json',
+        'x-access-token' : this.props.token
       },
       body: JSON.stringify({username: this.props.username})
     })
@@ -20,7 +21,8 @@ class GhostRoom extends Component {
     fetch(apiUrl + '/bringOutYerDead', {
       method: 'PUT',
       headers: {
-        "Content-Type": 'application/json'
+        "Content-Type": 'application/json',
+        'x-access-token' : this.props.token
       },
       body: JSON.stringify({username: this.props.username})
     })

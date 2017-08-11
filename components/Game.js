@@ -40,7 +40,8 @@ kill(){
     fetch('/user/kill', {
      method: 'POST',
      headers: {
-       'Content-Type': 'application/json'
+       'Content-Type': 'application/json',
+       'x-access-token' : this.props.token
      },
      body: JSON.stringify({latitude: this.latitude,
                            longitude: this.longitude})
@@ -51,7 +52,8 @@ kill(){
     fetch('/user/location', {
      method: 'POST',
      headers: {
-       'Content-Type': 'application/json'
+       'Content-Type': 'application/json',
+       'x-access-token' : this.props.token
      },
      body: JSON.stringify({latitude: this.latitude,
                            longitude: this.longitude})
@@ -62,7 +64,8 @@ kill(){
     fetch('/user/heartbeat', {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'x-access-token' : this.props.token
       },
       body: JSON.stringify({latitude: this.latitude,
                             longitude: this.longitude,
@@ -80,7 +83,8 @@ kill(){
    fetch('/user/list/:roomCode', {
      method: 'GET',
      headers: {
-       'Content-Type': 'application/json'
+       'Content-Type': 'application/json',
+       'x-access-token' : this.props.token
      },
      body: JSON.stringify({username: this.username})
    })
@@ -91,7 +95,8 @@ kill(){
     fetch('/logout', {
       method: 'PUT',
       headers: {
-        "Content-Type": 'application/json'
+        "Content-Type": 'application/json',
+        'x-access-token' : this.props.token
       },
       body: JSON.stringify({username: this.username})
     })
