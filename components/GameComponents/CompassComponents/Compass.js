@@ -30,7 +30,7 @@ class Compass extends Component {
 
   componentDidMount() {
     this.updateAngle()
-    this.interval =setInterval(this.updateAngle, 100)
+    this.interval = setInterval(this.updateAngle, 100)
   }
 
   render() {

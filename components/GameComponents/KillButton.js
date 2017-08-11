@@ -55,8 +55,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     killTargetButton: (target, username, targetsTarget) => {dispatch(killTarget(target, username, targetsTarget))}
-    }
   }
 }
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(KillButton)

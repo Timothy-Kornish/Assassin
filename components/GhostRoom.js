@@ -27,7 +27,7 @@ class GhostRoom extends Component {
   }
 
   render(){
-    const name = this.props.ghostRoom.map(name => (<Text> {name + '/n'} </Text>))
+    const names = 'bob' //this.props.ghostRoom.map(name => (<Text> {name + '/n'} </Text>))
        return(
           <View>
             <View>
