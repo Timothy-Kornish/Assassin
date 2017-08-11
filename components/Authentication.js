@@ -22,7 +22,7 @@ class Authentication extends Component {
 
   async userLogout() {
     try {
-      await AsyncStorage.removeItem('x-access_token');
+      await AsyncStorage.removeItem('x-access-token');
     } catch (error) {
       console.log('AsyncStorage error: ' + error.message);
     }
@@ -41,7 +41,7 @@ class Authentication extends Component {
     })
     .then((response) => response.json())
     .then((responseData) => {
-      this.saveItem('x-access_token', responseData.token),
+      this.saveItem('x-access-token', responseData.token),
       Alert.alert( 'Signup Success!'),
       this.goToLobby();
     })
@@ -61,7 +61,7 @@ class Authentication extends Component {
     })
     .then((response) => response.json())
     .then((responseData) => {
-      this.saveItem('x-access_token', responseData.token),
+      this.saveItem('x-access-token', responseData.token),
       Alert.alert('Login Success!', responseData.token),
       this.goToLobby(responseData.token);
     })
