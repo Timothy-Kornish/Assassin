@@ -28,11 +28,9 @@ class Loading extends Component {
 
  render(){
     return (
-
-
      <View>
        <Text>From the offices of Gamboni and Valenicci</Text>
-       <Text> In the matter of the estate of "Mother"...
+        <Text> In the matter of the estate of "Mother"...
          NOTICE TO HEIRS
          To the heirs and devices of the above named estate, this is a formal notice that your aunt,
          known as "Mother", has died, and you may have an interest in Mother's estate.
@@ -48,7 +46,7 @@ class Loading extends Component {
          and permentantly and irrevocably disinherited. Press continue to accept.
          With regards and best wishes,
          Gamboni and Valenicci LLC
-
+         </Text>
           <Button onPress={this.pressButton.bind(this)} title={'Continue'}/>
       </View>
      )

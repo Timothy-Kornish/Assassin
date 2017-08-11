@@ -9,7 +9,7 @@ import Lobby from "./components/Lobby"
 import Room from "./components/Room"
 import Loading from "./components/Loading"
 import Game from "./components/Game"
-//import GhostRoom from "./components/GhostRoom"
+import GhostRoom from "./components/GhostRoom"
 import LocationWatcher from "./components/LocationWatcher"
 import store from './redux/store'
 import {locate} from './redux/actions'
@@ -42,7 +42,7 @@ console.log('Login', Login)
     Room: { screen: Header(Room) },
     Loading: { screen: Header(Loading) },
     Game: { screen: Header(Game) },
-    //GhostRoom: {screen: Header(GhostRoom)},
+    GhostRoom: {screen: Header(GhostRoom)},
     Logout: {screen: Login}
   });
 

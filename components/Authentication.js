@@ -105,6 +105,13 @@ class Authentication extends Component {
           <TouchableOpacity onPress={this.userSignup.bind(this)}>
             <Text> Sign Up </Text>
           </TouchableOpacity>
+
+          <Button onPress={() => this.props.navigation.navigate('Lobby')} title='Go To Lobby'/>
+          <Button onPress={() => this.props.navigation.navigate('Room')} title='Go To Room'/>
+          <Button onPress={() => this.props.navigation.navigate('Loading')} title='Go To Loading'/>
+          <Button onPress={() => this.props.navigation.navigate('Game')} title='Go To Game'/>
+          <Button onPress={() => this.props.navigation.navigate('GhostRoom')} title='Youre Dead to me'/>
+
         </View>
       </View>
     );

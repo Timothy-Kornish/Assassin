@@ -32,7 +32,7 @@ class Room extends Component {
   componentWillUnmount(){
     clearInterval(this.interval)
   }
- 
+
  pressButton(){
 
     fetch(apiUrl + '/room/start', {
@@ -58,14 +58,14 @@ class Room extends Component {
     })
     .then(response => response.json())
     .then((responseData) =>{
-      fetch(apiUrl + `/user/targets/assign`, { 
+      fetch(apiUrl + `/user/targets/assign`, {
           method: 'PUT',
           header:{
             'Content-Type' : 'application/json',
           // 'x-access-token' : this.props.token
-        }
+      },
           body: JSON.stringify({
-            result: responseData.result
+              result: responseData.result
           })
       })
     })
@@ -76,7 +76,7 @@ class Room extends Component {
         this.props.navigation.navigate('Loading')
         }
      })
-    
+
   }
   render(){
     const names = this.props.waitingPlayers.map(name => (<Text key={name}> {name + '\n'} </Text>))
