@@ -58,6 +58,7 @@ app.use(express.static(path.join(__dirname, '..', 'build')))
 
 app.set('superSecret', "secretTUNNELthroughTHEmountain");
 
+//TODO: hash the password before storing it
 app.post('/signup', (req, res) => {
   const {username, password} = req.body
   const userQuery = `SELECT * FROM players WHERE username = ?`
@@ -85,16 +86,7 @@ app.post('/signup', (req, res) => {
       res.status(500).json({message: 'That there user already exists hog'})
     }
   })
-  //======================================
-  //This should be done on a sign up route not on login
-  //This errors out when user already exists in DB
-
-  //TODO: Change to a sign up route and hash the password before storing it
-
-
-  //======================================
-
-  })
+})
 
   app.post('/authenticate', (req, res) => {
     const {username, password} = req.body
@@ -251,7 +243,6 @@ app.put('/user/targets', (req, res) => {
 
 app.put('/user/targets/assign', (req, res) => {
   let {result} = req.body
-  console.log(result)
   result = organizer(result)
   result = shuffle(result)
   let sql = SQLgen(result)
@@ -408,10 +399,10 @@ app.put('user/logout', (req, res) => {
   })
 })
 
-app.put('/bringOutYerDead', (req, res) => {
-  const {roomCode} = req.body
-  const sql = `UPDATE players SET alive = 'false' WHEN username = ?`
-  req.query(sql, [username], (err, result) => {
+app.get('/bringOutYerDead/:roomCode', (req, res) => {
+  const deadRoomCode = roomcode req.params 
+  const sql = `SELECT players SET alive = 'false' WHEN username = ?`
+  req.query(sql, [roomCode], (err, result) => {
     if(err){
       res.status(500).json({message: "Here lies Butch, worst darned gator wrastler both sides of the Mississippi", err})
     } else {

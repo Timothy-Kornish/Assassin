@@ -3,7 +3,7 @@ import { AppRegistry, StyleSheet, Text, View,Button } from 'react-native';
 import { Provider } from 'react-redux'
 import BackgroundTimer from 'react-native-background-timer';
 import Authentication from "./components/Authentication"
-import Login from "./components/Login"
+//import Login from "./components/Login"
 import Logout from "./components/Logout"
 import Lobby from "./components/Lobby"
 import Room from "./components/Room"
@@ -15,12 +15,11 @@ import store from './redux/store'
 import {locate} from './redux/actions'
 import {StackNavigator} from 'react-navigation'
 
-console.log('Login', Login)
 
 
   const Header = (Component) => (props) => {
     return (<View>
-        <Button title="Logout" onPress={()=>props.navigation.navigate('Login')} />
+        {/*<Button title="Logout" onPress={()=>props.navigation.navigate('Login')} />*/}
         <Component {...props}/>
       </View>)
       //logout of game
@@ -37,13 +36,13 @@ console.log('Login', Login)
   }
   const Navigator = StackNavigator({
     Authentication: {screen: Authentication},
-    Login: { screen: Login },
+    //Login: { screen: Login },
     Lobby: { screen: Header(Lobby) },
     Room: { screen: Header(Room) },
     Loading: { screen: Header(Loading) },
     Game: { screen: Header(Game) },
     GhostRoom: {screen: Header(GhostRoom)},
-    Logout: {screen: Login}
+    //Logout: {screen: Login}
   });
 
   AppRegistry.registerComponent('Navigator', () => Navigator);
