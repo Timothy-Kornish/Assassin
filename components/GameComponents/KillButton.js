@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, StyleSheet } from 'react-native'
+import { Button, StyleSheet} from 'react-native'
 import { connect } from 'react-redux'
 import KillTarget from '../../redux/actions'
 
@@ -34,7 +34,7 @@ class KillButton extends Component {
   }
 
   render(){
-    return <Button disabled={!this.props.killable} onPress={() => this.handleKill()} title='KILL TARGET'/>
+    return <Button color="red" disabled={!this.props.killable} onPress={() => this.handleKill()} title='KILL TARGET'/>
   }
 }
 
