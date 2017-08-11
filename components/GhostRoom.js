@@ -19,25 +19,25 @@ class GhostRoom extends Component {
 
   RIP(){
 
-    fetch(apiUrl + `/bringOutYerDead/${this.props.roomCode}`, {
-     method: 'GET',
-     headers: {
-       'Content-Type' : 'application/json',
-       'x-access-token' : this.props.token
-     }
+    // fetch(apiUrl + `/bringOutYerDead/${this.props.roomCode}`, {
+    //  method: 'GET',
+    //  headers: {
+    //    'Content-Type' : 'application/json',
+    //    'x-access-token' : this.props.token
+    //  }
+    //
+    // })
+    // .then(response => response.json())
+    // .then(result => this.props.deadPlayers(result.players))
 
-    })
-    .then(response => response.json())
-    .then(result => this.props.deadPlayers(result.players))
-  
-    console.log('GhostRoom is haunting', this.props.deadPlayers, (Date.now() - startTime) /1000);
+    //console.log('GhostRoom is haunting', this.props.deadPlayers, (Date.now() - startTime) /1000);
    }
 
   render(){
-    const names = this.props.deadPlayers.map(names => (<Text key={names}> {names + '\n'} </Text>))
-    console.log("happy haunting", this.props.deadPlayers)
-        }
-        return(
+  //  const names = this.props.deadPlayers.map(names => (<Text key={names}> {names + '\n'} </Text>))
+    //console.log("happy haunting", this.props.deadPlayers)
+
+        return (
         <View>
           <View>
             <Text>The Fallen: {names}</Text>
@@ -48,7 +48,7 @@ class GhostRoom extends Component {
           <Text>Into the eternal darkness, into fire and ice...I regret to inform you that you have been eliminated.  If you
           wish, you may remain here and watch for the last heir.</Text>
         </View>
-          )
+        )
     }
   }
 // const styles = StyleSheet.create({

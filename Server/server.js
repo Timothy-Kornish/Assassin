@@ -399,17 +399,17 @@ app.put('user/logout', (req, res) => {
   })
 })
 
-app.get('/bringOutYerDead/:roomCode', (req, res) => {
-  const deadRoomCode = roomcode req.params 
-  const sql = `SELECT players SET alive = 'false' WHEN username = ?`
-  req.query(sql, [roomCode], (err, result) => {
-    if(err){
-      res.status(500).json({message: "Here lies Butch, worst darned gator wrastler both sides of the Mississippi", err})
-    } else {
-      res.json({success: "Cletus done got that there Gator that kill't his best buddy Butch", success})
-    }
-  })
-})
+// app.get('/bringOutYerDead/:roomCode', (req, res) => {
+//   const deadRoomCode = req.params.roomCode
+//   const sql = `SELECT * FROM players, playersToGames where  alive = 'false', roomCode = ?`
+//   req.query(sql, [roomCode], (err, result) => {
+//     if(err){
+//       res.status(500).json({message: "Here lies Butch, worst darned gator wrastler both sides of the Mississippi", err})
+//     } else {
+//       res.json({success: "Cletus done got that there Gator that kill't his best buddy Butch", success})
+//     }
+//   })
+// })
 
 
 app.get('/showPlayersToGamesTables', (req, res) => {
