@@ -56,13 +56,14 @@ app.use(db.connectToDB.bind(db))
 app.use(express.static(path.join(__dirname, '..', 'build')))
 
 
-app.set('superSecret', "secretTUNNELthroughTHEmountain");
+ app.set('superSecret', "secretTUNNELthroughTHEmountain");
 
 app.post('/signup', (req, res) => {
   const {username, password} = req.body
   const userQuery = `SELECT username FROM players WHERE username = ?`
 
   req.query(userQuery, [username], (err, result) => {
+    console.log(err, result, "why you no work?")
     if(err){
       console.log(err)
       throw err
@@ -134,7 +135,7 @@ app.post('/signup', (req, res) => {
     })
   })
 
-  app.use(function(req, res, next) {
+app.use(function(req, res, next) {
 
   // check header or url parameters or post parameters for token
   var token = req.body.token || req.query.token || req.headers['x-access-token'];
@@ -407,17 +408,28 @@ app.put('user/logout', (req, res) => {
 })
 
 app.put('/bringOutYerDead', (req, res) => {
-  const {roomCode} = req.body
-  const sql = `UPDATE players SET alive = 'false' WHEN username = ?`
+  const {username} = req.body
+  const sql = `UPDATE players SET alive = 'false' WHERE username = ?`
   req.query(sql, [username], (err, result) => {
     if(err){
       res.status(500).json({message: "Here lies Butch, worst darned gator wrastler both sides of the Mississippi", err})
     } else {
-      res.json({success: "Cletus done got that there Gator that kill't his best buddy Butch", success})
+      res.json({success: "Cletus done got that there Gator that kill't his best buddy Butch", result})
     }
   })
 })
 
+app.get('/RIP/:roomCode', (req, res) => {
+  let roomCode = req.params.roomCode
+  const sql = `SELECT * from playersToGames where roomCode = '${roomCode}'`
+  req.query(sql, (err, result) => {
+    if(err){
+      res.status(500).json({message:"This joke done died", err})
+    } else {
+      res.json({success: "Thank you, Cletus for learnin' me to help Uncle Jack, off the horse", result})
+    }
+  })
+})
 
 app.get('/showPlayersToGamesTables', (req, res) => {
   const sql = `SELECT * from playersToGames`
