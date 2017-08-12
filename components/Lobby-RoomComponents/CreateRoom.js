@@ -47,7 +47,8 @@ class CreateRoom extends Component {
       fetch(apiUrl + '/room/admin', {
       method: 'PUT',
       headers: {
-        "Content-Type": 'application/json'
+        "Content-Type": 'application/json',
+        "x-access-token": self.props.token
       },
       body: JSON.stringify({
                             username: self.props.username,

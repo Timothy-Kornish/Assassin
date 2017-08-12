@@ -12,11 +12,11 @@ class GhostRoom extends Component {
       headers: {
         "Content-Type": 'application/json',
         'x-access-token': this.props.token
+
       },
       body: JSON.stringify({username: this.props.username})
     })
   }
-
 
 
   bringOutYerDead(){
@@ -92,6 +92,7 @@ class GhostRoom extends Component {
           wish, you may remain here and watch for the last heir.</Text>
         </View>
           )
+
     }
   }
 // const styles = StyleSheet.create({

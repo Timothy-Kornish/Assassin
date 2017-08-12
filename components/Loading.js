@@ -8,11 +8,12 @@ class Loading extends Component {
 
 
  pressButton(){
-
+    var self = this;
     fetch(apiUrl + '/user/startCountDown', {
      method: 'PUT',
      headers: {
-       'Content-Type': 'application/json'
+       'Content-Type': 'application/json',
+       'x-access-token' : this.props.token
      },
         body: JSON.stringify({
           // token: this.props.token,
@@ -22,7 +23,7 @@ class Loading extends Component {
 
         })
     })
-    .then(()=>this.props.navigation.navigate('Game'))
+    .then(()=>self.props.navigation.navigate('Game'))
  }
 
 
@@ -30,7 +31,7 @@ class Loading extends Component {
     return (
      <View>
        <Text>From the offices of Gamboni and Valenicci</Text>
-        <Text> In the matter of the estate of "Mother"...
+       <Text> In the matter of the estate of "Mother"...
          NOTICE TO HEIRS
          To the heirs and devices of the above named estate, this is a formal notice that your aunt,
          known as "Mother", has died, and you may have an interest in Mother's estate.
