@@ -18,8 +18,7 @@ class JoinRoom extends Component {
  joinOnClick(){
    var self = this;
    console.log("Join On Click fired and kels is ", self.props.username)
-   self.props.joinroom(self.state.text)
-    console.log("then on fetch fired")
+   self.props.joinroom(self.state.text, self.props.username)
     fetch(apiUrl + `/room/add`, {
       method: "PUT",
       headers: {
@@ -31,7 +30,11 @@ class JoinRoom extends Component {
         roomCode: self.state.text
       })
     })
-    .then(()=>self.props.navigation.navigate('Room'))
+    .then((response)=>{
+      console.log("Room add res ", response.json())
+      console.log("Navigating to Room")
+      self.props.navigation.navigate('Room')
+    })
  }
 
  render(){
@@ -54,13 +57,14 @@ class JoinRoom extends Component {
 const mapStateToProps = (state) => {
   return {
     username: state.username,
-    roomCode: state.roomCode
+    roomCode: state.roomCode,
+    token: state.token
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    joinroom: (roomCode) =>{dispatch(joinroom(roomCode))}
+    joinroom: (roomCode, username) =>{dispatch(joinroom(roomCode, username))}
   }
 
 }

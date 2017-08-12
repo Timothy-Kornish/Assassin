@@ -16,8 +16,6 @@ class Loading extends Component {
        'x-access-token' : this.props.token
      },
         body: JSON.stringify({
-          // token: this.props.token,
-
           roomCode: this.props.roomCode,
           username: this.props.username
 

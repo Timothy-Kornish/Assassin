@@ -26,7 +26,8 @@ export default function reducer(state, action){
       console.log("joinroom reducer firing", action);
         return {
           ...state,
-          roomCode: action.roomCode
+          roomCode: action.roomCode,
+          username: action.username
         }
       case 'createroom':
         console.log("createroom reducer firing", action);

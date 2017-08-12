@@ -3,7 +3,7 @@ import {Button, View, Text, FlatList, StyleSheet} from 'react-native'
 import {connect} from 'react-redux'
 import {StackNavigator} from 'react-navigation'
 import {newPlayersWaiting} from '../redux/actions'
-import {newAssignTarget} from '../redux/actions'
+import {newAssignedTarget} from '../redux/actions'
 import {apiUrl} from '../localConfig'
 
 let startTime = Date.now()
@@ -46,48 +46,47 @@ class Room extends Component {
         })
      })
     .then(()=> {
-      console.log("user/targets fired ")
-      fetch(apiUrl + `/user/targets`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-access-token' : self.props.token
-        },
-        body: JSON.stringify({
-          roomCode: self.props.roomCode
-        })
-      })
-    })
-    .then(response => {
-      console.log("response numero uno ", response)
-      return response.json()
-    })
-    .then((responseData) =>{
-      console.log("grab targets ", responseData)
-      fetch(apiUrl + `/user/targets/assign`, {
+        console.log("user/targets fired ")
+        fetch(apiUrl + `/user/targets`, {
           method: 'PUT',
-          header:{
-            'Content-Type' : 'application/json',
+          headers: {
+            'Content-Type': 'application/json',
             'x-access-token' : self.props.token
-      },
+          },
           body: JSON.stringify({
-              result: responseData.result
+            roomCode: self.props.roomCode
           })
+        })
+      .then(response => response.json())
+      .then((responseData) =>{
+            console.log("grab targets ", responseData)
+            console.log("token before user/targets/assign ", self.props.token)
+            fetch(apiUrl + `/user/targets/assign`, {
+                method: 'PUT',
+                headers:{
+                  'Content-Type' : 'application/json',
+                  'x-access-token' : self.props.token
+                },
+                body: JSON.stringify({
+                    result: responseData.result
+                })
+            })
+            .then(() => {
+              fetch(apiUrl + `/user/game/data/${self.props.username}`, {
+                method: 'GET',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'x-access-token': self.props.token
+                }
+              })
+              .then((response) => response.json())
+              .then((responseData) => self.props.assignTarget(responseData.target))
+              .then(() => {
+              self.props.navigation.navigate('Loading')
+              })
+            })
       })
     })
-    .then(response => {
-      return response.json()
-    })
-    .then(result => {
-      console.log("result is ",result)
-      self.props.assignTarget(result.target)
-    })
-    .then((response) => {
-        if (response.status === 200){
-        self.props.navigation.navigate('Loading')
-        }
-     })
-
   }
   render(){
     const names = this.props.waitingPlayers.map(name => (<Text key={name}> {name + '\n'} </Text>))
@@ -115,7 +114,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  assignTarget : (target) => {dispatch(newAssignTarget(target))},
+  assignTarget : (target) => {dispatch(newAssignedTarget(target))},
   playersWaiting : (players, creator) => {dispatch(newPlayersWaiting(players, creator))}
 })
 
