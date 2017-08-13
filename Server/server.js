@@ -188,6 +188,10 @@ app.use(function(req, res, next) {
   }
 });
 
+/*******************
+unnecessary route, never used
+********************/
+
 // join the tables on the database, probably not necesssary because of the foreign keys on database
 app.post('/joinTables', (req, res) => {
     let sql = `SELECT players.*, games.*
@@ -256,7 +260,13 @@ app.put('/room/start', (req, res) => {
     }
   })
 })
-// grabs data as preparation to assign targets
+
+/********************
+redundant route    use : user/list:roomCode
+********************/
+
+
+// grabs data as preparation to assign targets,
 app.put('/user/targets', (req, res) => {
   const {roomCode} = req.body
   const sql = `SELECT username, admin FROM playersToGames
@@ -327,7 +337,7 @@ app.get('/user/game/data/:username', (req, res) => {
 // grabs all players with their admin property inside a specific room
 app.get('/user/list/:roomCode', (req, res) => {
   const roomCode = req.params.roomCode
-  const sql = `SELECT username, admin FROM playersToGames WHERE roomCode = ?`
+  const sql = `SELECT * FROM playersToGames WHERE roomCode = ?`
   req.query(sql,[roomCode],(err, result) => {
     if(err){
       res.status(500).json({message: "Butch, go help yer Uncle!", err})
@@ -380,6 +390,11 @@ app.post('/user/kill', (req, res) => {
     })
   }
 })
+
+/**********************
+redundant route       use : user/heartbeat
+**********************/
+
 // updates players location on database, gets location from front-end
 app.put('/user/location', (req, res) => {
   const {latitude, longitude, username} = req.body
@@ -418,6 +433,12 @@ app.put('/user/hireable', (req, res) => {
     }
   })
 })
+
+/************************
+redundant route        use : user/startcountdount, maybe rename to make sense for both
+************************/
+
+
 //player logs out of game.
 app.put('user/logout', (req, res) => {
   const {username} = req.body
@@ -431,7 +452,13 @@ app.put('user/logout', (req, res) => {
     }
   })
 })
-// sets player alive status to false
+
+
+/************************
+redundant route         use : user/kill/
+************************/
+
+// sets player alive status to false, this is already updated in the route user/kill/
 app.put('/bringOutYerDead', (req, res) => {
   const {username} = req.body
   const sql = `UPDATE players SET alive = 'false' WHERE username = ?`
@@ -444,11 +471,15 @@ app.put('/bringOutYerDead', (req, res) => {
   })
 })
 
-// selects all players in a spceific room
+/************************
+redundant route        use : user/kill/:roomCode
+************************/
+
+// selects all players in a spceific room, already existing route called user/list/:roomCode
 app.get('/RIP/:roomCode', (req, res) => {
   let roomCode = req.params.roomCode
-  const sql = `SELECT * from playersToGames where roomCode = '${roomCode}'`
-  req.query(sql, (err, result) => {
+  const sql = `SELECT * from playersToGames where roomCode = ?`
+  req.query(sql, [roomCode] (err, result) => {
     if(err){
       res.status(500).json({message:"This joke done died", err})
     } else {
