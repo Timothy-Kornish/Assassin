@@ -44,7 +44,7 @@ class Authentication extends Component {
       console.log("responseData ", responseData)
       this.saveItem('x-access-token', responseData.token),
       Alert.alert( 'Signup Success!', responseData.token),
-      this.goToLobby(responseData.token);
+      this.goToLobby(this.state.username, responseData.token);
     })
     .done();
   }
@@ -64,13 +64,13 @@ class Authentication extends Component {
     .then((responseData) => {
       this.saveItem('x-access-token', responseData.token),
       Alert.alert('Login Success!', responseData.token),
-      this.goToLobby(responseData.token);
+      this.goToLobby(null, responseData.token);
     })
     .done();
   }
 
-  goToLobby(token){
-    this.props.login(this.state.username, token)
+  goToLobby(username, token){
+    this.props.login(username, token)
     this.props.navigation.navigate('Lobby')
   }
 

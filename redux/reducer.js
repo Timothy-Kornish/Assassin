@@ -22,13 +22,6 @@ export default function reducer(state, action){
         latitude: action.latitude,
         locationError: action.error
       }
-      case 'joinroom':
-      console.log("joinroom reducer firing", action);
-        return {
-          ...state,
-          roomCode: action.roomCode,
-          username: action.username
-        }
       case 'createroom':
         console.log("createroom reducer firing", action);
         return {
@@ -36,10 +29,12 @@ export default function reducer(state, action){
           roomCode: action.roomCode,
           roomCreator: action.username
         }
-      case 'newAssignedTarget':
-        return{
+      case 'joinroom':
+        console.log("joinroom reducer firing", action);
+        return {
           ...state,
-          target: action.target
+          roomCode: action.roomCode,
+          username: action.username
         }
       case 'newPlayersWaiting':
         console.log("newPlayersWaiting is firing", action)
@@ -48,10 +43,10 @@ export default function reducer(state, action){
           waitingPlayers: action.players,
           roomCreator: action.creator
         }
-      case 'newGhostRoom':
-        return {
+      case 'newAssignedTarget':
+        return{
           ...state,
-          ghostRoom : action.deadPlayers
+          target: action.target
         }
       case 'killTarget':
       console.log("killTarget is firing", action)
@@ -60,8 +55,12 @@ export default function reducer(state, action){
           target: state.target,
           targetsTarget: state.targetsTarget,
           targetDistance: state.target.distance,
-
         }
+      case 'newGhostRoom':
+        return {
+          ...state,
+          ghostRoom : action.deadPlayers
+        }      
     default:
       return state
   }

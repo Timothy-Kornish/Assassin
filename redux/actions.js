@@ -10,7 +10,6 @@ export function logout(){
     type: 'logout'
   }
 }
-
 export function locate(latitude, longitude, error) {
   return {
   	type: 'locate',
@@ -19,15 +18,6 @@ export function locate(latitude, longitude, error) {
   	error
   }
 }
-
-export function joinroom(roomCode, username) {
-  return {
-    type: 'joinroom',
-    roomCode,
-    username
-  }
-}
-
 export function createroom(roomCode, username) {
   return {
     type: 'createroom',
@@ -35,11 +25,11 @@ export function createroom(roomCode, username) {
     roomCreator: username
   }
 }
-
-export function newAssignedTarget(target){
+export function joinroom(roomCode, username) {
   return {
-    type: 'newAssignedTarget',
-    target
+    type: 'joinroom',
+    roomCode,
+    username
   }
 }
 export function newPlayersWaiting(players, creator){
@@ -49,19 +39,23 @@ export function newPlayersWaiting(players, creator){
     creator
   }
 }
-
-export function ghostRoom(deadPlayers){
+export function newAssignedTarget(target){
   return {
-    type: 'newGhostRoom',
-    deadPlayers
+    type: 'newAssignedTarget',
+    target
   }
 }
-
 export function killTarget(target, username, targetsTarget){
   type: 'killTarget',
   target,
   username,
   targetsTarget
   //something else
+}
+export function ghostRoom(deadPlayers){
+  return {
+    type: 'newGhostRoom',
+    deadPlayers
+  }
 }
 

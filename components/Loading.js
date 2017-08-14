@@ -2,27 +2,28 @@ import React, {Component} from 'react'
 import {Button, View, Text} from 'react-native'
 import {connect} from 'react-redux'
 import {StackNavigator} from 'react-navigation'
-import {apiUrl} from '../localConfig'
+//import {apiUrl} from '../localConfig'
 
 class Loading extends Component {
 
 
- pressButton(){
-    var self = this;
-    fetch(apiUrl + '/user/startCountDown', {
-     method: 'PUT',
-     headers: {
-       'Content-Type': 'application/json',
-       'x-access-token' : this.props.token
-     },
-        body: JSON.stringify({
-          roomCode: this.props.roomCode,
-          username: this.props.username
+  pressButton(){
+    // var self = this;
+    // fetch(apiUrl + '/user/startCountDown', {
+    //  method: 'PUT',
+    //  headers: {
+    //    'Content-Type': 'application/json',
+    //    'x-access-token' : this.props.token
+    //  },
+    //     body: JSON.stringify({
+    //       roomCode: this.props.roomCode,
+    //       username: this.props.username
 
-        })
-    })
-    .then(()=>self.props.navigation.navigate('Game'))
- }
+    //     })
+    // })
+    // .then(
+    self.props.navigation.navigate('Game')
+  }
 
 
  render(){
@@ -46,7 +47,7 @@ class Loading extends Component {
          With regards and best wishes,
          Gamboni and Valenicci LLC
          </Text>
-          <Button onPress={this.pressButton.bind(this)} title={'Continue'}/>
+          <Button onPress={() => this.props.navigation.navigate('Game')} title={'Continue'}/>
       </View>
      )
   }
