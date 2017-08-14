@@ -42,15 +42,15 @@ class Authentication extends Component {
 
   userSignup() {
     if (!this.state.username || !this.state.password) return;
-    // localhost doesn't work because the app is running inside an emulator. Get the IP address with ifconfig.
-    fetch(apiUrl + '/signup', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        username: this.state.username,
-        password: this.state.password,
+      // localhost doesn't work because the app is running inside an emulator. Get the IP address with ifconfig.
+      fetch(apiUrl + '/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: this.state.username,
+          password: this.state.password,
+        })
       })
-    })
     .then((response) => response.json())
     .then((responseData) => {
       console.log("responseData ", responseData)
@@ -65,12 +65,13 @@ class Authentication extends Component {
   userLogin() {
     if (!this.state.username || !this.state.password) return;
     // localhost doesn't work because the app is running inside an emulator. Get the IP address with ifconfig.
-    fetch(apiUrl + '/authenticate', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        username: this.state.username,
-        password: this.state.password,
+      fetch(apiUrl + '/authenticate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: this.state.username,
+          password: this.state.password,
+        })
       })
     })
     .then((response) => response.json())
@@ -80,7 +81,6 @@ class Authentication extends Component {
       Alert.alert('Login Success!', responseData.token),
       this.goToLobby(responseData.token, this.state.username);
     })
-    .done();
   }
 
   goToLobby(token, username){
