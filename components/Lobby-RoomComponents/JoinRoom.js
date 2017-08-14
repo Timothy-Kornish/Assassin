@@ -17,8 +17,9 @@ class JoinRoom extends Component {
 
  joinOnClick(){
    var self = this;
-   console.log("Join On Click fired and kels is ", self.props.username)
-   self.props.joinroom(self.state.text, self.props.username)
+  if(!self.state.roomCode){
+    console.log("Join On Click fired and kels is ", self.props.username)
+    self.props.joinroom(self.state.text, self.props.username)
     fetch(apiUrl + `/room/add`, {
       method: "PUT",
       headers: {
@@ -35,6 +36,10 @@ class JoinRoom extends Component {
       console.log("Navigating to Room")
       self.props.navigation.navigate('Room')
     })
+  }else{
+    Alert.alert('sorry', 'This room code does not exist')
+  }
+
  }
 
  render(){
@@ -43,6 +48,7 @@ class JoinRoom extends Component {
       <Text>Join Room</Text>
       <TextInput
         style={{height:40, borderWidth: 1}}
+        autoCapitalize ="characters"
         placeholder="Enter Room Code Here"
         onChangeText={(text) => this.setState({text})}/>
       <Button
