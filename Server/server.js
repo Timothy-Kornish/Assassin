@@ -83,7 +83,7 @@ app.use(express.static(path.join(__dirname, '..', 'build')))
 // setting the superSceret for sign up and login
 app.set('superSecret', "secretTUNNELthroughTHEmountain");
 
-// sign up page when user hits sign up button after enterin username and password
+// sign up page when user hits sign up button after entering username and password
 // first checks if user exists in the database, if username exists, sends a message that user exists
 // if username doesn't exist then the username and password are stored in the database
 //TODO: hash the password before storing it
@@ -117,7 +117,7 @@ app.post('/signup', (req, res) => {
     }
   })
 })
-// authenticate used when a person enters their username and passwor then hits the login Button
+// authenticate used when a person enters their username and password then hits the login Button
 // checks to see if they already exist, if not then sends a message: user not found
 // if the user exists then they are given a token
 app.post('/authenticate', (req, res) => {
@@ -132,7 +132,7 @@ app.post('/authenticate', (req, res) => {
       throw err
     }
     if(!result[0]) {
-      res.json({success: false, message: 'user not found'})
+      res.json({success: false, message: 'theys not from round here'})
     } else if(result[0]) {
 
       req.query(passQuery, [username], (err, result) => {
@@ -232,7 +232,7 @@ unnecessary route, never used
 ********************/
 
 // join the tables on the database, probably not necesssary because of the foreign keys on database
-// foreing keys make it so playersTO
+// foreign keys make it so playersTO
 
 app.post('/joinTables', (req, res) => {
     let sql = `SELECT players.*, games.*
@@ -422,7 +422,7 @@ app.post('/user/kill', (req, res) => {
   if(distance > 50){
     res.json({message: "You are out of range", distance})
   }
-  else if(listObj[username].hireable && listObj[username].aive){
+  else if(listObj[username].hireable && listObj[username].alive){
     const sql = `UPDATE players SET alive =
                   CASE username
                   WHEN ? THEN 'false'
