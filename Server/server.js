@@ -2,6 +2,7 @@ const express = require('express')
 const path = require('path')
 const jwt = require('jsonwebtoken')
 var bodyParser = require('body-parser')
+const bcrypt = require('bcrypt')
 const ServerFunk = require('./server_funcs')
 
 const app = express()
@@ -60,7 +61,8 @@ app.use(express.static(path.join(__dirname, '..', 'build')))
 
 //TODO: hash the password before storing it
 app.post('/signup', (req, res) => {
-  const {username, password} = req.body
+  const {username} = req.body
+  const password = bcrypt.hashSync(req.body.password, 10)
   const userQuery = `SELECT * FROM players WHERE username = ?`
 
   req.query(userQuery, [username], (err, result) => {
@@ -108,10 +110,10 @@ app.post('/signup', (req, res) => {
           }
 
           //TODO: check the hashed value of the stored pwd against sent hash
-          if(result[0].password !== password) {
+          if(!bcrypt.compareSync(password, result[0].password)) {
             console.log(result[0].password)
             res.json({success: false, message: 'password not found'})
-          } else if(result[0].password === password) {
+          } else if(bcrypt.compareSync(password, result[0].password)) {
             var token = jwt.sign({username}, app.get('superSecret'), {
               expiresIn: "2days"
             });
