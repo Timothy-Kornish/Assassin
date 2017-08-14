@@ -36,24 +36,15 @@ Alert = () => {
    )
 }
 
-kill(){
-    fetch('/user/kill', {
-     method: 'POST',
-     headers: {
-       'Content-Type': 'application/json',
-       'x-access-token' : this.props.token
-     },
-     body: JSON.stringify({latitude: this.latitude,
-                           longitude: this.longitude})
-    })
-  }
+  })
+
+
 
   locationUpdate(){
     fetch('/user/location', {
      method: 'POST',
      headers: {
-       'Content-Type': 'application/json',
-       'x-access-token' : this.props.token
+       'Content-Type': 'application/json'
      },
      body: JSON.stringify({latitude: this.latitude,
                            longitude: this.longitude})
@@ -61,19 +52,68 @@ kill(){
   }
 
   heartbeatMonitor(){
+    let self = this
     fetch('/user/heartbeat', {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json',
-        'x-access-token' : this.props.token
+        'Content-Type': 'application/json'
       },
-      body: JSON.stringify({latitude: this.latitude,
-                            longitude: this.longitude,
-                            time: this.time,
-                            target: this.target
+      body: JSON.stringify({latitude: this.props.latitude,
+                            longitude: this.props.longitude,
+                            time: this.props.time,
+                            username: this.props.username
                           })
     })
+
+    then(() = {
+      fetch(apiUrl + 'username/game/data/${self.props.username}', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-access-token': 'self.props.token'
+        },
+      })
+      .then((response) => response.json())
+      .then((responseData) => this.props.heartbeat)//??????
+    }
+
+
+    })
+componentDidMount(){
+  this.interval = setInterval(this.heartbeat.bing(this), 3000)
+  console.log("the count is three, two, one...and repeat")
+}
+
+//here put function for the timer.
+componentWillUnmount(){
+  clearInterval(this.interval)
+}
+murderForHire() {
+  fetch(apiURL + 'user/hireable', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-access-token': 'self.props.token'
+    },
+  })
+
+}
+
+
+
+kill(){
+    fetch('/user/kill', {
+     method: 'POST',
+     headers: {
+       'Content-Type': 'application/json',
+       'x-access-token': this.props.token
+     },
+     body: JSON.stringify({latitude: this.props.latitude,
+                           longitude: this.props.longitude})
+    })
   }
+  //when play logs in, begin the countdown to hireablity.  Time should be two minutes from LastUpdated.
+//if the player is logged in, they are active.  CHeck their location, timeStamp, and alive status.
 
  // compass(){
  //   //fetch()to be determined
@@ -83,24 +123,13 @@ kill(){
    fetch('/user/list/:roomCode', {
      method: 'GET',
      headers: {
-       'Content-Type': 'application/json',
-       'x-access-token' : this.props.token
+       'Content-Type': 'application/json'
      },
-     body: JSON.stringify({username: this.username})
+     body: JSON.stringify({username: this.props.username})
    })
  }
 
-//logout of game
-  logout(){
-    fetch('/logout', {
-      method: 'PUT',
-      headers: {
-        "Content-Type": 'application/json',
-        'x-access-token' : this.props.token
-      },
-      body: JSON.stringify({username: this.username})
-    })
-  }
+
 //do we want the ghost room to be an automatic redirect?
   render(){
     return (
@@ -125,3 +154,23 @@ kill(){
 
   }
 }
+
+const mapStateToProps = (state) => ({
+  token: state.token,
+  latitude: state.latitude,
+  longitude: state.longitude,
+  username: state.username,
+  target: state.target,
+  kill: state.kill,
+  heartbeat: state.heartbeat,
+  time: state.time
+
+})
+
+mapDispatchToProps = (dispatch) => {
+
+}
+
+const GameConnector = connect(mapStateToProps, mapDispatchToProps)
+
+export default GameConnector(Game)

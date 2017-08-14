@@ -1,13 +1,31 @@
-export function login(username, token) {
+export function login(username) {
   return {
     type: 'login',
     username,
+  }
+}
+
+export function authenticate(token) {
+  return {
+    type: 'authenticate',
     token
   }
 }
 export function logout(){
   return {
     type: 'logout'
+  }
+}
+
+export function startTime() {
+  return {
+    type: 'startTime'
+  }
+}
+
+export function endTime() {
+  return {
+    type: 'endTime'
   }
 }
 
@@ -64,4 +82,3 @@ export function killTarget(target, username, targetsTarget){
   targetsTarget
   //something else
 }
-

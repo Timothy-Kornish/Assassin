@@ -6,6 +6,8 @@ import JoinRoom from './Lobby-RoomComponents/JoinRoom'
 import CreateRoom from './Lobby-RoomComponents/CreateRoom'
 
 export default class Lobby extends Component {
+
+
   render(){
         return (
           <View>

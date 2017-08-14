@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Button, View, Text, StyleSheet} from 'react-native'
 import {connect} from 'react-redux'
 import {StackNavigator} from 'react-navigation'
+import {ghostRoom} from '../redux/actions'
 import {apiUrl} from '../localConfig'
 
 
@@ -79,7 +80,7 @@ class GhostRoom extends Component {
   render(){
     const names = this.props.deadPlayers.map(names => (<Text key={names}> {names + '\n'} </Text>))
     console.log("happy haunting", this.props.deadPlayers)
-        
+
         return(
         <View>
           <View>

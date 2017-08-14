@@ -3,31 +3,15 @@ import {Button, View, Text} from 'react-native'
 import {connect} from 'react-redux'
 import {StackNavigator} from 'react-navigation'
 import {apiUrl} from '../localConfig'
+import {Timer} from '../GameComponents/timer'
+
+
 
 class Loading extends Component {
-
-
- pressButton(){
-    var self = this;
-    fetch(apiUrl + '/user/startCountDown', {
-     method: 'PUT',
-     headers: {
-       'Content-Type': 'application/json',
-       'x-access-token' : this.props.token
-     },
-        body: JSON.stringify({
-          roomCode: this.props.roomCode,
-          username: this.props.username
-
-        })
-    })
-    .then(()=>self.props.navigation.navigate('Game'))
- }
-
-
- render(){
+  render(){
     return (
      <View>
+       <Timer/>
        <Text>From the offices of Gamboni and Valenicci</Text>
        <Text> In the matter of the estate of "Mother"...
          NOTICE TO HEIRS
@@ -45,8 +29,8 @@ class Loading extends Component {
          and permentantly and irrevocably disinherited. Press continue to accept.
          With regards and best wishes,
          Gamboni and Valenicci LLC
-         </Text>
-          <Button onPress={this.pressButton.bind(this)} title={'Continue'}/>
+       </Text>
+       <Button onPress={this.props.navigate('Game')} title={'Continue'}/>
       </View>
      )
   }

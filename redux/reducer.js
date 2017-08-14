@@ -5,6 +5,12 @@ export default function reducer(state, action){
       return {
         ...state,
         username: action.username,
+      }
+
+    case 'authenticate':
+      console.log('authenticate reducer is firing');
+      return {
+        ...state,
         token: action.token
       }
     case 'logout':
@@ -14,6 +20,21 @@ export default function reducer(state, action){
         username: undefined,
         token: undefined
       }
+
+    case 'startTime':
+      console.log("startTime reducer is firing");
+      return {
+        ...state,
+        startTime: actions.startTime,
+
+      }
+    case 'endTime':
+      console.log("endTime reducer is firing");
+      return {
+        ...state,
+        endTime: actions.endTime
+      }
+
     case 'locate':
       //console.log("locate reducer firing", action);
       return {
