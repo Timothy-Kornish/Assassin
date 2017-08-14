@@ -81,7 +81,7 @@ app.use(db.connectToDB.bind(db))
 app.use(express.static(path.join(__dirname, '..', 'build')))
 
 // setting the superSceret for sign up and login
- app.set('superSecret', "secretTUNNELthroughTHEmountain");
+app.set('superSecret', "secretTUNNELthroughTHEmountain");
 
 // sign up page when user hits sign up button after enterin username and password
 // first checks if user exists in the database, if username exists, sends a message that user exists
@@ -100,12 +100,15 @@ app.post('/signup', (req, res) => {
     if(!result[0]) {
       const sql = `INSERT INTO players (username, password)  VALUES (?, ?);`
       req.query(sql, [username, password], (err, result) => {
+        
         if(err){
           res.status(500).json({message: 'Da database done broke, cuz', err})
+          
         } else {
           var token = jwt.sign({username}, app.get('superSecret'), {
             expiresIn: "2days"
           });
+          
           res.json({sucess: "well done, butch!", result, token})
         }
       })
@@ -118,45 +121,81 @@ app.post('/signup', (req, res) => {
 // checks to see if they already exist, if not then sends a message: user not found
 // if the user exists then they are given a token
 app.post('/authenticate', (req, res) => {
-    const {username, password} = req.body
-    const userQuery = `SELECT username FROM players WHERE username = ?`
-    const passQuery = `SELECT password FROM players WHERE username = ?`
+  const {username, password} = req.body
+  const userQuery = `SELECT username FROM players WHERE username = ?`
+  const passQuery = `SELECT password FROM players WHERE username = ?`
 
 
-    req.query(userQuery, [username], (err, result) => {
-      if(err){
-        console.log(err)
-        throw err
-      }
-      if(!result[0]) {
-        res.json({success: false, message: 'user not found'})
-      } else if(result[0]) {
+  req.query(userQuery, [username], (err, result) => {
+    if(err){
+      console.log(err)
+      throw err
+    }
+    if(!result[0]) {
+      res.json({success: false, message: 'user not found'})
+    } else if(result[0]) {
 
-        req.query(passQuery, [username], (err, result) => {
-          if(err){
-            console.log(err)
-            throw err
-          }
+      req.query(passQuery, [username], (err, result) => {
+        if(err){
+          console.log(err)
+          throw err
+        }
 
-          //TODO: check the hashed value of the stored pwd against sent hash
-          if(!bcrypt.compareSync(password, result[0].password)) {
-            console.log(result[0].password)
-            res.json({success: false, message: 'password not found'})
-          } else if(bcrypt.compareSync(password, result[0].password)) {
-            var token = jwt.sign({username}, app.get('superSecret'), {
-              expiresIn: "2days"
-            });
+        //TODO: check the hashed value of the stored pwd against sent hash
+        if(!bcrypt.compareSync(password, result[0].password)) {
+          console.log(result[0].password)
+          res.json({success: false, message: 'password not found'})
+        } else if(bcrypt.compareSync(password, result[0].password)) {
+          var token = jwt.sign({username}, app.get('superSecret'), {
+            expiresIn: "2days"
+          });
 
-            res.json({success: true, message: "you're in", token })
-          } else {
-            res.json({message: "something went very wrong"})
-          }
-        })
-      }
-
-    })
+          res.json({success: true, message: "you're in", token })
+        } else {
+          res.json({message: "something went very wrong"})
+        }
+      })
+    }
+  })
 })
-// middleware after token is provided to front end,  every route then checks the token legitemacy before proceeding
+
+app.post('/auto/authenticate', (req, res) => {
+  const {username, token} = req.body;
+
+  const userQuery = `SELECT username FROM players WHERE username = ?`
+
+
+  req.query(userQuery, [username], (err, result) => {
+    if(err){
+
+      res.status(500).json({message: "dun had an error", err})
+
+    }if(!result[0]) {
+
+      res.json({success: false, message: 'user not found'})
+
+    } else {
+
+      jwt.verify(token, app.get('superSecret'), function(err, decoded) {
+        if (err) {
+
+          return res.json({ success: false, message: 'Failed to authenticate token.' });
+
+        } else {
+
+          return res.json({ success: true})
+
+        }
+      })
+
+    }
+  })
+})
+
+
+// middleware after token is provided to front end,  
+// every route then checks the token legitemacy before proceeding
+
 app.use(function(req, res, next) {
 
   // check header or url parameters or post parameters for token
@@ -262,7 +301,6 @@ app.put('/room/add',(req, res) => {
       })
     }
   })
-
 })
 // route  used when games is started to set all players alive stautus to true and the room to active
 app.put('/room/start', (req, res) => {

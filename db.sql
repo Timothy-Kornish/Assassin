@@ -25,7 +25,7 @@ CREATE TABLE players(
 
 CREATE TABLE playersToGames (
   roomCode VARCHAR(4) NOT NULL,
-  username VARCHAR(100) NOT NULL,
+  username VARCHAR(100) NOT NULL UNIQUE,
   admin VARCHAR(5) DEFAULT 'false' NOT NULL,
   FOREIGN KEY (roomCode)
     REFERENCES games(roomCode),
