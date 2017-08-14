@@ -34,7 +34,7 @@ class Compass extends Component {
   }
 
   render() {
-    let rotateAngle = this.props.angle - this.state.degree
+    let rotateAngle = this.props.angle - this.state.degree + 90
    return (<View style={centering.container}>
           <Text>Distance to target: {this.props.distance} feet</Text>
           <Animated.Image style={{width: 200, height: 200, transform:[{rotate: rotateAngle + "deg"}]}} source={require('./arrow.png')}/>
