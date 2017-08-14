@@ -57,11 +57,26 @@ export default function reducer(state, action){
       console.log("killTarget is firing", action)
         return{
           ...state,
-          target: state.target,
-          targetsTarget: state.targetsTarget,
-          targetDistance: state.target.distance,
-
+          target: action.target,
+          targetsTarget: action.targetsTarget,
+          targetDistance: action.target.distance,
         }
+      case 'newHeartBeat':
+        console.log("heartbeat is thumpin", action)
+          return{
+            ...state,
+            theta: action.theta,
+            distance: action.distance,
+            target: action.target,
+            targetsTarget: action.targetsTarget,
+            listObj: action.listObj
+          }
+      case 'newTime':
+        console.log("time is ticking", action)
+          return{
+            ...state,
+            time: action.time
+          }
     default:
       return state
   }

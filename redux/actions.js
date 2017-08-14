@@ -58,10 +58,30 @@ export function ghostRoom(deadPlayers){
 }
 
 export function killTarget(target, username, targetsTarget){
-  type: 'killTarget',
-  target,
-  username,
-  targetsTarget
-  //something else
+  return {
+    type: 'killTarget',
+    target,
+    username,
+    targetsTarget
+    //something else
+  }
 }
 
+export function newHeartBeat(theta, distance, target, targetsTarget, listObj){
+  return {
+    type: 'newHeartBeat',
+    theta,
+    distance,
+    target,
+    targetsTarget,
+    listObj
+  }
+}
+
+export function newTime(time){
+
+  return {
+    type: 'newTime',
+    time
+  }
+}
