@@ -128,6 +128,39 @@ app.post('/signup', (req, res) => {
     })
   })
 
+  app.post('/auto/authenticate', (req, res) => {
+    const {username, token} = req.body;
+
+    const userQuery = `SELECT username FROM players WHERE username = ?`
+
+
+    req.query(userQuery, [username], (err, result) => {
+      if(err){
+
+        res.status(500).json({message: "dun had an error", err})
+
+      }if(!result[0]) {
+
+        res.json({success: false, message: 'user not found'})
+
+      } else {
+
+        jwt.verify(token, app.get('superSecret'), function(err, decoded) {
+          if (err) {
+
+            return res.json({ success: false, message: 'Failed to authenticate token.' });
+
+          } else {
+
+            return res.json({ success: true})
+
+          }
+        })
+
+      }
+    })
+  })
+
 app.use(function(req, res, next) {
 
   // check header or url parameters or post parameters for token
