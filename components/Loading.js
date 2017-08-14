@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {Button, View, Text} from 'react-native'
 import {connect} from 'react-redux'
 import {StackNavigator} from 'react-navigation'
-//import {apiUrl} from '../localConfig'
+import {apiUrl} from '../localConfig'
 
 class Loading extends Component {
 
