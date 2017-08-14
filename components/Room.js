@@ -11,6 +11,7 @@ let startTime = Date.now()
 class Room extends Component {
 
   componentDidMount(){
+      this.startTime = Date.now()
       this.interval = setInterval(this.updatePlayers.bind(this), 3000)
       console.log("interval is firing every 3 seconds", (Date.now() - startTime) /1000)
     }
@@ -28,10 +29,6 @@ class Room extends Component {
     .then(result => self.props.playersWaiting(result.players, result.creator))
     console.log('updatePlayers is firing with', self.props.playersWaiting, (Date.now() - startTime) /1000);
    }
-
-  componentWillUnmount(){
-    clearInterval(this.interval)
-  }
 
  pressButton(){
     var self = this;
@@ -82,6 +79,7 @@ class Room extends Component {
               .then((response) => response.json())
               .then((responseData) => self.props.assignTarget(responseData.target))
               .then(() => {
+                clearInterval(this.interval)
               self.props.navigation.navigate('Loading')
               })
             })

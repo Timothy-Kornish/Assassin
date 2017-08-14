@@ -8,7 +8,7 @@ class Compass extends Component {
 
   constructor(props) {
       super(props)
-      this.state = {
+      this.state = { 
         degree: 0
       }
       this.rotateValue = new Animated.Value(0);
@@ -44,8 +44,8 @@ class Compass extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  angle: 270,//state.theta,
-  distance: 20//state.distance
+  angle: state.theta,
+  distance: state.distance
 })
 
 const centering = StyleSheet.create({
