@@ -9,10 +9,11 @@ class Authentication extends Component {
 
   constructor() {
     super();
-    this.state = { username: null, password: null };
+    this.state = { username: null, password: null, isLoaded: false };
   }
 
   async saveItem(item, selectedValue) {
+    console.log("item and selectedValue ", item, selectedValue)
     try {
       await AsyncStorage.setItem(item, selectedValue);
     } catch (error) {
@@ -25,6 +26,17 @@ class Authentication extends Component {
       await AsyncStorage.removeItem('x-access-token');
     } catch (error) {
       console.log('AsyncStorage error: ' + error.message);
+    }
+  }
+
+  async getItem(item) {
+    console.log("getting item ", item)
+    try {
+      var value = await AsyncStorage.getItem(item);
+      console.log("pulled value is ", value)
+      return value;
+    } catch (error) {
+      console.error('AsyncStorage error: ' + error.message);
     }
   }
 
@@ -43,8 +55,9 @@ class Authentication extends Component {
     .then((responseData) => {
       console.log("responseData ", responseData)
       this.saveItem('x-access-token', responseData.token),
+      this.saveItem('username', this.state.username),
       Alert.alert( 'Signup Success!', responseData.token),
-      this.goToLobby(responseData.token);
+      this.goToLobby(responseData.token, this.state.username);
     })
     .done();
   }
@@ -63,59 +76,94 @@ class Authentication extends Component {
     .then((response) => response.json())
     .then((responseData) => {
       this.saveItem('x-access-token', responseData.token),
+      this.saveItem('username', this.state.username),
       Alert.alert('Login Success!', responseData.token),
-      this.goToLobby(responseData.token);
+      this.goToLobby(responseData.token, this.state.username);
     })
     .done();
   }
 
-  goToLobby(token){
-    this.props.login(this.state.username, token)
+  goToLobby(token, username){
+    this.props.login(username, token)
     this.props.navigation.navigate('Lobby')
   }
 
+  async componentWillMount(){
+
+    const self = this;
+    console.log("componentWillMount fired")
+    var username  = await self.getItem("username")
+    var token = await self.getItem("x-access-token")
+
+
+    console.log("Token and username ", token, username)
+
+    fetch(apiUrl + '/auto/authenticate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: username,
+        token: token
+      })
+    })
+    .then((response) => response.json())
+    .then((responseData) => {
+      console.log("responseData ", responseData)
+      if(responseData.success){
+        self.goToLobby(token, username);
+      } else if(!responseData.success){
+        self.setState({isLoaded: true})
+        return null;
+      }
+    })
+  }
+
   render() {
-    return (
-      <View>
-        <Text> Welcome </Text>
-
+    if(!this.state.isLoaded){
+      return (<View><Text>Loading</Text></View>)
+    } else {
+      return (
         <View>
-          <TextInput
-            editable={true}
-            onChangeText={(username) => this.setState({username})}
-            placeholder='Username'
-            ref='username'
-            returnKeyType='next'
-            value={this.state.username}
-          />
+          <Text> Welcome </Text>
 
-          <TextInput
-            editable={true}
-            onChangeText={(password) => this.setState({password})}
-            placeholder='Password'
-            ref='password'
-            returnKeyType='next'
-            secureTextEntry={true}
-            value={this.state.password}
-          />
+          <View>
+            <TextInput
+              editable={true}
+              onChangeText={(username) => this.setState({username})}
+              placeholder='Username'
+              ref='username'
+              returnKeyType='next'
+              value={this.state.username}
+            />
 
-          <TouchableOpacity onPress={this.userLogin.bind(this)}>
-            <Text> Log In </Text>
-          </TouchableOpacity>
+            <TextInput
+              editable={true}
+              onChangeText={(password) => this.setState({password})}
+              placeholder='Password'
+              ref='password'
+              returnKeyType='next'
+              secureTextEntry={true}
+              value={this.state.password}
+            />
 
-          <TouchableOpacity onPress={this.userSignup.bind(this)}>
-            <Text> Sign Up </Text>
-          </TouchableOpacity>
+            <TouchableOpacity onPress={this.userLogin.bind(this)}>
+              <Text> Log In </Text>
+            </TouchableOpacity>
 
-          <Button onPress={() => this.props.navigation.navigate('Lobby')} title='Go To Lobby'/>
-          <Button onPress={() => this.props.navigation.navigate('Room')} title='Go To Room'/>
-          <Button onPress={() => this.props.navigation.navigate('Loading')} title='Go To Loading'/>
-          <Button onPress={() => this.props.navigation.navigate('Game')} title='Go To Game'/>
-          <Button onPress={() => this.props.navigation.navigate('GhostRoom')} title='Youre Dead to me'/>
+            <TouchableOpacity onPress={this.userSignup.bind(this)}>
+              <Text> Sign Up </Text>
+            </TouchableOpacity>
 
+            <Button onPress={() => this.props.navigation.navigate('Lobby')} title='Go To Lobby'/>
+            <Button onPress={() => this.props.navigation.navigate('Room')} title='Go To Room'/>
+            <Button onPress={() => this.props.navigation.navigate('Loading')} title='Go To Loading'/>
+            <Button onPress={() => this.props.navigation.navigate('Game')} title='Go To Game'/>
+            <Button onPress={() => this.props.navigation.navigate('GhostRoom')} title='Youre Dead to me'/>
+
+          </View>
         </View>
-      </View>
-    );
+      );
+    }
   }
 }
 
