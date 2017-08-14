@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import BackgroundTimer from 'react-native-background-timer';
 import Authentication from "./components/Authentication"
 //import Login from "./components/Login"
-import Logout from "./components/Logout"
+//import Logout from "./components/Logout"
 import Lobby from "./components/Lobby"
 import Room from "./components/Room"
 import Loading from "./components/Loading"

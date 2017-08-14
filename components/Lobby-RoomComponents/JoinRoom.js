@@ -38,7 +38,7 @@ class JoinRoom extends Component {
         style={{height:40, borderWidth: 1}}
         placeholder="Enter Room Code Here"
         onChangeText={(text) => this.setState({text})}/>
-      <Button
+      <Button color="grey"
         onPress={() => this.joinOnClick()}
         title={'Join Game'}>
       </Button>

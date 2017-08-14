@@ -63,7 +63,7 @@ class CreateRoom extends Component {
    return(
      <View>
       <Text>Create Room</Text>
-      <Button
+      <Button color="gray"
         onPress={this.createOnClick.bind(this)}
         title={'Create Game'}>
       </Button>

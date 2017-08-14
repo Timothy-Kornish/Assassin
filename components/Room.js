@@ -94,11 +94,11 @@ class Room extends Component {
     console.log("you son of a render", this.props.waitingPlayers)
     return (
       <View>
-        <View>
-        <Text>Room Code is: {this.props.roomCode}</Text>
-        <Text>Total Player: {this.props.waitingPlayers.length}</Text>
-        <Text>{names}</Text>
-        <Button onPress={this.pressButton.bind(this)} title={'start game'}/>
+        <View style={{backgroundColor: "black"}}>
+        <Text style={{color: "white"}}>Room Code is: {this.props.roomCode}</Text>
+        <Text style={{color: "white"}}>Total Player: {this.props.waitingPlayers.length}</Text>
+        <Text style={{color: "white"}}>{names}</Text>
+        <Button color="red" onPress={this.pressButton.bind(this)} title={'start game'}/>
         </View>
       </View>
       )
