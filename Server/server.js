@@ -247,7 +247,7 @@ app.put('/room/add',(req, res) => {
     }
     else {
       result.map(val => {
-        if (val.username == user){
+        if (val.username !== user){
           const sql = `INSERT INTO PlayersToGames
                         (roomCode, username)
                         VALUES (?,?);`
