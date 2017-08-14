@@ -8,7 +8,7 @@ class Compass extends Component {
 
   constructor(props) {
       super(props)
-      this.state = {
+      this.state = { 
         degree: 0
       }
       this.rotateValue = new Animated.Value(0);
