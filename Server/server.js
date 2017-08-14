@@ -12,6 +12,13 @@ const port = process.env.PORT || 3001;
 const Database = require('./dbfunk')
 const db = new Database()
 const users = {}
+
+/***********************************
+  testing and server-side functions to run in routes
+***********************************/
+
+
+// 4-character random generator for roomCode/testing
 const codeGen = () => {
   const codeVal = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
   let val = ""
@@ -20,6 +27,8 @@ const codeGen = () => {
   }
   return val
 }
+
+// shuffles array into new order, for target assignment
 const shuffle = (array) => {
  var m = array.length
  var t = 0
@@ -32,6 +41,9 @@ const shuffle = (array) => {
  }
  return array
 }
+
+// sql genterator for target assignment that loops through each player in a list
+// and assigns the next person as their target and accounts for out of bounds index
 const SQLgen = (array) => {
   var count = 0
   let SQLval = `UPDATE players SET target = CASE username `
@@ -44,6 +56,8 @@ const SQLgen = (array) => {
   return SQLval
 }
 
+
+//organizer function that flattens an array of objects to an array of names
 const organizer = (arr) => {
 	for(var i = 0; i < arr.length; i++){
 		arr[i]  = arr[i].username
@@ -51,14 +65,27 @@ const organizer = (arr) => {
   return arr
 }
 
+/***************************************
+app routes starting here, first is middleware
+so every route afterwards uses said middleware,
+ordering between middleware and routes selects
+which routes use what middleware
+***************************************/
+
+
+// middleware for parsing data into javascript and
+//connection to database
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(db.connectToDB.bind(db))
 app.use(express.static(path.join(__dirname, '..', 'build')))
 
+// setting the superSceret for sign up and login
+app.set('superSecret', "secretTUNNELthroughTHEmountain");
 
- app.set('superSecret', "secretTUNNELthroughTHEmountain");
-
+// sign up page when user hits sign up button after entering username and password
+// first checks if user exists in the database, if username exists, sends a message that user exists
+// if username doesn't exist then the username and password are stored in the database
 //TODO: hash the password before storing it
 app.post('/signup', (req, res) => {
   const {username} = req.body
@@ -73,12 +100,15 @@ app.post('/signup', (req, res) => {
     if(!result[0]) {
       const sql = `INSERT INTO players (username, password)  VALUES (?, ?);`
       req.query(sql, [username, password], (err, result) => {
+        
         if(err){
           res.status(500).json({message: 'Da database done broke, cuz', err})
+          
         } else {
           var token = jwt.sign({username}, app.get('superSecret'), {
             expiresIn: "2days"
           });
+          
           res.json({sucess: "well done, butch!", result, token})
         }
       })
@@ -87,79 +117,84 @@ app.post('/signup', (req, res) => {
     }
   })
 })
+// authenticate used when a person enters their username and password then hits the login Button
+// checks to see if they already exist, if not then sends a message: user not found
+// if the user exists then they are given a token
+app.post('/authenticate', (req, res) => {
+  const {username, password} = req.body
+  const userQuery = `SELECT username FROM players WHERE username = ?`
+  const passQuery = `SELECT password FROM players WHERE username = ?`
 
-  app.post('/authenticate', (req, res) => {
-    const {username, password} = req.body
-    const userQuery = `SELECT username FROM players WHERE username = ?`
-    const passQuery = `SELECT password FROM players WHERE username = ?`
 
+  req.query(userQuery, [username], (err, result) => {
+    if(err){
+      console.log(err)
+      throw err
+    }
+    if(!result[0]) {
+      res.json({success: false, message: 'theys not from round here'})
+    } else if(result[0]) {
 
-    req.query(userQuery, [username], (err, result) => {
-      if(err){
-        console.log(err)
-        throw err
-      }
-      if(!result[0]) {
-        res.json({success: false, message: 'user not found'})
-      } else if(result[0]) {
+      req.query(passQuery, [username], (err, result) => {
+        if(err){
+          console.log(err)
+          throw err
+        }
 
-        req.query(passQuery, [username], (err, result) => {
-          if(err){
-            console.log(err)
-            throw err
-          }
+        //TODO: check the hashed value of the stored pwd against sent hash
+        if(!bcrypt.compareSync(password, result[0].password)) {
+          console.log(result[0].password)
+          res.json({success: false, message: 'password not found'})
+        } else if(bcrypt.compareSync(password, result[0].password)) {
+          var token = jwt.sign({username}, app.get('superSecret'), {
+            expiresIn: "2days"
+          });
 
-          //TODO: check the hashed value of the stored pwd against sent hash
-          if(!bcrypt.compareSync(password, result[0].password)) {
-            console.log(result[0].password)
-            res.json({success: false, message: 'password not found'})
-          } else if(bcrypt.compareSync(password, result[0].password)) {
-            var token = jwt.sign({username}, app.get('superSecret'), {
-              expiresIn: "2days"
-            });
-
-            res.json({success: true, message: "you're in", token })
-          } else {
-            res.json({message: "something went very wrong"})
-          }
-        })
-      }
-
-    })
+          res.json({success: true, message: "you're in", token })
+        } else {
+          res.json({message: "something went very wrong"})
+        }
+      })
+    }
   })
+})
 
-  app.post('/auto/authenticate', (req, res) => {
-    const {username, token} = req.body;
+app.post('/auto/authenticate', (req, res) => {
+  const {username, token} = req.body;
 
-    const userQuery = `SELECT username FROM players WHERE username = ?`
+  const userQuery = `SELECT username FROM players WHERE username = ?`
 
 
-    req.query(userQuery, [username], (err, result) => {
-      if(err){
+  req.query(userQuery, [username], (err, result) => {
+    if(err){
 
-        res.status(500).json({message: "dun had an error", err})
+      res.status(500).json({message: "dun had an error", err})
 
-      }if(!result[0]) {
+    }if(!result[0]) {
 
-        res.json({success: false, message: 'user not found'})
+      res.json({success: false, message: 'user not found'})
 
-      } else {
+    } else {
 
-        jwt.verify(token, app.get('superSecret'), function(err, decoded) {
-          if (err) {
+      jwt.verify(token, app.get('superSecret'), function(err, decoded) {
+        if (err) {
 
-            return res.json({ success: false, message: 'Failed to authenticate token.' });
+          return res.json({ success: false, message: 'Failed to authenticate token.' });
 
-          } else {
+        } else {
 
-            return res.json({ success: true})
+          return res.json({ success: true})
 
-          }
-        })
+        }
+      })
 
-      }
-    })
+    }
   })
+})
+
+
+// middleware after token is provided to front end,  
+// every route then checks the token legitemacy before proceeding
 
 app.use(function(req, res, next) {
 
@@ -192,8 +227,14 @@ app.use(function(req, res, next) {
   }
 });
 
+/*******************
+unnecessary route, never used
+********************/
 
-  app.post('/joinTables', (req, res) => {
+// join the tables on the database, probably not necesssary because of the foreign keys on database
+// foreign keys make it so playersTO
+
+app.post('/joinTables', (req, res) => {
     let sql = `SELECT players.*, games.*
                   FROM players
                   JOIN PlayersToGames ON PlayersToGames.username = players.username
@@ -205,8 +246,9 @@ app.use(function(req, res, next) {
         res.json({success: "Don't forget the flashlight on yer way to the john, Butch!", result})
       }
     })
-  })
+})
 
+//route used to insert a new room into the database, doesn't add players or anything else
 app.post('/room', (req, res) => {
   const {roomCode} = req.body
   const code = codeGen()
@@ -220,7 +262,7 @@ app.post('/room', (req, res) => {
     }
   })
 })
-
+// route used to set the player who creates the room as the admin on playersToGames in database
 app.put('/room/admin', (req, res) => {
   const {roomCode, username} = req.body
   const sql = `UPDATE playersToGames SET admin = 'true' WHERE username = ?`
@@ -232,22 +274,35 @@ app.put('/room/admin', (req, res) => {
     }
   })
 })
-
+// route used to add a player into a room on the database
 app.put('/room/add',(req, res) => {
   const {username, roomCode} = req.body
+  let user = username
   console.log("the passed in user and room are ", username, roomCode)
-  const sql = `INSERT INTO PlayersToGames
-                (roomCode, username)
-                VALUES (?,?);`
-  req.query(sql, [roomCode, username], (err, result) =>{
+  const sqlQuerty = "SELECT * FROM playersToGames WHERE roomCode = ?"
+  req.query(sql, [roomCode], (err, result) => {
     if (err){
-      res.status(500).json({message: 'Database Error', error: err})
-    } else {
-      res.json({success: 'ye-ah', result})
+      res.status(500).json({message: "sup Nerds", success: false})
+    }
+    else {
+      result.map(val => {
+        if (val.username !== user){
+          const sql = `INSERT INTO PlayersToGames
+                        (roomCode, username)
+                        VALUES (?,?);`
+          req.query(sql, [roomCode, username], (err, result) =>{
+            if (err){
+              res.status(500).json({message: 'Database Error', error: err})
+            } else {
+              res.json({success: 'ye-ah, got ye in thee room good sir', result})
+            }
+          })
+        }
+      })
     }
   })
 })
-
+// route  used when games is started to set all players alive stautus to true and the room to active
 app.put('/room/start', (req, res) => {
   const {roomCode} = req.body
   const sql = ` UPDATE players, games SET alive = 'true', active = 1 WHERE roomCode = ?`
@@ -260,6 +315,12 @@ app.put('/room/start', (req, res) => {
   })
 })
 
+/********************
+redundant route    use : user/list:roomCode
+********************/
+
+
+// grabs data as preparation to assign targets,
 app.put('/user/targets', (req, res) => {
   const {roomCode} = req.body
   const sql = `SELECT username, admin FROM playersToGames
@@ -273,7 +334,7 @@ app.put('/user/targets', (req, res) => {
   })
 })
 
-
+// assigns targets with a shuffler to make each target a random target without overlaps or duplicates
 app.put('/user/targets/assign', (req, res) => {
   let {result} = req.body
   result = organizer(result)
@@ -290,10 +351,7 @@ app.put('/user/targets/assign', (req, res) => {
 
 })
 
-
-
-
-
+// heartbeat route for game page to send data used to update the databased
 app.put('/user/heartbeat', (req, res) => {
   const {username, time, latitude, longitude} = req.body
   const sql = `UPDATE players SET lastUpdated = ?, latitude = ?, longitude = ? WHERE username = ?`
@@ -306,7 +364,7 @@ app.put('/user/heartbeat', (req, res) => {
   })
 })
 
-//user heartbeat
+//user heartbeat to send data from database to the front-end with distance data, and compass angle, among other data
 app.get('/user/game/data/:username', (req, res) => {
   let username = req.params.username
   let sql = `SELECT * FROM players`
@@ -327,10 +385,10 @@ app.get('/user/game/data/:username', (req, res) => {
   })
 })
 
-
+// grabs all players with their admin property inside a specific room
 app.get('/user/list/:roomCode', (req, res) => {
   const roomCode = req.params.roomCode
-  const sql = `SELECT username, admin FROM playersToGames WHERE roomCode = ?`
+  const sql = `SELECT * FROM playersToGames WHERE roomCode = ?`
   req.query(sql,[roomCode],(err, result) => {
     if(err){
       res.status(500).json({message: "Butch, go help yer Uncle!", err})
@@ -349,7 +407,9 @@ app.get('/user/list/:roomCode', (req, res) => {
     }
   })
 })
-
+// used on kill button being hit, check's if target is in distance to be killed.
+// if target is close enough, then sets that person's alive status to false, then assisns
+// the killer a new target
 app.post('/user/kill', (req, res) => {
   const {list, username} = req.body
   let serve = new ServerFunk(list, username)
@@ -357,11 +417,12 @@ app.post('/user/kill', (req, res) => {
   let distance = serve.getDistance()
   let target = serve.getTarget()
   let targetsTarget = serve.getTargetsTarget()
+  let listObj =serve.getListObj()
 
   if(distance > 50){
     res.json({message: "You are out of range", distance})
   }
-  else {
+  else if(listObj[username].hireable && listObj[username].alive){
     const sql = `UPDATE players SET alive =
                   CASE username
                   WHEN ? THEN 'false'
@@ -382,6 +443,11 @@ app.post('/user/kill', (req, res) => {
   }
 })
 
+/**********************
+redundant route       use : user/heartbeat
+**********************/
+
+// updates players location on database, gets location from front-end
 app.put('/user/location', (req, res) => {
   const {latitude, longitude, username} = req.body
   const sql = `UPDATE players SET latitude = ?, longitude = ? WHERE username = ?`
@@ -393,7 +459,8 @@ app.put('/user/location', (req, res) => {
     }
   })
 })
-
+// timer started for wait period before a person can begin assassinating any targets.
+// player can kill targets when hireable is update to true
 app.put('/user/startCountDown', (req, res) => {
   const {username} = req.body
   const sql =`UPDATE players SET hireable = 'false' WHERE username = ?`
@@ -406,7 +473,7 @@ app.put('/user/startCountDown', (req, res) => {
   })
 })
 
-
+// sets player's hireable status to true on database when timer ends. player can then kill targets
 app.put('/user/hireable', (req, res) => {
   const {username} = req.body
   const sql = `UPDATE players SET hireable = 'true' WHERE username = ?`
@@ -419,6 +486,12 @@ app.put('/user/hireable', (req, res) => {
   })
 })
 
+/************************
+redundant route        use : user/startcountdount, maybe rename to make sense for both routes
+************************/
+
+
+//player logs out of game.
 app.put('user/logout', (req, res) => {
   const {username} = req.body
   //if lastUpdated is greater than two hours then set automatically to logged out
@@ -432,6 +505,12 @@ app.put('user/logout', (req, res) => {
   })
 })
 
+
+/************************
+redundant route         use : user/kill/
+************************/
+
+// sets player alive status to false, this is already updated in the route user/kill/
 app.put('/bringOutYerDead', (req, res) => {
   const {username} = req.body
   const sql = `UPDATE players SET alive = 'false' WHERE username = ?`
@@ -444,11 +523,15 @@ app.put('/bringOutYerDead', (req, res) => {
   })
 })
 
+/************************
+redundant route        use : user/kill/:roomCode
+************************/
 
+// selects all players in a spceific room, already existing route called user/list/:roomCode
 app.get('/RIP/:roomCode', (req, res) => {
   let roomCode = req.params.roomCode
-  const sql = `SELECT * from playersToGames where roomCode = '${roomCode}'`
-  req.query(sql, (err, result) => {
+  const sql = `SELECT * from playersToGames where roomCode = ?`
+  req.query(sql, [roomCode] (err, result) => {
     if(err){
       res.status(500).json({message:"This joke done died", err})
     } else {
@@ -457,6 +540,13 @@ app.get('/RIP/:roomCode', (req, res) => {
   })
 })
 
+/********************************
+routes for showing table data stored in database.
+primarily for testing
+********************************/
+
+
+// shows all data on playersToGames table in database. Primarily for testing
 app.get('/showPlayersToGamesTables', (req, res) => {
   const sql = `SELECT * from playersToGames`
   req.query(sql, (err, result) => {
@@ -468,6 +558,7 @@ app.get('/showPlayersToGamesTables', (req, res) => {
   })
 })
 
+// shows all data on Games table in database. Primarily for testing
 app.get('/showGamesTables', (req, res) => {
   const sql = `SELECT * from GAMES`
   req.query(sql,(err, result) => {
@@ -478,7 +569,7 @@ app.get('/showGamesTables', (req, res) => {
     }
   })
 })
-
+// shows all data on players table in database. Primarily for testing
 app.get('/showPlayersTables', (req, res) => {
   const sql = `SELECT * from players`
   req.query(sql,(err, result) => {
