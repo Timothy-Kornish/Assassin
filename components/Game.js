@@ -11,10 +11,8 @@ import {newHeartBeat} from '../redux/actions'
 
 class Game extends Component {
   constructor(props){
-    super(props)
-    let self = this
-
-
+    super(props);
+    let self = this;
     const heartbeatTimer = BackgroundTimer.setInterval (() => {
         console.log("BEFORE FETCH  lat? lng? ", self.props.latitude, self.props.longitude)
           fetch(apiUrl + '/user/heartbeat', {
@@ -33,7 +31,6 @@ class Game extends Component {
             console.log("RESULT ", result)
           })
           .then(()=>{
-            console.log("username? ", self.props.username)
             console.log("timeNOT? lat? lng? ", self.props.latitude, self.props.longitude)
 
             fetch(apiUrl + `/user/game/data/${self.props.username}`,{
@@ -50,26 +47,9 @@ class Game extends Component {
             })
           })
     }, 1500);
-
   }
 
-
-Alert = () => {
-  const showAlert = () => {
-      Alert.alert(
-         'WARNING!',
-         'AN ASSASSIN IS NEARBY!!!!!!!'
-      )
-   }
-
-   return (
-      <TouchableOpacity onPress = {showAlert} style = {styles.button}>
-        <Text>RUN!!!</Text>
-      </TouchableOpacity>
-   )
-}
-
-kill(){
+  kill(){
     fetch('/user/kill', {
      method: 'POST',
      headers: {
@@ -110,10 +90,10 @@ kill(){
     return (
       <View>
         <Button onPress={()=>this.props.navigation.navigate('GhostRoom')} title={'You Are Dead'}/>
-          <Compass />
-          <KillButton />
-          </View>
-          )
+        <Compass />
+        <KillButton />
+      </View>
+    )
   }
 }
 
@@ -127,7 +107,6 @@ const mapStateToProps = (state) => ({
   targetsTarget: state.targetsTarget,
   distance: state.distance,
   theta: state.theta
-
 })
 
 const mapDispatchToProps = (dispatch) => ({
