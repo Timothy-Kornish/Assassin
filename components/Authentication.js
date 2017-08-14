@@ -73,15 +73,16 @@ class Authentication extends Component {
           password: this.state.password,
         })
       })
-    })
-    .then((response) => response.json())
-    .then((responseData) => {
-      this.saveItem('x-access-token', responseData.token),
-      this.saveItem('username', this.state.username),
-      Alert.alert('Login Success!', responseData.token),
-      this.goToLobby(responseData.token, this.state.username);
-    })
+      .then((response) => response.json())
+      .then((responseData) => {
+        this.saveItem('x-access-token', responseData.token),
+        this.saveItem('username', this.state.username),
+        Alert.alert('Login Success!', responseData.token),
+        this.goToLobby(responseData.token, this.state.username);
+      })
+      .done();
   }
+
 
   goToLobby(token, username){
     this.props.login(username, token)
