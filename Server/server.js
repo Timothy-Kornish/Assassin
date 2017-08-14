@@ -156,7 +156,7 @@ app.post('/authenticate', (req, res) => {
 
     })
 })
-// middleware after token is provided for every route to verify their token
+// middleware after token is provided to front end,  every route then checks the token legitemacy before proceeding
 app.use(function(req, res, next) {
 
   // check header or url parameters or post parameters for token
@@ -193,6 +193,8 @@ unnecessary route, never used
 ********************/
 
 // join the tables on the database, probably not necesssary because of the foreign keys on database
+// foreing keys make it so playersTO
+
 app.post('/joinTables', (req, res) => {
     let sql = `SELECT players.*, games.*
                   FROM players
@@ -236,17 +238,31 @@ app.put('/room/admin', (req, res) => {
 // route used to add a player into a room on the database
 app.put('/room/add',(req, res) => {
   const {username, roomCode} = req.body
+  let user = username
   console.log("the passed in user and room are ", username, roomCode)
-  const sql = `INSERT INTO PlayersToGames
-                (roomCode, username)
-                VALUES (?,?);`
-  req.query(sql, [roomCode, username], (err, result) =>{
+  const sqlQuerty = "SELECT * FROM playersToGames WHERE roomCode = ?"
+  req.query(sql, [roomCode], (err, result) => {
     if (err){
-      res.status(500).json({message: 'Database Error', error: err})
-    } else {
-      res.json({success: 'ye-ah', result})
+      res.status(500).json({message: "sup Nerds", success: false})
+    }
+    else {
+      result.map(val => {
+        if (val.username == user){
+          const sql = `INSERT INTO PlayersToGames
+                        (roomCode, username)
+                        VALUES (?,?);`
+          req.query(sql, [roomCode, username], (err, result) =>{
+            if (err){
+              res.status(500).json({message: 'Database Error', error: err})
+            } else {
+              res.json({success: 'ye-ah, got ye in thee room good sir', result})
+            }
+          })
+        }
+      })
     }
   })
+
 })
 // route  used when games is started to set all players alive stautus to true and the room to active
 app.put('/room/start', (req, res) => {
@@ -296,9 +312,6 @@ app.put('/user/targets/assign', (req, res) => {
   })
 
 })
-
-
-
 
 // heartbeat route for game page to send data used to update the databased
 app.put('/user/heartbeat', (req, res) => {
@@ -366,11 +379,12 @@ app.post('/user/kill', (req, res) => {
   let distance = serve.getDistance()
   let target = serve.getTarget()
   let targetsTarget = serve.getTargetsTarget()
+  let listObj =serve.getListObj()
 
   if(distance > 50){
     res.json({message: "You are out of range", distance})
   }
-  else {
+  else if(listObj[username].hireable && listObj[username].aive){
     const sql = `UPDATE players SET alive =
                   CASE username
                   WHEN ? THEN 'false'
@@ -435,7 +449,7 @@ app.put('/user/hireable', (req, res) => {
 })
 
 /************************
-redundant route        use : user/startcountdount, maybe rename to make sense for both
+redundant route        use : user/startcountdount, maybe rename to make sense for both routes
 ************************/
 
 
