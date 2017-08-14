@@ -29,7 +29,7 @@ class Authentication extends Component {
   }
 
   userSignup() {
-    if (!this.state.username || !this.state.password){
+    if (!this.state.username || !this.state.password) return;
       // localhost doesn't work because the app is running inside an emulator. Get the IP address with ifconfig.
       fetch(apiUrl + '/signup', {
         method: 'POST',
@@ -47,30 +47,29 @@ class Authentication extends Component {
         this.goToLobby(responseData.token);
       })
       .done();
-    }else{
-      Alert.alert('Login Failed', 'Incorrect username or password')
-    }
-
   }
 
   userLogin() {
-    if (!this.state.username || !this.state.password) return;
+    if (!this.state.username || !this.state.password){
     // localhost doesn't work because the app is running inside an emulator. Get the IP address with ifconfig.
-    fetch(apiUrl + '/authenticate', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        username: this.state.username,
-        password: this.state.password,
+      fetch(apiUrl + '/authenticate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: this.state.username,
+          password: this.state.password,
+        })
       })
-    })
-    .then((response) => response.json())
-    .then((responseData) => {
-      this.saveItem('x-access-token', responseData.token),
-      Alert.alert('Login Success!', responseData.token),
-      this.goToLobby(responseData.token);
-    })
-    .done();
+      .then((response) => response.json())
+      .then((responseData) => {
+        this.saveItem('x-access-token', responseData.token),
+        Alert.alert('Login Success!', responseData.token),
+        this.goToLobby(responseData.token);
+      })
+      .done();
+    }else{
+      Alert.alert('Login Failed', 'Incorrect username or password')
+    }
   }
 
   goToLobby(token){
