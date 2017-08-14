@@ -241,28 +241,51 @@ app.put('/room/add',(req, res) => {
   let user = username
   console.log("the passed in user and room are ", username, roomCode)
   const sqlQuerty = "SELECT * FROM playersToGames WHERE roomCode = ?"
-  req.query(sql, [roomCode], (err, result) => {
+  req.query(sqlQuerty, [roomCode], (err, result) => {
     if (err){
-      res.status(500).json({message: "sup Nerds", success: false})
+      res.status(500).json({message: "sup Nerds",err, success: false})
     }
-    else {
-      result.map(val => {
-        if (val.username !== user){
-          const sql = `INSERT INTO PlayersToGames
-                        (roomCode, username)
-                        VALUES (?,?);`
-          req.query(sql, [roomCode, username], (err, result) =>{
-            if (err){
-              res.status(500).json({message: 'Database Error', error: err})
-            } else {
-              res.json({success: 'ye-ah, got ye in thee room good sir', result})
-            }
-          })
+    else if(!result[0]){
+      console.log("no indexs")
+      const sql = `INSERT INTO PlayersToGames
+                    (roomCode, username)
+                    VALUES (?,?);`
+      req.query(sql, [roomCode, username], (err2, result2) =>{
+        if (err2){
+          console.log("if err fired")
+          res.status(500).json({message: 'Database Error', error: err2})
+        } else {
+          console.log("else in query fired")
+          res.json({success: true, message: 'ye-ah, got ye in thee room good sir', result2})
         }
       })
     }
+    else{
+      let count = 0
+      for(var i = 0; i < result.length; i++ ){
+        val = result[i]
+          if(val.username == user){
+            count++
+          }
+        }
+        if (count < 1){
+          const sql = `INSERT INTO PlayersToGames
+                        (roomCode, username)
+                        VALUES (?,?);`
+          req.query(sql, [roomCode, username], (err2, result2) =>{
+            if (err2){
+              res.status(500).json({message: 'Database Error',success: false, error: err2})
+            } else {
+              console.log("else in query fired")
+              res.json({success: true, message: 'ye-ah, got ye in thee room good sir', result2})
+            }
+          })
+        }
+        else{
+          res.json({message: "user already entered", success: false})
+        }
+      }
   })
-
 })
 // route  used when games is started to set all players alive stautus to true and the room to active
 app.put('/room/start', (req, res) => {
@@ -493,7 +516,7 @@ redundant route        use : user/kill/:roomCode
 app.get('/RIP/:roomCode', (req, res) => {
   let roomCode = req.params.roomCode
   const sql = `SELECT * from playersToGames where roomCode = ?`
-  req.query(sql, [roomCode] (err, result) => {
+  req.query(sql, [roomCode], (err, result) => {
     if(err){
       res.status(500).json({message:"This joke done died", err})
     } else {
