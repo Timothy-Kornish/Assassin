@@ -170,7 +170,7 @@ app.post('/auto/authenticate', (req, res) => {
 
       res.status(500).json({message: "dun had an error", err})
 
-    }if(!result[0]) {
+    } if(!result[0]) {
 
       res.json({success: false, message: 'user not found'})
 

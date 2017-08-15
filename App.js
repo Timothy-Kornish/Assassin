@@ -17,14 +17,15 @@ import {StackNavigator} from 'react-navigation'
 
   const Header = (Component) => (props) => {
     return (
-      <View>
+
+      <View style ={styles.container}>
         <Button title="Logout" onPress={()=>props.navigation.navigate('Logout')} />
         <Component {...props}/>
       </View>
     )
   }
   const Navigator = StackNavigator({
-    Authentication: {screen: Authentication},
+    Authentication: { screen: Header(Authentication) },
     Lobby: { screen: Header(Lobby) },
     Room: { screen: Header(Room) },
     Loading: { screen: Header(Loading) },
@@ -50,8 +51,24 @@ export default class App extends Component {
   render() {
     return (
       <Provider store = {store}>
-         <Navigator/>
+        <Navigator />
       </Provider>
     );
   }
 }
+
+var styles = StyleSheet.create({
+  wrapper: { ...StyleSheet.absoluteFillObject, top: 0, bottom: 0,  backgroundColor: 'black', },
+  container: {
+    borderRadius: 4,
+    borderWidth: 0.5,
+    borderColor: 'silver',
+    backgroundColor: 'black',
+
+  },
+  button: {
+    margin: 10,
+    color: 'white',
+    backgroundColor: 'darkred',
+  }
+})
