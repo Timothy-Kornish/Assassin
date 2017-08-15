@@ -9,9 +9,9 @@ import {apiUrl} from '../localConfig'
 class Room extends Component {
 
   componentWillMount(){
-      this.startTime = Date.now()
-      this.interval = setInterval(this.updatePlayers.bind(this), 3000)
-      console.log("interval is firing every 3 seconds", (Date.now() - this.startTime) /1000)
+    this.startTime = Date.now()
+    this.interval = setInterval(this.updatePlayers.bind(this), 3000)
+    console.log("interval is firing every 3 seconds", (Date.now() - this.startTime) /1000)
     }
 
   updatePlayers(){
@@ -81,7 +81,7 @@ class Room extends Component {
               .then((responseData) => self.props.assignTarget(responseData.target))
               .then(() => {
                 clearInterval(this.interval)
-                self.props.navigation.navigate('Loading')
+              self.props.navigation.navigate('Loading')
               })
             })
       })

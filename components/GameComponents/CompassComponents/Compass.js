@@ -8,7 +8,7 @@ class Compass extends Component {
 
   constructor(props) {
       super(props)
-      this.state = {
+      this.state = { 
         degree: 0
       }
       this.rotateValue = new Animated.Value(0);
@@ -34,7 +34,7 @@ class Compass extends Component {
   }
 
   render() {
-    let rotateAngle = this.props.angle - this.state.degree
+    let rotateAngle = this.props.angle - this.state.degree + 90
    return (<View style={centering.container}>
           <Text>Distance to target: {this.props.distance} feet</Text>
           <Animated.Image style={{width: 200, height: 200, transform:[{rotate: rotateAngle + "deg"}]}} source={require('./arrow.png')}/>
@@ -44,8 +44,8 @@ class Compass extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  angle: 270,//state.theta,
-  distance: 20//state.distance
+  angle: state.theta,
+  distance: state.distance
 })
 
 const centering = StyleSheet.create({
