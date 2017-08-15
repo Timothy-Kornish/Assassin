@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "127788331255",
+    "firebase_url": "https://assassins-87144.firebaseio.com",
+    "project_id": "assassins-87144",
+    "storage_bucket": "assassins-87144.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:127788331255:android:def1ed9e0672a6a0",
+        "android_client_info": {
+          "package_name": "com.assassins"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "127788331255-8l9qrhr45bvhr4imlofuse9s7f9tlhvn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfB8pICuEnMmAaO9UmdsGiXKjdiJRWTus"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

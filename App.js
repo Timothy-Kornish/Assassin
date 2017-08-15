@@ -17,14 +17,15 @@ import {StackNavigator} from 'react-navigation'
 
   const Header = (Component) => (props) => {
     return (
-      <View>
+
+      <View style ={styles.container}>
         <Button title="Logout" onPress={()=>props.navigation.navigate('Logout')} />
         <Component {...props}/>
       </View>
     )
   }
   const Navigator = StackNavigator({
-    Authentication: {screen: Authentication},
+    Authentication: { screen: Header(Authentication) },
     Lobby: { screen: Header(Lobby) },
     Room: { screen: Header(Room) },
     Loading: { screen: Header(Loading) },
@@ -38,20 +39,29 @@ import {StackNavigator} from 'react-navigation'
 export default class App extends Component {
   constructor(props){
     super(props);
-    const geolocatorTimer = BackgroundTimer.setInterval (() => {
-      navigator.geolocation.getCurrentPosition(
-        (position) => store.dispatch(locate(position.coords.latitude, position.coords.longitude, null)),
-        (error) => store.dispatch(locate(null,null, error.message)),
-        { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
-      )
-    }, 3000);
   }
 
   render() {
     return (
       <Provider store = {store}>
-         <Navigator/>
+        <Navigator />
       </Provider>
     );
   }
 }
+
+var styles = StyleSheet.create({
+  wrapper: { ...StyleSheet.absoluteFillObject, top: 0, bottom: 0,  backgroundColor: 'black', },
+  container: {
+    borderRadius: 4,
+    borderWidth: 0.5,
+    borderColor: 'silver',
+    backgroundColor: 'black',
+
+  },
+  button: {
+    margin: 10,
+    color: 'white',
+    backgroundColor: 'darkred',
+  }
+})

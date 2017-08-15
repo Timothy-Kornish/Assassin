@@ -52,13 +52,14 @@ class JoinRoom extends Component {
  render(){
    return(
      <View>
-      <Text>Join Room</Text>
-      <TextInput
-        style={{height:40, borderWidth: 1}}
-        autoCapitalize ="characters"
-        placeholder="Enter Room Code Here"
-        onChangeText={(text) => this.setState({text})}/>
-      <Button
+       <Text>Join Room</Text>
+       <TextInput
+         style={{height:40, borderWidth: 1}}
+         autoCapitalize ="characters"
+         placeholder="Enter Room Code Here"
+         onChangeText={(text) => this.setState({text})}/>
+       <Button
+         color= 'darkred'
         onPress={() => this.joinOnClick()}
         title={'Join Game'}>
       </Button>

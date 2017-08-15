@@ -64,7 +64,7 @@ class GhostRoom extends Component {
       })
       this.props.deadPlayers(deadPlayers)
     })
-    console.log('GhostRoom is haunting', this.props.deadPlayers, (Date.now() - startTime) /1000);
+     console.log('GhostRoom is haunting', this.props.deadPlayers, (Date.now() - startTime) /1000);
    }
 
   componentDidMount(){
@@ -77,38 +77,46 @@ class GhostRoom extends Component {
   }
 
   render(){
-    const names = this.props.deadPlayers.map(names => (<Text key={names}> {names + '\n'} </Text>))
+    const names = this.props.deadPlayers.map(names => (<Text styles = {styles.words} key={names}> {names + '\n'} </Text>))
     console.log("happy haunting", this.props.deadPlayers)
-        
+
         return(
         <View>
-          <View>
-            <Text>The Fallen: {names}</Text>
-            <Text>"Through me you go into a city of weeping; through me you go into eternal pain; through me you go amongst the lost people"</Text>
-            <Text>Abandon All Hope Ye Who Enter Here!</Text>
-            <Button onPress={() => this.props.logout} title={'LogOut'}/>
+          <View style = {style.container}>
+
+            <Text style = {styles.words}>The Fallen: {names}</Text>
+            <Text style = {styles.words}>Through me you go into a city of weeping; through me you go into eternal pain; through me you go amongst the lost people</Text>
+            <Text style = {styles.words}>Abandon All Hope Ye Who Enter Here!</Text>
+            <Button color = 'darkred' style = {styles.button} onPress={() => this.props.logout} title={'LogOut'}/>
           </View>
-          <Text>Into the eternal darkness, into fire and ice...I regret to inform you that you have been eliminated.  If you
+          <Text style = {styles.words}>Into the eternal darkness, into fire and ice...I regret to inform you that you have been eliminated.  If you
           wish, you may remain here and watch for the last heir.</Text>
         </View>
           )
 
     }
   }
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     paddingTop: 22
-//   },
-//   item: {
-//     padding: 10,
-//     fontSize: 15,
-//     height: 44
-//   }
-//   Text: {
-//     color: red,
-//   }
-// })
+  var styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: 'center',
+      borderRadius: 0,
+      borderWidth: 0.10,
+      borderColor: 'silver',
+      backgroundColor: 'black',
+
+    },
+    button: {
+      margin: 20,
+      color: 'silver',
+      backgroundColor: 'darkred',
+    },
+    words: {
+      fontFamily: 'serif',
+      fontWeight: 'bold',
+      color: 'white',
+    }
+  })
 
 const mapStateToProps = (state) => ({
  token : state.token,
