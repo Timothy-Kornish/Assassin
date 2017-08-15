@@ -149,7 +149,7 @@ app.post('/authenticate', (req, res) => {
           var token = jwt.sign({username}, app.get('superSecret'), {
             expiresIn: "2days"
           });
-
+          console.log("verified sending token ", token)
           res.json({success: true, message: "you're in", token })
         } else {
           res.json({message: "something went very wrong"})

@@ -89,11 +89,12 @@ class Authentication extends Component {
 
 
   goToLobby(token, username){
+    console.log("token and username are fjf ", token, username)
     this.props.login(username, token)
     this.props.navigation.navigate('Lobby')
   }
 
-  async componentWillMount(){
+  async componentDidMount(){
 
     const self = this;
     console.log("componentWillMount fired")

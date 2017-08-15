@@ -1,4 +1,5 @@
 export function login(username, token) {
+  console.log("login action firiing", token, username)
   return {
     type: 'login',
     username,

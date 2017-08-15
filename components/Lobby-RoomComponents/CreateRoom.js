@@ -18,6 +18,7 @@ class CreateRoom extends Component {
 
  createOnClick(){
    var self = this
+   console.log("CreateRoom token ", self.props.token)
    const roomCode = this.codeGen()
    this.props.createroom(roomCode, self.props.username)
    fetch(apiUrl + '/room', {
