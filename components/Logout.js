@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {AsyncStorage, Alert, Text, TextInput, TouchableOpacity, View, Button} from 'react-native';
+import BackgroundTimer from 'react-native-background-timer'
 import {login} from '../redux/actions'
 import {connect} from 'react-redux'
 import {StackNavigator} from 'react-navigation'
@@ -13,8 +14,9 @@ class Logout extends Component {
 
       this.props.login(null, null)
 
-      for (var i = 1; i < 9000; i++){
-        window.clearInterval(i)
+      for (var i = 1; i < 1500; i++){
+        BackgroundTimer.clearInterval(i)
+        clearInterval(i)
         console.log("For loop number ", i)
       }
 

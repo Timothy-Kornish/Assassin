@@ -29,14 +29,7 @@ class Game extends Component {
                                 })
           })
           .then(response => response.json())
-          .then(result => {
-            if(result.success === false){
-              console.log("If fired in Game.js ")
-              .done()
-              stopTime(heartbeatTimer)
-            }
-            console.log("RESULT ", result)
-          })
+          .then(result => console.log("RESULT ", result))
           .then(()=>{
             console.log("timeNOT? lat? lng? ", self.props.latitude, self.props.longitude)
             fetch(apiUrl + `/user/game/data/${self.props.username}`,{
@@ -53,12 +46,6 @@ class Game extends Component {
             })
           })
     }, 1500);
-  }
-
-  stopTime(interval){
-    console.log("in stop time")
-    clearInterval(interval)
-    console.log("After clearInterval")
   }
 
   kill(){

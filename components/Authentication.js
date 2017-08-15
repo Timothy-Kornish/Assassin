@@ -1,9 +1,13 @@
 import React, {Component} from 'react';
 import {AsyncStorage, Alert, Text, TextInput, TouchableOpacity, View, Button} from 'react-native';
 import {login} from '../redux/actions'
+import {locate} from '../redux/actions'
+
 import {connect} from 'react-redux'
 import {StackNavigator} from 'react-navigation'
 import {apiUrl} from "../localConfig"
+import BackgroundTimer from 'react-native-background-timer'
+
 
 class Authentication extends Component {
 
@@ -94,6 +98,14 @@ class Authentication extends Component {
   }
 
   async componentWillMount(){
+    const geolocatorTimer = BackgroundTimer.setInterval (() => {
+      console.log("Authentication js timer firing ")
+      navigator.geolocation.getCurrentPosition(
+        (position) => this.props.locate(position.coords.latitude, position.coords.longitude, null),
+        (error) => this.props.locate(null,null, error.message),
+        { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+      )
+    }, 3000);
 
     const self = this;
     console.log("componentWillMount fired")
@@ -173,7 +185,8 @@ class Authentication extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    login : (username, token) => {dispatch(login(username, token))}
+    login : (username, token) => {dispatch(login(username, token))},
+    locate : (latitude, longitude, error) => {dispatch(locate(latitude, longitude, error))}
   }
 }
 
