@@ -479,14 +479,26 @@ app.post('/user/kill', (req, res) => {
                   CASE username
                   WHEN ? THEN ?
                   END`
+
   //might need to change false on line 174
     req.query(sql, [target, username, targetsTarget], (err, result) => {
       if (err){
         res.status(500).json({message: "Shudda ate more of them there gator brains, they make you smart", err})
 
       } else { //check if timestamp is recent and if radius is small enough for a kill
-        
-
+        const sqlQuery = `UPDATE players SET alive =
+                      CASE username
+                      WHEN ? THEN 'taco'
+                      END,
+                      target =
+                      CASE username
+                      WHEN ? THEN ?
+                      END`
+        req.query(sql, [username, target, 'es a taco'], (err2, result) => {
+          if (err){
+            res.status(500).json({success: false, message: "sup dwarf", err})
+          }
+        })
         res.json({success: true, message: 'Take a swig of this here moonshine, and party it up, Butch', result})
       }
     })
