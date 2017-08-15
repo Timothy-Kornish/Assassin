@@ -1,4 +1,5 @@
 apply plugin: "com.android.application"
+apply plugin: 'com.google.gms.google-services'
 
 import com.android.build.OutputFile
 
@@ -133,6 +134,12 @@ android {
 }
 
 dependencies {
+    compile (project(':react-native-fcm')){
+      exclude group: "com.google.firebase"
+    }
+    compile ('com.google.android.gms:play-services-gcm:9.0.0') {
+         force = true;
+    } //change the gcm number to our version (?)
     compile project(':react-native-background-timer')
     compile project(':react-native-simple-compass')
     compile fileTree(dir: "libs", include: ["*.jar"])
