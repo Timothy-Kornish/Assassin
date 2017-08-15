@@ -38,6 +38,7 @@
 		C7E7EC9C343448CF93F351FF /* libReactNativeHeading.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A59A333E24C4B4EAF9CF39F /* libReactNativeHeading.a */; };
 		F7E9B3F398AC42EC9FAFC4F0 /* libRNSimpleCompass.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28E1501B99DD42FBACBCE862 /* libRNSimpleCompass.a */; };
 		DC280330E8AA48F28C7290C7 /* libRNBackgroundTimer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34347D7AEB59489D95654184 /* libRNBackgroundTimer.a */; };
+		7AC01BCAEBAD414EA3051CA1 /* libRNFIRMessaging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AA579B7049447BD97160910 /* libRNFIRMessaging.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -263,6 +264,8 @@
 		28E1501B99DD42FBACBCE862 /* libRNSimpleCompass.a */ = {isa = PBXFileReference; name = "libRNSimpleCompass.a"; path = "libRNSimpleCompass.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		12F80977526B4179982062E8 /* RNBackgroundTimer.xcodeproj */ = {isa = PBXFileReference; name = "RNBackgroundTimer.xcodeproj"; path = "../node_modules/react-native-background-timer/ios/RNBackgroundTimer.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		34347D7AEB59489D95654184 /* libRNBackgroundTimer.a */ = {isa = PBXFileReference; name = "libRNBackgroundTimer.a"; path = "libRNBackgroundTimer.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		DD967FAA481A4D5B93F2C58D /* RNFIRMessaging.xcodeproj */ = {isa = PBXFileReference; name = "RNFIRMessaging.xcodeproj"; path = "../node_modules/react-native-fcm/ios/RNFIRMessaging.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		5AA579B7049447BD97160910 /* libRNFIRMessaging.a */ = {isa = PBXFileReference; name = "libRNFIRMessaging.a"; path = "libRNFIRMessaging.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -292,6 +295,7 @@
 				C7E7EC9C343448CF93F351FF /* libReactNativeHeading.a in Frameworks */,
 				F7E9B3F398AC42EC9FAFC4F0 /* libRNSimpleCompass.a in Frameworks */,
 				DC280330E8AA48F28C7290C7 /* libRNBackgroundTimer.a in Frameworks */,
+				7AC01BCAEBAD414EA3051CA1 /* libRNFIRMessaging.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,6 +465,7 @@
 				52AE89F461B14561AB13E420 /* ReactNativeHeading.xcodeproj */,
 				715CE44CAE104ECFB21D7B27 /* RNSimpleCompass.xcodeproj */,
 				12F80977526B4179982062E8 /* RNBackgroundTimer.xcodeproj */,
+				DD967FAA481A4D5B93F2C58D /* RNFIRMessaging.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -991,12 +996,14 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-heading",
 					"$(SRCROOT)/../node_modules/react-native-simple-compass/ios",
 					"$(SRCROOT)/../node_modules/react-native-background-timer/ios",
+					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
 				);
 			};
 			name = Debug;
@@ -1020,12 +1027,14 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-heading",
 					"$(SRCROOT)/../node_modules/react-native-simple-compass/ios",
 					"$(SRCROOT)/../node_modules/react-native-background-timer/ios",
+					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
 				);
 			};
 			name = Release;
@@ -1050,6 +1059,7 @@
 					"$(SRCROOT)/../node_modules/react-native-heading",
 					"$(SRCROOT)/../node_modules/react-native-simple-compass/ios",
 					"$(SRCROOT)/../node_modules/react-native-background-timer/ios",
+					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
 				);
 			};
 			name = Debug;
@@ -1073,6 +1083,7 @@
 					"$(SRCROOT)/../node_modules/react-native-heading",
 					"$(SRCROOT)/../node_modules/react-native-simple-compass/ios",
 					"$(SRCROOT)/../node_modules/react-native-background-timer/ios",
+					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
 				);
 			};
 			name = Release;
@@ -1105,12 +1116,14 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-heading",
 					"$(SRCROOT)/../node_modules/react-native-simple-compass/ios",
 					"$(SRCROOT)/../node_modules/react-native-background-timer/ios",
+					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
 				);
 			};
 			name = Debug;
@@ -1143,12 +1156,14 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-heading",
 					"$(SRCROOT)/../node_modules/react-native-simple-compass/ios",
 					"$(SRCROOT)/../node_modules/react-native-background-timer/ios",
+					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
 				);
 			};
 			name = Release;
@@ -1176,6 +1191,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Debug;
@@ -1200,6 +1216,7 @@
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
