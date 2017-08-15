@@ -4,9 +4,11 @@ import {connect} from 'react-redux'
 import {StackNavigator} from 'react-navigation'
 import Compass from './GameComponents/CompassComponents/Compass'
 import KillButton from './GameComponents/KillButton'
+import Timer from './GameComponents/Timer'
 import BackgroundTimer from 'react-native-background-timer'
 import {apiUrl} from '../localConfig'
 import {newHeartBeat} from '../redux/actions'
+
 
 
 class Game extends Component {
@@ -89,6 +91,7 @@ class Game extends Component {
   render(){
     return (
       <View>
+        <Timer/>
         <Button onPress={()=>this.props.navigation.navigate('GhostRoom')} title={'You Are Dead'}/>
         <Compass />
         <KillButton />

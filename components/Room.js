@@ -6,14 +6,12 @@ import {newPlayersWaiting} from '../redux/actions'
 import {newAssignedTarget} from '../redux/actions'
 import {apiUrl} from '../localConfig'
 
-let startTime = Date.now()
-
 class Room extends Component {
 
-  componentDidMount(){
-      this.startTime = Date.now()
-      this.interval = setInterval(this.updatePlayers.bind(this), 3000)
-      console.log("interval is firing every 3 seconds", (Date.now() - startTime) /1000)
+  componentWillMount(){
+    this.startTime = Date.now()
+    this.interval = setInterval(this.updatePlayers.bind(this), 3000)
+    console.log("interval is firing every 3 seconds", (Date.now() - this.startTime) /1000)
     }
 
   updatePlayers(){
@@ -26,8 +24,11 @@ class Room extends Component {
      }
     })
     .then(response => response.json())
-    .then(result => self.props.playersWaiting(result.players, result.creator))
-    console.log('updatePlayers is firing with', self.props.playersWaiting, (Date.now() - startTime) /1000);
+    .then(result => {
+      console.log(result)
+      self.props.playersWaiting(result.players, result.creator)
+    })
+    console.log('updatePlayers is firing with', (Date.now() - self.startTime) /1000);
    }
 
  pressButton(){
@@ -86,6 +87,7 @@ class Room extends Component {
       })
     })
   }
+
   render(){
     const names = this.props.waitingPlayers.map(name => (<Text key={name}> {name + '\n'} </Text>))
     console.log("you son of a render", this.props.waitingPlayers)

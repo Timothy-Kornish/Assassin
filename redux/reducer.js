@@ -22,13 +22,6 @@ export default function reducer(state, action){
         latitude: action.latitude,
         locationError: action.error
       }
-      case 'joinroom':
-      console.log("joinroom reducer firing", action);
-        return {
-          ...state,
-          roomCode: action.roomCode,
-          username: action.username
-        }
       case 'createroom':
         console.log("createroom reducer firing", action);
         return {
@@ -36,10 +29,12 @@ export default function reducer(state, action){
           roomCode: action.roomCode,
           roomCreator: action.username
         }
-      case 'newAssignedTarget':
-        return{
+      case 'joinroom':
+        console.log("joinroom reducer firing", action);
+        return {
           ...state,
-          target: action.target
+          roomCode: action.roomCode,
+          username: action.username
         }
       case 'newPlayersWaiting':
         console.log("newPlayersWaiting is firing", action)
@@ -48,19 +43,11 @@ export default function reducer(state, action){
           waitingPlayers: action.players,
           roomCreator: action.creator
         }
-      case 'newGhostRoom':
-        return {
-          ...state,
-          ghostRoom : action.deadPlayers
-        }
-      case 'killTarget':
-      console.log("killTarget is firing", action)
+      case 'newAssignedTarget':
         return{
           ...state,
-          target: action.target,
-          targetsTarget: action.targetsTarget,
-          targetDistance: action.target.distance,
-        }
+          target: action.target
+        }   
       case 'newHeartBeat':
         console.log("heartbeat is thumpin", action)
           return{
@@ -73,10 +60,23 @@ export default function reducer(state, action){
           }
       case 'newTime':
         console.log("time is ticking", action)
-          return{
+           return{
             ...state,
             time: action.time
           }
+      case 'killTarget':
+      console.log("killTarget is firing", action)
+        return{
+          ...state,
+          target: state.target,
+          targetsTarget: state.targetsTarget,
+          targetDistance: state.target.distance,
+        }  
+      case 'newGhostRoom':
+        return {
+          ...state,
+          ghostRoom : action.deadPlayers
+        } 
     default:
       return state
   }

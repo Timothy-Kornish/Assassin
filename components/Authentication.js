@@ -100,7 +100,6 @@ class Authentication extends Component {
     var username  = await self.getItem("username")
     var token = await self.getItem("x-access-token")
 
-
     console.log("Token and username ", token, username)
 
     fetch(apiUrl + '/auto/authenticate', {
