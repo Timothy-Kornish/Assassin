@@ -9,7 +9,7 @@ class Compass extends Component {
   constructor(props) {
       super(props)
       this.state = {
-        degree: 0
+        degree: 0 //degrees of image rotated on phone
       }
       this.rotateValue = new Animated.Value(0);
       this.updateAngle = this.updateAngle.bind(this);
@@ -24,6 +24,8 @@ class Compass extends Component {
 
     RNSimpleCompass.start(degree_update_rate, (degree) => {
       this.setState({degree: degree});
+      console.log("degree ", degree)
+      console.log("true angle ", this.props.angle-this.state.degree+90)
       RNSimpleCompass.stop();
     })
   }
@@ -34,9 +36,9 @@ class Compass extends Component {
   }
 
   render() {
-    let rotateAngle = this.props.angle - this.state.degree
+    let rotateAngle = this.props.angle - this.state.degree + 90
    return (<View style={centering.container}>
-          <Text>Distance to target: {this.props.distance} feet</Text>
+          <Text>Distance to target: {parseFloat(this.props.distance).toFixed(2)} feet</Text>
           <Animated.Image style={{width: 200, height: 200, transform:[{rotate: rotateAngle + "deg"}]}} source={require('./arrow.png')}/>
         </View>
     );
@@ -44,8 +46,8 @@ class Compass extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  angle: 270,//state.theta,
-  distance: 20//state.distance
+  angle: state.theta,
+  distance: state.distance
 })
 
 const centering = StyleSheet.create({

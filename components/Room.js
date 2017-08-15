@@ -6,13 +6,12 @@ import {newPlayersWaiting} from '../redux/actions'
 import {newAssignedTarget} from '../redux/actions'
 import {apiUrl} from '../localConfig'
 
-let startTime = Date.now()
-
 class Room extends Component {
 
-  componentDidMount(){
-      this.interval = setInterval(this.updatePlayers.bind(this), 3000)
-      console.log("interval is firing every 3 seconds", (Date.now() - startTime) /1000)
+  componentWillMount(){
+    this.startTime = Date.now()
+    this.interval = setInterval(this.updatePlayers.bind(this), 3000)
+    console.log("interval is firing every 3 seconds", (Date.now() - this.startTime) /1000)
     }
 
   updatePlayers(){
@@ -25,13 +24,12 @@ class Room extends Component {
      }
     })
     .then(response => response.json())
-    .then(result => self.props.playersWaiting(result.players, result.creator))
-    console.log('updatePlayers is firing with', self.props.playersWaiting, (Date.now() - startTime) /1000);
+    .then(result => {
+      console.log(result)
+      self.props.playersWaiting(result.players, result.creator)
+    })
+    console.log('updatePlayers is firing with', (Date.now() - self.startTime) /1000);
    }
-
-  componentWillUnmount(){
-    clearInterval(this.interval)
-  }
 
  pressButton(){
     var self = this;
@@ -82,12 +80,14 @@ class Room extends Component {
               .then((response) => response.json())
               .then((responseData) => self.props.assignTarget(responseData.target))
               .then(() => {
+                clearInterval(this.interval)
               self.props.navigation.navigate('Loading')
               })
             })
       })
     })
   }
+
   render(){
     const names = this.props.waitingPlayers.map(name => (<Text styles = {styles.words} key={name}> {name + '\n'} </Text>))
     console.log("you son of a render", this.props.waitingPlayers)
@@ -99,9 +99,14 @@ class Room extends Component {
           <Text style = {styles.words}>{names}</Text>
           <Text style = {styles.words}>Room Creator: {this.props.roomCreator}</Text>
           <Button color = 'darkred' style = {styles.button}onPress={this.pressButton.bind(this)} title={'start game'}/>
+          <View>
+          {this.props.waitingPlayers.length > 1 ? 
+            <Button onPress={this.pressButton.bind(this)} title={'start game'}/>
+            : <Text> Waiting for more players to join </Text> }
+          </View>
         </View>
       </View>
-      )
+    )
   }
 }
 

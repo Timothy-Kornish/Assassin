@@ -291,7 +291,7 @@ app.put('/room/add',(req, res) => {
                     VALUES (?,?);`
       req.query(sql, [roomCode, username], (err2, result2) =>{
         if (err2){
-          console.log("if err fired")
+          console.log("if err fired", err2)
           res.status(500).json({message: 'Database Error', error: err2})
         } else {
           console.log("else in query fired")
@@ -377,9 +377,9 @@ app.put('/user/targets/assign', (req, res) => {
 
 // heartbeat route for game page to send data used to update the databased
 app.put('/user/heartbeat', (req, res) => {
-  const {username, time, latitude, longitude} = req.body
-  const sql = `UPDATE players SET lastUpdated = ?, latitude = ?, longitude = ? WHERE username = ?`
-  req.query(sql, [time, latitude, longitude, username], (err, result) => {
+  const {username, latitude, longitude} = req.body
+  const sql = `UPDATE players SET latitude = ?, longitude = ? WHERE username = ?`
+  req.query(sql, [latitude, longitude, username], (err, result) => {
     if(err){
       res.status(500).json({message: "Cletus, stop peein on Butch's practicing tree!", err})
     } else {

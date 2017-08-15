@@ -9,6 +9,7 @@ import Loading from "./components/Loading"
 import Game from "./components/Game"
 import GhostRoom from "./components/GhostRoom"
 import LocationWatcher from "./components/LocationWatcher"
+import Logout from "./components/Logout"
 import store from './redux/store'
 import {locate} from './redux/actions'
 import {StackNavigator} from 'react-navigation'
@@ -16,7 +17,9 @@ import {StackNavigator} from 'react-navigation'
 
   const Header = (Component) => (props) => {
     return (
+
       <View style ={styles.container}>
+        <Button title="Logout" onPress={()=>props.navigation.navigate('Logout')} />
         <Component {...props}/>
       </View>
     )
@@ -28,6 +31,7 @@ import {StackNavigator} from 'react-navigation'
     Loading: { screen: Header(Loading) },
     Game: { screen: Header(Game) },
     GhostRoom: {screen: Header(GhostRoom)},
+    Logout: {screen: Logout}
   });
 
   AppRegistry.registerComponent('Navigator', () => Navigator);
@@ -46,27 +50,25 @@ export default class App extends Component {
 
   render() {
     return (
+      <Provider store = {store}>
+        <Navigator />
+      </Provider>
+    );
+  }
+}
 
-        <Provider store = {store}>
-          <Navigator />
-        </Provider>
+var styles = StyleSheet.create({
+  wrapper: { ...StyleSheet.absoluteFillObject, top: 0, bottom: 0,  backgroundColor: 'black', },
+  container: {
+    borderRadius: 4,
+    borderWidth: 0.5,
+    borderColor: 'silver',
+    backgroundColor: 'black',
 
-        );
-        }
-        }
-
-        var styles = StyleSheet.create({
-          wrapper: { ...StyleSheet.absoluteFillObject, top: 0, bottom: 0,  backgroundColor: 'black', },
-          container: {
-            borderRadius: 4,
-            borderWidth: 0.5,
-            borderColor: 'silver',
-            backgroundColor: 'black',
-
-          },
-          button: {
-            margin: 10,
-            color: 'white',
-            backgroundColor: 'darkred',
-          }
-        })
+  },
+  button: {
+    margin: 10,
+    color: 'white',
+    backgroundColor: 'darkred',
+  }
+})
