@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Button, View, Text, TextInput, Alert} from 'react-native'
+import {Button, View, Text, TextInput} from 'react-native'
 import {connect} from 'react-redux'
 import {StackNavigator} from 'react-navigation'
 import {joinroom} from '../../redux/actions'
@@ -16,25 +16,10 @@ class JoinRoom extends Component {
   }
 
  joinOnClick(){
-  var self = this;
-  self.props.joinroom(self.state.text, self.props.username)
-  fetch(apiUrl + `/showGamesTables`, {
-    method: "GET",
-    headers: {
-      'Content-Type': 'application/json',
-      'x-access-token': self.props.token
-    }
-  })
-  .then(response => response.json())
-  .then((responseData)=>{
-    let checkCode = responseData.result.filter((codeObj, next) => codeObj.roomCode === self.state.text)
-    if(checkCode.length > 0){
-      self.props.navigation.navigate('Room')
-    }else{
-      Alert.alert('sorry', 'This room code does not exist')
-    }
-  })
-  .then(() => {
+   var self = this;
+  if(!self.state.roomCode){
+    console.log("Join On Click fired and kels is ", self.props.username)
+    self.props.joinroom(self.state.text, self.props.username)
     fetch(apiUrl + `/room/add`, {
       method: "PUT",
       headers: {
@@ -46,19 +31,27 @@ class JoinRoom extends Component {
         roomCode: self.state.text
       })
     })
-  })
-}
+    .then((response)=>{
+      console.log("Room add res ", response.json())
+      console.log("Navigating to Room")
+      self.props.navigation.navigate('Room')
+    })
+  }else{
+    Alert.alert('sorry', 'This room code does not exist')
+  }
+
+ }
 
  render(){
    return(
      <View>
-      <Text>Join Room</Text>
-      <TextInput
-        style={{height:40, borderWidth: 1}}
-        autoCapitalize ="characters"
-        placeholder="Enter Room Code Here"
-        onChangeText={(text) => this.setState({text})}/>
-      <Button
+       <Text>Join Room</Text>
+       <TextInput
+         style={{height:40, borderWidth: 1}}
+         autoCapitalize ="characters"
+         placeholder="Enter Room Code Here"
+         onChangeText={(text) => this.setState({text})}/>
+       <Button
         onPress={() => this.joinOnClick()}
         title={'Join Game'}>
       </Button>
