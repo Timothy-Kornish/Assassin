@@ -29,12 +29,9 @@ class Game extends Component {
                                 })
           })
           .then(response => response.json())
-          .then(result => {
-            console.log("RESULT ", result)
-          })
+          .then(result => console.log("RESULT ", result))
           .then(()=>{
             console.log("timeNOT? lat? lng? ", self.props.latitude, self.props.longitude)
-
             fetch(apiUrl + `/user/game/data/${self.props.username}`,{
               method: 'GET',
               headers: {

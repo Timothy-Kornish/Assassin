@@ -38,13 +38,6 @@ import {StackNavigator} from 'react-navigation'
 export default class App extends Component {
   constructor(props){
     super(props);
-    const geolocatorTimer = BackgroundTimer.setInterval (() => {
-      navigator.geolocation.getCurrentPosition(
-        (position) => store.dispatch(locate(position.coords.latitude, position.coords.longitude, null)),
-        (error) => store.dispatch(locate(null,null, error.message)),
-        { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
-      )
-    }, 3000);
   }
 
   render() {
