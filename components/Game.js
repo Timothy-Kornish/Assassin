@@ -45,6 +45,7 @@ class Game extends Component {
             .then(response => response.json())
             .then(result => {
               console.log("did it work? ", result)
+              console.log("DID IT?!? ITS ALIVE!!", result.listObj[this.props.username].alive, result.listObj[this.props.target].alive)
               self.props.heartbeat(result.theta, result.distance, result.target, result.targetsTarget, result.listObj)
             })
           })
@@ -52,6 +53,7 @@ class Game extends Component {
   }
 
   kill(){
+    console.log("user kill function called")
     fetch('/user/kill', {
      method: 'POST',
      headers: {
@@ -60,6 +62,10 @@ class Game extends Component {
      },
      body: JSON.stringify({latitude: this.props.latitude,
                            longitude: this.props.longitude})
+    })
+    .then(response => response.json())
+    .then(result => {
+      console.log("result of kill", result)
     })
   }
 

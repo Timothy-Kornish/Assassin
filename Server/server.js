@@ -364,7 +364,7 @@ app.put('/user/targets/assign', (req, res) => {
   result = organizer(result)
   result = shuffle(result)
   let sql = SQLgen(result)
-  console.log(result)
+  console.log("sql name ", result, sql)
   req.query(sql, (err, answer) => {
     if(err){
       res.status(500).json({message: "Pa, there's a damn armadill in the house!", err})
@@ -404,14 +404,15 @@ app.get('/user/game/data/:username', (req, res) => {
       res.status(500).json({message:"I'm Daniel Boon, checkout my coon hat", err})
     }
     else {
-      res.json({success: "sup Daniel Boon", result, theta, distance, target, targetsTarget, listObj})
+      res.json({success:true, message: "sup Daniel Boon", result, theta, distance, target, targetsTarget, listObj})
     }
   })
 })
 
 // grabs all players with their admin property inside a specific room
-app.get('/user/list/:roomCode', (req, res) => {
+app.get('/user/list/:roomCode/:username', (req, res) => {
   const roomCode = req.params.roomCode
+  let { username } = req.params
   const sql = `SELECT * FROM playersToGames WHERE roomCode = ?`
   req.query(sql,[roomCode],(err, result) => {
     if(err){
@@ -419,7 +420,7 @@ app.get('/user/list/:roomCode', (req, res) => {
     } else {
 
       let creator = ""
-      targets = result.slice()
+      let targets = result.slice()
       result.forEach(val => {
         if (val.admin == 'true'){
           creator = val.username
@@ -427,7 +428,32 @@ app.get('/user/list/:roomCode', (req, res) => {
       })
       let players = organizer(result)
 
-      res.json({success: "That horse needs help, Cletus", targets, players: players, creator: creator})
+      let sqlQuery = `SELECT * FROM players`
+      req.query(sqlQuery, (err, result2) => {
+        if (err){
+          res.status(500).json({success: false, message:"blah blah blah", err })
+        }
+        else{
+          let serve = new ServerFunk(result2, username)
+          let theta = serve.getTheta()
+          let distance = serve.getDistance()
+          let listObj = serve.getListObj()
+          let listArr = serve.getListArr()
+
+          let playersInRoomObj = {}
+          let playersInRoomArr = []
+          players.forEach(name => {
+            console.log("names", name)
+            if (listObj[name]){
+              playersInRoomObj[name] = listObj[name]
+              console.log(playersInRoomObj)
+            }
+          })
+
+          playersInRoomArr = Object.values(playersInRoomObj)
+          res.json({success:true, message: "That horse needs help, Cletus",  playersInRoomObj, playersInRoomArr, targets, players, creator})
+        }
+      })
     }
   })
 })
@@ -442,11 +468,9 @@ app.post('/user/kill', (req, res) => {
   let target = serve.getTarget()
   let targetsTarget = serve.getTargetsTarget()
   let listObj =serve.getListObj()
-
-  if(distance > 50){
-    res.json({message: "You are out of range", distance})
-  }
-  else if(listObj[username].hireable && listObj[username].alive){
+  console.log("listObj properties required",listObj[username] )
+  if(listObj[username].hireable && listObj[username].alive){
+    console.log("server if fired updating targets")
     const sql = `UPDATE players SET alive =
                   CASE username
                   WHEN ? THEN 'false'
@@ -461,7 +485,9 @@ app.post('/user/kill', (req, res) => {
         res.status(500).json({message: "Shudda ate more of them there gator brains, they make you smart", err})
 
       } else { //check if timestamp is recent and if radius is small enough for a kill
-        res.json({success: 'Take a swig of this here moonshine, and party it up, Butch', result})
+        
+
+        res.json({success: true, message: 'Take a swig of this here moonshine, and party it up, Butch', result})
       }
     })
   }
