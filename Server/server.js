@@ -100,15 +100,15 @@ app.post('/signup', (req, res) => {
     if(!result[0]) {
       const sql = `INSERT INTO players (username, password)  VALUES (?, ?);`
       req.query(sql, [username, password], (err, result) => {
-        
+
         if(err){
           res.status(500).json({message: 'Da database done broke, cuz', err})
-          
+
         } else {
           var token = jwt.sign({username}, app.get('superSecret'), {
             expiresIn: "2days"
           });
-          
+
           res.json({sucess: "well done, butch!", result, token})
         }
       })
@@ -193,7 +193,7 @@ app.post('/auto/authenticate', (req, res) => {
 })
 
 
-// middleware after token is provided to front end,  
+// middleware after token is provided to front end,
 // every route then checks the token legitemacy before proceeding
 
 app.use(function(req, res, next) {
@@ -291,7 +291,7 @@ app.put('/room/add',(req, res) => {
                     VALUES (?,?);`
       req.query(sql, [roomCode, username], (err2, result2) =>{
         if (err2){
-          console.log("if err fired")
+          console.log("if err fired", err2)
           res.status(500).json({message: 'Database Error', error: err2})
         } else {
           console.log("else in query fired")
