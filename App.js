@@ -9,6 +9,7 @@ import Loading from "./components/Loading"
 import Game from "./components/Game"
 import GhostRoom from "./components/GhostRoom"
 import LocationWatcher from "./components/LocationWatcher"
+import Logout from "./components/Logout"
 import store from './redux/store'
 import {locate} from './redux/actions'
 import {StackNavigator} from 'react-navigation'
@@ -17,6 +18,7 @@ import {StackNavigator} from 'react-navigation'
   const Header = (Component) => (props) => {
     return (
       <View>
+        <Button title="Logout" onPress={()=>props.navigation.navigate('Logout')} />
         <Component {...props}/>
       </View>
     )
@@ -28,6 +30,7 @@ import {StackNavigator} from 'react-navigation'
     Loading: { screen: Header(Loading) },
     Game: { screen: Header(Game) },
     GhostRoom: {screen: Header(GhostRoom)},
+    Logout: {screen: Logout}
   });
 
   AppRegistry.registerComponent('Navigator', () => Navigator);
