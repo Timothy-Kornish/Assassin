@@ -98,7 +98,11 @@ class Room extends Component {
         <Text>Total Player: {this.props.waitingPlayers.length}</Text>
         <Text>{names}</Text>
         <Text>Room Creator: {this.props.roomCreator}</Text>
+      <View>
+        {this.props.waitingPlayers.length > 1 ? 
         <Button onPress={this.pressButton.bind(this)} title={'start game'}/>
+      : <Text> Waiting for more players to join </Text> }
+      </View>
         </View>
       </View>
       )
