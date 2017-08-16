@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Button, View, Text} from 'react-native'
+import {Button, View, Text, StyleSheet} from 'react-native'
 import {connect} from 'react-redux'
 import {StackNavigator} from 'react-navigation'
 import {apiUrl} from '../localConfig'
@@ -28,9 +28,9 @@ class Loading extends Component {
 
  render(){
     return (
-     <View>
-       <Text>From the offices of Gamboni and Valenicci</Text>
-       <Text> In the matter of the estate of "Mother"...
+     <View style = {styles.container}>
+       <Text style = {styles.words} >From the offices of Gamboni and Valenicci</Text>
+       <Text style = {styles.words} > In the matter of the estate of "Mother"...
          NOTICE TO HEIRS
          To the heirs and devices of the above named estate, this is a formal notice that your aunt,
          known as "Mother", has died, and you may have an interest in Mother's estate.
@@ -46,12 +46,31 @@ class Loading extends Component {
          and permentantly and irrevocably disinherited. Press continue to accept.
          With regards and best wishes,
          Gamboni and Valenicci LLC
-         </Text>
-          <Button onPress={() => this.props.navigation.navigate('Game')} title={'Continue'}/>
+       </Text>
+       <Button color = 'darkred' style = {styles.button} onPress={this.pressButton.bind(this)} title={'Continue'}/>
       </View>
      )
   }
 }
+
+var styles = StyleSheet.create({
+  container: {
+    borderRadius: 0,
+    borderWidth: 0.10,
+    borderColor: 'silver',
+    backgroundColor: 'black',
+
+  },
+  button: {
+    margin: 10,
+    color: 'darkred',
+  },
+  words: {
+    fontFamily: 'serif',
+    fontWeight: 'bold',
+    color: 'white',
+  }
+})
 
 const mapStateToProps = (state) => ({
   token: state.token,

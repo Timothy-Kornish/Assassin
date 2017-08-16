@@ -1,9 +1,13 @@
 import React, {Component} from 'react';
-import {AsyncStorage, Alert, Text, TextInput, TouchableOpacity, View, Button} from 'react-native';
+import {AsyncStorage, Alert, Text, TextInput, TouchableHighlight, View, Button, StyleSheet} from 'react-native';
 import {login} from '../redux/actions'
+import {locate} from '../redux/actions'
+
 import {connect} from 'react-redux'
 import {StackNavigator} from 'react-navigation'
 import {apiUrl} from "../localConfig"
+import BackgroundTimer from 'react-native-background-timer'
+
 
 class Authentication extends Component {
 
@@ -94,7 +98,15 @@ class Authentication extends Component {
     this.props.navigation.navigate('Lobby')
   }
 
-  async componentDidMount(){
+  async componentWillMount(){
+    const geolocatorTimer = BackgroundTimer.setInterval (() => {
+      console.log("Authentication js timer firing ")
+      navigator.geolocation.getCurrentPosition(
+        (position) => this.props.locate(position.coords.latitude, position.coords.longitude, null),
+        (error) => this.props.locate(null,null, error.message),
+        { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+      )
+    }, 3000);
 
     const self = this;
     console.log("componentWillMount fired")
@@ -125,14 +137,18 @@ class Authentication extends Component {
 
   render() {
     if(!this.state.isLoaded){
-      return (<View><Text>Loading</Text></View>)
+      return (<View><Text style = {styles.words}>Loading</Text></View>)
     } else {
       return (
-        <View>
-          <Text> Welcome </Text>
+        <View style = {styles.container}>
+
+
+          <Text style = {styles.words}> Welcome </Text>
 
           <View>
+
             <TextInput
+              style = {{padding: 10, backgroundColor: "white"}}
               editable={true}
               onChangeText={(username) => this.setState({username})}
               placeholder='Username'
@@ -142,6 +158,7 @@ class Authentication extends Component {
             />
 
             <TextInput
+              style = {{padding: 10, backgroundColor: "white"}}
               editable={true}
               onChangeText={(password) => this.setState({password})}
               placeholder='Password'
@@ -151,19 +168,23 @@ class Authentication extends Component {
               value={this.state.password}
             />
 
-            <TouchableOpacity onPress={this.userLogin.bind(this)}>
-              <Text> Log In </Text>
-            </TouchableOpacity>
+            <TouchableHighlight style={styles.button} onPress={this.userLogin.bind(this)}>
+              <Text style ={styles.words}> Log In </Text>
+            </TouchableHighlight>
 
-            <TouchableOpacity onPress={this.userSignup.bind(this)}>
-              <Text> Sign Up </Text>
-            </TouchableOpacity>
 
-            <Button onPress={() => this.props.navigation.navigate('Lobby')} title='Go To Lobby'/>
-            <Button onPress={() => this.props.navigation.navigate('Room')} title='Go To Room'/>
-            <Button onPress={() => this.props.navigation.navigate('Loading')} title='Go To Loading'/>
-            <Button onPress={() => this.props.navigation.navigate('Game')} title='Go To Game'/>
-            <Button onPress={() => this.props.navigation.navigate('GhostRoom')} title='Youre Dead to me'/>
+
+            <TouchableHighlight style = {styles.button} onPress={this.userSignup.bind(this)}>
+              <Text style ={styles.words}> Sign Up </Text>
+            </TouchableHighlight>
+
+
+
+            <Button color="darkred" fontFamily = 'serif' onPress={() => this.props.navigation.navigate('Lobby')} title='Go To Lobby'/>
+            <Button color="darkred" fontFamily = 'serif'  onPress={() => this.props.navigation.navigate('Room')} title='Go To Room'/>
+            <Button color="darkred" fontFamily = 'serif' onPress={() => this.props.navigation.navigate('Loading')} title='Go To Loading'/>
+            <Button color="darkred" fontFamily = 'serif' onPress={() => this.props.navigation.navigate('Game')} title='Go To Game'/>
+            <Button color="darkred" fontFamily = 'serif' onPress={() => this.props.navigation.navigate('GhostRoom')} title='Youre Dead to me'/>
 
           </View>
         </View>
@@ -172,9 +193,46 @@ class Authentication extends Component {
   }
 }
 
+var styles = StyleSheet.create({
+  container: {
+    flexWrap: 'wrap',
+    alignContent: 'stretch',
+    justifyContent: 'center',
+    borderRadius: 0,
+    borderWidth: 0,
+    borderBottomWidth: 0,
+    borderTopWidth: 0,
+    borderColor: 'black',
+    marginTop: 0,
+    marginBottom: 0,
+    marginRight: 0,
+    marginLeft: 0,
+    backgroundColor: 'black',
+
+  },
+  button: {
+    fontFamily: 'serif',
+    textAlign: 'center',
+    margin: 10,
+    color: 'darkred',
+    backgroundColor: 'darkred',
+    justifyContent: 'space-between',
+  },
+  words: {
+    fontFamily: 'serif',
+    fontWeight: 'bold',
+    color: 'white',
+  }
+
+})
+
+
+
+
 const mapDispatchToProps = (dispatch) => {
   return {
-    login : (username, token) => {dispatch(login(username, token))}
+    login : (username, token) => {dispatch(login(username, token))},
+    locate : (latitude, longitude, error) => {dispatch(locate(latitude, longitude, error))}
   }
 }
 
