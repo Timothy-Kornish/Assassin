@@ -47,10 +47,7 @@ class Game extends Component {
                 console.log("HE GOT GOT ", self.props.navigation, self.props)
                 self.props.navigation.navigate('GhostRoom')
               }
-            }
-
-            )
-
+            })
           })
     }, 1500);
 
