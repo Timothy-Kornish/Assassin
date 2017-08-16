@@ -6,26 +6,6 @@ import {apiUrl} from '../localConfig'
 
 class Loading extends Component {
 
-
-  pressButton(){
-    // var self = this;
-    // fetch(apiUrl + '/user/startCountDown', {
-    //  method: 'PUT',
-    //  headers: {
-    //    'Content-Type': 'application/json',
-    //    'x-access-token' : this.props.token
-    //  },
-    //     body: JSON.stringify({
-    //       roomCode: this.props.roomCode,
-    //       username: this.props.username
-
-    //     })
-    // })
-    // .then(
-    this.props.navigation.navigate('Game')
-  }
-
-
  render(){
     return (
      <View style = {styles.container}>
@@ -47,7 +27,7 @@ class Loading extends Component {
          With regards and best wishes,
          Gamboni and Valenicci LLC
        </Text>
-       <Button color = 'darkred' style = {styles.button} onPress={this.pressButton.bind(this)} title={'Continue'}/>
+       <Button color = 'darkred' style = {styles.button} onPress={()=>this.props.navigation.navigate('Game')} title={'Continue'}/>
       </View>
      )
   }

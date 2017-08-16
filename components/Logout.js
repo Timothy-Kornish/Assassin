@@ -17,7 +17,6 @@ class Logout extends Component {
       for (var i = 1; i < 1500; i++){
         BackgroundTimer.clearInterval(i)
         clearInterval(i)
-        console.log("For loop number ", i)
       }
 
       Alert.alert('Logged Out')

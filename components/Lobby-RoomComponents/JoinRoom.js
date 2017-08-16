@@ -80,7 +80,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     joinroom: (roomCode, username) =>{dispatch(joinroom(roomCode, username))}
   }
-
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(JoinRoom)

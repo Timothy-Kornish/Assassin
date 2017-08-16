@@ -11,12 +11,11 @@ class Room extends Component {
   componentWillMount(){
     this.startTime = Date.now()
     this.interval = setInterval(this.updatePlayers.bind(this), 3000)
-    console.log("interval is firing every 3 seconds", (Date.now() - this.startTime) /1000)
     }
 
   updatePlayers(){
     var self = this;
-    fetch(apiUrl + `/user/list/${self.props.roomCode}`, {
+    fetch(apiUrl + `/user/list/${self.props.roomCode}/${self.props.username}`, {
      method: 'GET',
      headers: {
        'Content-Type' : 'application/json',
@@ -25,13 +24,11 @@ class Room extends Component {
     })
     .then(response => response.json())
     .then(result => {
-      console.log(result)
       self.props.playersWaiting(result.players, result.creator)
     })
-    console.log('updatePlayers is firing with', (Date.now() - self.startTime) /1000);
-   }
+  }
 
- pressButton(){
+  pressButton(){
     var self = this;
     fetch(apiUrl + '/room/start', {
      method: 'PUT',
@@ -44,7 +41,6 @@ class Room extends Component {
         })
      })
     .then(()=> {
-        console.log("user/targets fired ")
         fetch(apiUrl + `/user/targets`, {
           method: 'PUT',
           headers: {
@@ -57,8 +53,6 @@ class Room extends Component {
         })
       .then(response => response.json())
       .then((responseData) =>{
-            console.log("grab targets ", responseData)
-            console.log("token before user/targets/assign ", self.props.token)
             fetch(apiUrl + `/user/targets/assign`, {
                 method: 'PUT',
                 headers:{
@@ -99,7 +93,7 @@ class Room extends Component {
           <Text style = {styles.words}>{names}</Text>
           <Text style = {styles.words}>Room Creator: {this.props.roomCreator}</Text>
           <View>
-          {this.props.waitingPlayers.length > 1 ? 
+          {this.props.waitingPlayers.length > 1 ?
             <Button color = 'darkred' style = {styles.button}onPress={this.pressButton.bind(this)} title={'start game'}/>
             : <Text style = {styles.words}> Waiting for more players to join </Text> }
           </View>
@@ -119,7 +113,6 @@ var styles = StyleSheet.create({
   words: {
     color: 'white',
   }
-
 })
 
 const mapStateToProps = (state) => ({
