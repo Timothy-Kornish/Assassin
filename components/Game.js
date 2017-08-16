@@ -110,9 +110,6 @@ class Game extends Component {
 
 var styles = StyleSheet.create({
   container: {
-    borderRadius: 0,
-    borderWidth: 0.1,
-    borderColor: 'silver',
     backgroundColor: 'black',
   },
   button: {
@@ -121,7 +118,6 @@ var styles = StyleSheet.create({
     backgroundColor: 'darkred',
   },
   words: {
-    fontFamily: 'serif',
     fontWeight: 'bold',
     color: 'white',
   }

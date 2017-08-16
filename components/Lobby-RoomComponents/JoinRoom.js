@@ -54,7 +54,7 @@ class JoinRoom extends Component {
      <View>
        <Text>Join Room</Text>
        <TextInput
-         style={{height:40, borderWidth: 1}}
+         style={{height:40, borderWidth: 1, backgroundColor: "white"}}
          autoCapitalize ="characters"
          placeholder="Enter Room Code Here"
          onChangeText={(text) => this.setState({text})}/>

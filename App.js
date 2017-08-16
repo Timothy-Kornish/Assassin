@@ -8,7 +8,6 @@ import Room from "./components/Room"
 import Loading from "./components/Loading"
 import Game from "./components/Game"
 import GhostRoom from "./components/GhostRoom"
-import LocationWatcher from "./components/LocationWatcher"
 import Logout from "./components/Logout"
 import store from './redux/store'
 import {locate} from './redux/actions'
@@ -53,8 +52,6 @@ export default class App extends Component {
 var styles = StyleSheet.create({
   wrapper: { ...StyleSheet.absoluteFillObject, top: 0, bottom: 0,  backgroundColor: 'black', },
   container: {
-    borderRadius: 4,
-    borderWidth: 0.5,
     borderColor: 'silver',
     backgroundColor: 'black',
 

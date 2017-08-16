@@ -89,7 +89,7 @@ class Room extends Component {
   }
 
   render(){
-    const names = this.props.waitingPlayers.map(name => (<Text styles = {styles.words} key={name}> {name + '\n'} </Text>))
+    const names = this.props.waitingPlayers.map(name => (<Text style = {styles.words} key={name}> {name + '\n'} </Text>))
     console.log("you son of a render", this.props.waitingPlayers)
     return (
       <View>
@@ -98,11 +98,10 @@ class Room extends Component {
           <Text style = {styles.words}>Total Player: {this.props.waitingPlayers.length}</Text>
           <Text style = {styles.words}>{names}</Text>
           <Text style = {styles.words}>Room Creator: {this.props.roomCreator}</Text>
-          <Button color = 'darkred' style = {styles.button}onPress={this.pressButton.bind(this)} title={'start game'}/>
           <View>
           {this.props.waitingPlayers.length > 1 ? 
-            <Button onPress={this.pressButton.bind(this)} title={'start game'}/>
-            : <Text> Waiting for more players to join </Text> }
+            <Button color = 'darkred' style = {styles.button}onPress={this.pressButton.bind(this)} title={'start game'}/>
+            : <Text style = {styles.words}> Waiting for more players to join </Text> }
           </View>
         </View>
       </View>
@@ -112,22 +111,20 @@ class Room extends Component {
 
 var styles = StyleSheet.create({
   container: {
-    borderRadius: 4,
-    borderWidth: 0.5,
-    borderColor: '#C0C0C0',
+
     backgroundColor: '#000000',
 
   },
   button: {
     textAlign: 'center',
-    margin: 10,
+    margin: 0,
     color: '#C0C0C0',
     backgroundColor: '#8B0000',
   },
   words: {
-    fontFamily: 'serif',
     fontWeight: 'bold',
-    textAlign: 'center'
+    textAlign: 'center',
+    color: 'white',
   }
 
 })

@@ -22,7 +22,7 @@ class Loading extends Component {
     //     })
     // })
     // .then(
-    self.props.navigation.navigate('Game')
+    this.props.navigation.navigate('Game')
   }
 
 
@@ -55,9 +55,7 @@ class Loading extends Component {
 
 var styles = StyleSheet.create({
   container: {
-    borderRadius: 0,
-    borderWidth: 0.10,
-    borderColor: 'silver',
+
     backgroundColor: 'black',
 
   },
@@ -66,7 +64,6 @@ var styles = StyleSheet.create({
     color: 'darkred',
   },
   words: {
-    fontFamily: 'serif',
     fontWeight: 'bold',
     color: 'white',
   }

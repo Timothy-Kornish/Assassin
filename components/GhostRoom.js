@@ -98,11 +98,7 @@ class GhostRoom extends Component {
   }
   var styles = StyleSheet.create({
     container: {
-      flex: 1,
-      justifyContent: 'center',
-      borderRadius: 0,
-      borderWidth: 0.10,
-      borderColor: 'silver',
+
       backgroundColor: 'black',
 
     },
@@ -112,7 +108,6 @@ class GhostRoom extends Component {
       backgroundColor: 'darkred',
     },
     words: {
-      fontFamily: 'serif',
       fontWeight: 'bold',
       color: 'white',
     }
