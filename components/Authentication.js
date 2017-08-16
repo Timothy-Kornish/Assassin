@@ -194,16 +194,10 @@ class Authentication extends Component {
 
 var styles = StyleSheet.create({
   container: {
-  
     backgroundColor: 'black',
-
   },
   button: {
-    textAlign: 'center',
-    margin: 10,
-    color: 'darkred',
     backgroundColor: 'darkred',
-    justifyContent: 'space-between',
   },
   words: {
     fontWeight: 'bold',

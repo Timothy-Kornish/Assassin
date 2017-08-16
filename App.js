@@ -23,13 +23,35 @@ import {StackNavigator} from 'react-navigation'
       </View>
     )
   }
+
+  // FirstPage: {
+  //   screen: FirstPage,
+  //   navigationOptions: {
+  //     title: "FirstPage",
+  //     header: {
+  //       left: null,
+  //     }
+  //   },
+  // }
   const Navigator = StackNavigator({
-    Authentication: { screen: Header(Authentication) },
-    Lobby: { screen: Header(Lobby) },
-    Room: { screen: Header(Room) },
-    Loading: { screen: Header(Loading) },
-    Game: { screen: Header(Game) },
-    GhostRoom: {screen: Header(GhostRoom)},
+    Authentication: { screen: Header(Authentication), navigationOptions: {
+      headerLeft: null} 
+    },
+    Lobby: { screen: Header(Lobby), navigationOptions: {
+      headerLeft: null}
+    },
+    Room: { screen: Header(Room), navigationOptions: {
+      headerLeft: null} 
+    },
+    Loading: { screen: Header(Loading), navigationOptions: {
+      headerLeft: null} 
+    },
+    Game: { screen: Header(Game), navigationOptions: {
+      headerLeft: null} 
+    },
+    GhostRoom: {screen: Header(GhostRoom), navigationOptions: {
+      headerLeft: null}
+    },
     Logout: {screen: Logout}
   });
 

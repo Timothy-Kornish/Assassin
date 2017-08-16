@@ -37,11 +37,9 @@ class Compass extends Component {
 
   render() {
     let rotateAngle = this.props.angle - this.state.degree + 90
-   return (<View style={centering.container}>
 
-          <Text>Distance to target: {parseFloat(this.props.distance).toFixed(2)} feet</Text>
-          <Text>theta {this.props.theta}</Text>
-          <Text> rotate angle {rotateAngle}</Text>
+   return (<View style={styles.container}>
+          <Text style={styles.words}>Distance to target: {parseFloat(this.props.distance).toFixed(2)} feet</Text>
 
           <Animated.Image style={{width: 200, height: 200, transform:[{rotate: rotateAngle + "deg"}]}} source={require('./arrow.png')}/>
         </View>
@@ -54,14 +52,16 @@ const mapStateToProps = (state) => ({
   distance: state.distance
 })
 
-const centering = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     marginVertical: 150
-
   },
+  words: {
+    color: 'white',
+  }
 });
 
 export default connect(mapStateToProps)(Compass)

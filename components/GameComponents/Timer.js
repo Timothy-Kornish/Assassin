@@ -18,7 +18,7 @@ countDown(){
   this.secondCounter = (Date.now() - this.startTimer) /1000
   this.setState({time: this.secondCounter})
   console.log("we have started the countdown", this.secondCounter)
-  let twoMinutes = "20"
+  let twoMinutes = 120
   if (this.secondCounter > twoMinutes) {
     fetch(apiUrl + `/user/hireable`, {
       method: 'PUT',
@@ -47,11 +47,19 @@ countDown(){
  render(){
    return(
     <View>
-      <Text>The bomb will detonate in {(20 - parseInt(this.secondCounter))} Seconds</Text>
+
+      <Text style = {styles.words}>The bomb will detonate in {(120 - parseInt(this.secondCounter))} Seconds</Text>
+
     </View>
   )
  }
 }
+
+const styles = StyleSheet.create({
+  words: {
+    color: 'white',
+  }
+})
 
 const mapStateToProps = (state) => ({
   token: state.token,

@@ -5,6 +5,7 @@ import killTarget from '../../redux/actions'
 import {apiUrl} from '../../localConfig'
 
 
+
 class KillButton extends Component {
 
   handleKill(){
