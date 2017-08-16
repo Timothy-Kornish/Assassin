@@ -197,7 +197,6 @@ var styles = StyleSheet.create({
     backgroundColor: 'black',
   },
   button: {
-    color: 'darkred',
     backgroundColor: 'darkred',
   },
   words: {
