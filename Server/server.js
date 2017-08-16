@@ -132,14 +132,11 @@ app.post('/authenticate', (req, res) => {
     if(!result[0]) {
       res.json({success: false, message: 'theys not from round here'})
     } else if(result[0]) {
-
       req.query(passQuery, [username], (err, result) => {
         if(err){
           console.log(err)
           throw err
         }
-
-        //TODO: check the hashed value of the stored pwd against sent hash
         if(!bcrypt.compareSync(password, result[0].password)) {
           console.log(result[0].password)
           res.json({success: false, message: 'password not found'})
@@ -147,7 +144,6 @@ app.post('/authenticate', (req, res) => {
           var token = jwt.sign({username}, app.get('superSecret'), {
             expiresIn: "2days"
           });
-
           res.json({success: true, message: "you're in", token })
         } else {
           res.json({success: false, message: "something went very wrong"})
@@ -157,37 +153,38 @@ app.post('/authenticate', (req, res) => {
   })
 })
 
-app.post('/auto/authenticate', (req, res) => {
+ app.post('/auto/authenticate', (req, res) => {
   const {username, token} = req.body;
-
-  const userQuery = `SELECT username FROM players WHERE username = ?`
-
+  const userQuery = `SELECT * FROM players WHERE username = ?`
   req.query(userQuery, [username], (err, result) => {
     if(err){
-
-      res.status(500).json({success:false, message: "dun had an error", err})
-
+      res.status(500).json({message: "dun had an error", err})
     } if(!result[0]) {
-
       res.json({success: false, message: 'user not found'})
-
     } else {
-
-      jwt.verify(token, app.get('superSecret'), function(err, decoded) {
-        if (err) {
-
-          return res.json({ success: false, message: 'Failed to authenticate token.' });
-
+      let sqlQuery = `SELECT roomCode FROM playersToGames WHERE username = ?`
+      req.query(sqlQuery, [username], (err2, result2) => {
+        if(err){
+          res.status(500).json({success: false, err2})
         } else {
-
-          return res.json({ success: true})
-
+          jwt.verify(token, app.get('superSecret'), function(err2, decoded ){
+            if (err) {
+              return res.json({ success: false, message: 'Failed to authenticate token.'});
+            } else {
+              return res.json({ 
+                                success: true, 
+                                username: username,
+                                roomCode: result2[0] && result2[0].roomCode,
+                                alive: result[0].alive,
+                              })
+            }
+          })
         }
       })
-
     }
   })
 })
+ 
 
 // middleware after token is provided to front end,
 // every route then checks the token legitemacy before proceeding
@@ -366,8 +363,9 @@ app.put('/user/heartbeat', (req, res) => {
 app.get('/user/game/data/:username', (req, res) => {
   let username = req.params.username
   let sql = `SELECT * FROM players`
-  req.query(sql, (err, result) => {
-     let serve = new ServerFunk(result,username)
+  req.query(sql, (err, allPlayers) => {
+     console.log('allplayers', allPlayers, username)
+     let serve = new ServerFunk(allPlayers,username)
      let theta = serve.getTheta()
      let distance = serve.getDistance()
      let target = serve.getTarget()
@@ -378,7 +376,7 @@ app.get('/user/game/data/:username', (req, res) => {
       res.status(500).json({success:false, message:"I'm Daniel Boon, checkout my coon hat", err})
     }
     else {
-      res.json({success:true, message: "sup Daniel Boon", result, theta, distance, target, targetsTarget, listObj})
+      res.json({success:true, message:  "sup Daniel Boon", allPlayers, theta, distance, target, targetsTarget, listObj})
     }
   })
 })
@@ -437,6 +435,7 @@ app.get('/user/list/:roomCode/:username', (req, res) => {
 // the killer a new target
 app.post('/user/kill', (req, res) => {
   const {list, username} = req.body
+  console.log('listkill', list)
   let serve = new ServerFunk(list, username)
   let theta = serve.getTheta()
   let distance = serve.getDistance()

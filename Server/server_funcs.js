@@ -3,10 +3,11 @@
     this.list = list
     this.username = username
     //console.log(this.list)
+
+    console.log('List', list, username)
     this.listVal = this._organize(this.list)
     this.listArr = this.listVal.arr
     this.listObj = this.listVal.obj
-
 
     // console.log(this.listArr)
     // console.log(this.listObj)
@@ -24,6 +25,7 @@
       console.log("theta",this.theta)
     }
   }
+
   _organize(arr){
     let obj = {}
     for(var i = 0; i < arr.length; i++){
