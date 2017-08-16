@@ -186,7 +186,10 @@ class Authentication extends Component {
 var styles = StyleSheet.create({
 
   button: {
+<<<<<<< HEAD
 
+=======
+>>>>>>> ea0b3eb6900e0f246bb2bdd08fda787ae1d5b262
     backgroundColor: 'darkred',
 
   },

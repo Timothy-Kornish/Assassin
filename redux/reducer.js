@@ -12,7 +12,22 @@ export default function reducer(state, action){
       return {
         ...state,
         username: undefined,
-        token: undefined
+        token: undefined,
+        latitude: undefined,
+        longitude: undefined,
+        locationError: undefined,
+        roomCode: undefined,
+        roomCreator: undefined,
+        waitingPlayers: undefined,
+        roomCreator: undefined,
+        target: undefined,
+        targetsTarget: undefined,
+        ghostRoom: undefined,
+        targetDistance: undefined,
+        theta: undefined,
+        distance: undefined,
+        listObj: undefined,
+        time: undefined
       }
     case 'locate':
       //console.log("locate reducer firing", action);
