@@ -16,7 +16,7 @@ class Room extends Component {
 
   updatePlayers(){
     var self = this;
-    fetch(apiUrl + `/user/list/${self.props.roomCode}`, {
+    fetch(apiUrl + `/user/list/${self.props.roomCode}/${self.props.username}`, {
      method: 'GET',
      headers: {
        'Content-Type' : 'application/json',
@@ -25,7 +25,7 @@ class Room extends Component {
     })
     .then(response => response.json())
     .then(result => {
-      console.log(result)
+      console.log("line 28 result", result)
       self.props.playersWaiting(result.players, result.creator)
     })
     console.log('updatePlayers is firing with', (Date.now() - self.startTime) /1000);
