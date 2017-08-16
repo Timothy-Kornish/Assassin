@@ -90,6 +90,7 @@ class Game extends Component {
 
   render(){
     return (
+
       <View style = {styles.container}>
 
         <Text style = {styles.words}>Be advised that Mother has laid out a set of rules in her last will and testament.  The rules must be

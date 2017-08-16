@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { AppRegistry, StyleSheet, Text, View,Button } from 'react-native';
+import { ScrollView, AppRegistry, StyleSheet, Text, View,Button } from 'react-native';
 import { Provider } from 'react-redux'
 import BackgroundTimer from 'react-native-background-timer';
 import Authentication from "./components/Authentication"
@@ -50,11 +50,13 @@ export default class App extends Component {
 
   render() {
     return (
-      <Provider store = {store}>
-        <Navigator />
-      </Provider>
-    );
-  }
+      <ScrollView>
+        <Provider store = {store}>
+          <Navigator />
+        </Provider>
+      </ScrollView>
+        );
+        }
 }
 
 var styles = StyleSheet.create({
