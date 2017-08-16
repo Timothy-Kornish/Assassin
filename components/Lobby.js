@@ -22,13 +22,9 @@ export default class Lobby extends Component {
 }
 var styles = StyleSheet.create({
   container: {
-    borderRadius: 0,
-    borderColor: 'silver',
     backgroundColor: 'black',
   },
   words: {
-    fontFamily: 'serif',
-    fontWeight: 'bold',
     color: 'white',
   }
 })

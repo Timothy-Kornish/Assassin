@@ -47,11 +47,17 @@ countDown(){
  render(){
    return(
     <View>
-      <Text>The bomb will detonate in {(120 - parseInt(this.secondCounter))} Seconds</Text>
+      <Text style = {styles.words}>The bomb will detonate in {(120 - parseInt(this.secondCounter))} Seconds</Text>
     </View>
   )
  }
 }
+
+const styles = StyleSheet.create({
+  words: {
+    color: 'white',
+  }
+})
 
 const mapStateToProps = (state) => ({
   token: state.token,
