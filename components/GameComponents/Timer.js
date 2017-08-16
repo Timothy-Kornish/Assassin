@@ -18,7 +18,7 @@ countDown(){
   this.secondCounter = (Date.now() - this.startTimer) /1000
   this.setState({time: this.secondCounter})
   console.log("we have started the countdown", this.secondCounter)
-  let twoMinutes = 120
+  let twoMinutes = 5
   if (this.secondCounter > twoMinutes) {
     fetch(apiUrl + `/user/hireable`, {
       method: 'PUT',
@@ -49,7 +49,9 @@ countDown(){
     <View>
 
 
+
       <Text style = {{color: 'white'}}>The bomb will detonate in {(120 - parseInt(this.secondCounter))} Seconds</Text>
+
 
     </View>
   )
