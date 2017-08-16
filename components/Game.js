@@ -117,7 +117,7 @@ class Game extends Component {
           course, that your hunter will see you before you see them. The final rule: If you do not stay active on your phone
           for at least 3 hours per day, you will be permanently and irrevocably eliminated from inheritance.
 
-        Stay alert, stay safe, stay alive.`)}/>
+        Stay alert, stay safe, stay alive.`)}></Button>
 
         <Button color = 'darkred' style = {styles.button} onPress={()=>this.props.navigation.navigate('GhostRoom')} title={'You Are Dead'}/>
         <Timer/>
