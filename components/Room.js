@@ -111,19 +111,12 @@ class Room extends Component {
 
 var styles = StyleSheet.create({
   container: {
-
     backgroundColor: '#000000',
-
   },
   button: {
-    textAlign: 'center',
-    margin: 0,
-    color: '#C0C0C0',
     backgroundColor: '#8B0000',
   },
   words: {
-    fontWeight: 'bold',
-    textAlign: 'center',
     color: 'white',
   }
 

@@ -55,16 +55,12 @@ class Loading extends Component {
 
 var styles = StyleSheet.create({
   container: {
-
     backgroundColor: 'black',
-
   },
   button: {
-    margin: 10,
     color: 'darkred',
   },
   words: {
-    fontWeight: 'bold',
     color: 'white',
   }
 })
