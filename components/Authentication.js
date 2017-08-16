@@ -174,9 +174,8 @@ class Authentication extends Component {
             <Button color="darkred" fontFamily = 'serif' onPress={() => this.props.navigation.navigate('GhostRoom')} title='Youre Dead to me'/>
 
           </View>
-          <Image style ={{height: 25, width: 25}} source = {require('./calvinsarts/Logo.png')}/>
-          <Image style ={{height: 25, width: 25}} source = {require('./calvinsarts/femalecovermodel.png')}/>
-          <Image style ={{height: 25, width: 25}} source = {require('./calvinsarts/malecovermodel.png')}/>
+          
+
         </View>
       );
     }
@@ -186,10 +185,7 @@ class Authentication extends Component {
 var styles = StyleSheet.create({
 
   button: {
-<<<<<<< HEAD
 
-=======
->>>>>>> ea0b3eb6900e0f246bb2bdd08fda787ae1d5b262
     backgroundColor: 'darkred',
 
   },

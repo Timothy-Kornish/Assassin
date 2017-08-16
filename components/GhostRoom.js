@@ -34,7 +34,7 @@ class GhostRoom extends Component {
 
     })
     .then(()=> {
-      fetch(apiUrl + `user/game/data/${self.props.username}`, {
+      fetch(apiURL + `user/game/data/${self.props.username}`, {
         method: 'GET',
         headers: {
           "Content-Type": 'application/json',
@@ -46,7 +46,7 @@ class GhostRoom extends Component {
     .then(result => {
       playerDataList = result.listObj
     })
-    fetch(apiUrl + `RIP/${this.props.roomCode}`, {
+    fetch(apiURL + `RIP/${this.props.roomCode}`, {
       method: 'Get',
       headers: {
         'Content-Type': 'application/json',
@@ -77,13 +77,12 @@ class GhostRoom extends Component {
   }
 
   render(){
-    const names = "eggplant"// this.props.deadPlayers.map(names => (<Text styles = {styles.words} key={names}> {names + '\n'} </Text>))
+    const names = this.props.deadPlayers.map(names => (<Text styles = {styles.words} key={names}> {names + '\n'} </Text>))
     console.log("happy haunting", this.props.deadPlayers)
 
         return(
         <View>
           <View style = {style.container}>
-            <Image style = {{height = 25, width = 25}} source = {require(./calvinsarts/ghostroomimage.png)}
 
             <Text style = {styles.words}>The Fallen: {names}</Text>
             <Text style = {styles.words}>Through me you go into a city of weeping; through me you go into eternal pain; through me you go amongst the lost people</Text>
