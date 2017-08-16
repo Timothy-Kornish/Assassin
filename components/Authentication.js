@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {AsyncStorage, Alert, Text, TextInput, TouchableHighlight, View, Button, StyleSheet} from 'react-native';
 import {login} from '../redux/actions'
 import {locate} from '../redux/actions'
-
+import {joinroom} from '../redux/actions'
 import {connect} from 'react-redux'
 import {StackNavigator} from 'react-navigation'
 import {apiUrl} from "../localConfig"
@@ -80,10 +80,10 @@ class Authentication extends Component {
       .then((response) => response.json())
       .then((responseData) => {
         if(responseData.success){
-          this.saveItem('x-access-token', responseData.token),
-          this.saveItem('username', this.state.username),
-          Alert.alert('Login Success!', responseData.token),
-          this.goToLobby(responseData.token, this.state.username);
+          this.saveItem('x-access-token', responseData.token)
+          this.saveItem('username', this.state.username)
+          Alert.alert('Login Success!', responseData.token)
+          this.loginRedirect(this.state.username, responseData.token)
         }else{
           Alert.alert('Login Failed', 'Incorrect username or password')
         }
@@ -95,6 +95,23 @@ class Authentication extends Component {
   goToLobby(token, username){
     this.props.login(username, token)
     this.props.navigation.navigate('Lobby')
+  }
+
+  goToGame(token, username, roomCode){
+    this.props.login(username, token)
+    this.props.joinroom(username, roomCode)
+    this.props.navigation.navigate('Game')
+  }
+
+  goToRoom(token, username, roomCode) {
+    this.props.login(username, token)
+    this.props.joinroom(username, roomCode)
+    this.props.navigation.navigate('Room')
+  }
+  goToGhost(token, username, roomCode){
+    this.props.login(username, token)
+    this.props.joinroom(username, roomCode)
+    this.props.navigation.navigate('GhostRoom')
   }
 
   async componentWillMount(){
@@ -111,28 +128,42 @@ class Authentication extends Component {
     console.log("componentWillMount fired")
     var username  = await self.getItem("username")
     var token = await self.getItem("x-access-token")
-
-    console.log("Token and username ", token, username)
-
-    fetch(apiUrl + '/auto/authenticate', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        username: username,
-        token: token
-      })
-    })
-    .then((response) => response.json())
-    .then((responseData) => {
-      console.log("responseData ", responseData)
-      if(responseData.success){
-        self.goToLobby(token, username);
-      } else if(!responseData.success){
-        self.setState({isLoaded: true})
-        return null;
-      }
-    })
+    if (!username || !token){
+      this.setState({isLoaded: true})
+    } else {
+      console.log("Token and username ", token, username)
+      this.loginRedirect(username, token)
   }
+}
+
+  loginRedirect(username, token){
+    fetch(apiUrl + '/auto/authenticate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: username,
+          token: token
+        })
+      })
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log("responseData ", responseData)
+        if(responseData.success && !responseData.roomCode){
+          console.log('GETTIN TO the autolobby ', token, username)
+          this.goToLobby(token, username);
+        } else if (responseData.success && responseData.alive === 'true') {
+          this.goToGame(token, username, responseData.roomCode)
+        } else if (responseData.success && responseData.alive === 'false') {
+          this.goToRoom(token, username, responseData.roomCode)
+        } else if (responseData.success && responseData.alive === 'dead') {
+          this.goToGhost(token, username, responseData.roomCode)
+        } else if(!responseData.success){
+          this.setState({isLoaded: true})
+          return null;
+        }
+      })
+    }
+
 
   render() {
     if(!this.state.isLoaded){
@@ -208,9 +239,9 @@ var styles = StyleSheet.create({
 
 
 
-
 const mapDispatchToProps = (dispatch) => {
   return {
+    joinroom: (username, roomCode) => {dispatch(joinroom(roomCode, username))},
     login : (username, token) => {dispatch(login(username, token))},
     locate : (latitude, longitude, error) => {dispatch(locate(latitude, longitude, error))}
   }
