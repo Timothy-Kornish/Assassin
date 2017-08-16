@@ -45,6 +45,7 @@ class Game extends Component {
             .then(response => response.json())
             .then(result => {
               console.log("did it work? ", result)
+              console.log("DID IT?!? ITS ALIVE!!", result.listObj[this.props.username].alive, result.listObj[this.props.target].alive)
               self.props.heartbeat(result.theta, result.distance, result.target, result.targetsTarget, result.listObj)
               if(result.listObj[self.props.username].alive === 'dead') {
                 console.log("HE GOT GOT ", self.props.navigation, self.props)
@@ -58,6 +59,7 @@ class Game extends Component {
 
 
   kill(){
+    console.log("user kill function called")
     fetch('/user/kill', {
      method: 'POST',
      headers: {
@@ -66,6 +68,10 @@ class Game extends Component {
      },
      body: JSON.stringify({latitude: this.props.latitude,
                            longitude: this.props.longitude})
+    })
+    .then(response => response.json())
+    .then(result => {
+      console.log("result of kill", result)
     })
   }
 
@@ -99,7 +105,6 @@ class Game extends Component {
 
       <View style = {styles.container}>
 
-
         <Button title='Rules' onPress={()=> Alert.alert('Rules',
           `Be advised that Mother has laid out a set of rules in her last will and testament.  The rules must be
 
@@ -111,7 +116,9 @@ class Game extends Component {
           radius is smaller than the target radius, which you will also recieve when your target is near. This means, of
           course, that your hunter will see you before you see them. The final rule: If you do not stay active on your phone
           for at least 3 hours per day, you will be permanently and irrevocably eliminated from inheritance.
+
         Stay alert, stay safe, stay alive.`)}/>
+
         <Button color = 'darkred' style = {styles.button} onPress={()=>this.props.navigation.navigate('GhostRoom')} title={'You Are Dead'}/>
         <Timer/>
           <Compass />
@@ -123,19 +130,15 @@ class Game extends Component {
 
 var styles = StyleSheet.create({
   container: {
-    borderRadius: 0,
-    borderWidth: 0.1,
-    borderColor: 'silver',
+
     backgroundColor: 'black',
   },
   button: {
-    margin: 10,
-    color: 'silver',
+ 
     backgroundColor: 'darkred',
   },
   words: {
-    fontFamily: 'serif',
-    fontWeight: 'bold',
+
     color: 'white',
   }
 })

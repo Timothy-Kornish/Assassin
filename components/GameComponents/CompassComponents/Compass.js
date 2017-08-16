@@ -32,13 +32,16 @@ class Compass extends Component {
 
   componentDidMount() {
     this.updateAngle()
-    this.interval = setInterval(this.updateAngle, 100)
+    this.interval = setInterval(this.updateAngle, 500)
   }
 
   render() {
     let rotateAngle = this.props.angle - this.state.degree + 90
-   return (<View style={centering.container}>
-          <Text>Distance to target: {parseFloat(this.props.distance).toFixed(2)} feet</Text>
+
+   return (<View style={styles.container}>
+          <Text style={styles.words}>Distance to target: {parseFloat(this.props.distance).toFixed(2)} feet</Text>
+
+
           <Animated.Image style={{width: 200, height: 200, transform:[{rotate: rotateAngle + "deg"}]}} source={require('./arrow.png')}/>
         </View>
     );
