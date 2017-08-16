@@ -105,8 +105,8 @@ class Game extends Component {
         Stay alert, stay safe, stay alive.</Text>
         <Button color = 'darkred' style = {styles.button} onPress={()=>this.props.navigation.navigate('GhostRoom')} title={'You Are Dead'}/>
         <Timer/>
-          <Compass />
-          <KillButton />
+        <Compass />
+        <KillButton />
           </View>
     )
   }
@@ -114,19 +114,12 @@ class Game extends Component {
 
 var styles = StyleSheet.create({
   container: {
-    borderRadius: 0,
-    borderWidth: 0.1,
-    borderColor: 'silver',
     backgroundColor: 'black',
   },
   button: {
-    margin: 10,
-    color: 'silver',
     backgroundColor: 'darkred',
   },
   words: {
-    fontFamily: 'serif',
-    fontWeight: 'bold',
     color: 'white',
   }
 })

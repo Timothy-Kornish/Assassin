@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {AsyncStorage, Alert, Text, TextInput, TouchableHighlight, View, Button, StyleSheet} from 'react-native';
+import {AsyncStorage, Alert, Text, TextInput, TouchableHighlight, View, Button, StyleSheet, Image} from 'react-native';
 import {login} from '../redux/actions'
 import {connect} from 'react-redux'
 import {StackNavigator} from 'react-navigation'
@@ -135,7 +135,7 @@ class Authentication extends Component {
           <View>
 
             <TextInput
-              style = {{padding: 10, backgroundColor: "white"}}
+              style = {{padding: 15, backgroundColor: "white"}}
               editable={true}
               onChangeText={(username) => this.setState({username})}
               placeholder='Username'
@@ -145,7 +145,7 @@ class Authentication extends Component {
             />
 
             <TextInput
-              style = {{padding: 10, backgroundColor: "white"}}
+              style = {{padding: 15, backgroundColor: "white"}}
               editable={true}
               onChangeText={(password) => this.setState({password})}
               placeholder='Password'
@@ -174,6 +174,9 @@ class Authentication extends Component {
             <Button color="darkred" fontFamily = 'serif' onPress={() => this.props.navigation.navigate('GhostRoom')} title='Youre Dead to me'/>
 
           </View>
+          <Image style ={{height: 25, width: 25}} source = {require('./calvinsarts/Logo.png')}/>
+          <Image style ={{height: 25, width: 25}} source = {require('./calvinsarts/femalecovermodel.png')}/>
+          <Image style ={{height: 25, width: 25}} source = {require('./calvinsarts/malecovermodel.png')}/>
         </View>
       );
     }
@@ -181,33 +184,14 @@ class Authentication extends Component {
 }
 
 var styles = StyleSheet.create({
-  container: {
-    flexWrap: 'wrap',
-    alignContent: 'stretch',
-    justifyContent: 'center',
-    borderRadius: 0,
-    borderWidth: 0,
-    borderBottomWidth: 0,
-    borderTopWidth: 0,
-    borderColor: 'black',
-    marginTop: 0,
-    marginBottom: 0,
-    marginRight: 0,
-    marginLeft: 0,
-    backgroundColor: 'black',
+
+  button: {
+
+    backgroundColor: 'darkred',
 
   },
-  button: {
-    fontFamily: 'serif',
-    textAlign: 'center',
-    margin: 10,
-    color: 'darkred',
-    backgroundColor: 'darkred',
-    justifyContent: 'space-between',
-  },
   words: {
-    fontFamily: 'serif',
-    fontWeight: 'bold',
+
     color: 'white',
   }
 

@@ -19,18 +19,10 @@ class Loading extends Component {
           roomCode: this.props.roomCode,
           username: this.props.username
 
-<<<<<<< HEAD
         })
     })
     .then(()=>self.props.navigation.navigate('Game'))
  }
-=======
-    //     })
-    // })
-    // .then(
-    this.props.navigation.navigate('Game')
-  }
->>>>>>> c8280bc3dcdde046397aa5dec58bb49e79583e8e
 
 
  render(){
