@@ -9,15 +9,12 @@ export default class Lobby extends Component {
   render(){
         return (
           <View style = {styles.container}>
-
             <CreateRoom {...this.props}/>
             <Text style = {styles.words}>Welcome to Assassins: The Last Heir</Text>
             <Text style = {styles.words}>create room or join room here</Text>
-
-          <JoinRoom {...this.props}/>
+            <JoinRoom {...this.props}/>
           </View>
          )
-
   }
 }
 var styles = StyleSheet.create({

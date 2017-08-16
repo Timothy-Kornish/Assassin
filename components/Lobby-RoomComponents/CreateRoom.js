@@ -26,9 +26,7 @@ class CreateRoom extends Component {
        "Content-Type": 'application/json',
        "x-access-token": self.props.token
      },
-     body: JSON.stringify({
-                           roomCode: roomCode
-                         })
+     body: JSON.stringify({roomCode: roomCode})
     })
     .then(() => {
       fetch(apiUrl + `/room/add`, {
