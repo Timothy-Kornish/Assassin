@@ -473,15 +473,17 @@ app.post('/user/kill', (req, res) => {
     console.log("server if fired updating targets")
     const sql = `UPDATE players SET alive =
                   CASE username
-                  WHEN ? THEN 'false'
+                  WHEN ? THEN 'dead'
+                  WHEN ? THEN 'true'
                   END,
                   target =
                   CASE username
                   WHEN ? THEN ?
+                  WHEN ? THEN ?
                   END`
 
   //might need to change false on line 174
-    req.query(sql, [target, username, targetsTarget], (err, result) => {
+    req.query(sql, [target, username, username, targetsTarget, target, 'dne'], (err, result) => {
       if (err){
         res.status(500).json({message: "Shudda ate more of them there gator brains, they make you smart", err})
 
