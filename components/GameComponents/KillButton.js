@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
-import KillTarget from '../../redux/actions'
+import killTarget from '../../redux/actions'
 
 
 class KillButton extends Component {
