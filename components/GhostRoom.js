@@ -98,22 +98,16 @@ class GhostRoom extends Component {
   }
   var styles = StyleSheet.create({
     container: {
-      flex: 1,
-      justifyContent: 'center',
-      borderRadius: 0,
-      borderWidth: 0.10,
-      borderColor: 'silver',
+
       backgroundColor: 'black',
 
     },
     button: {
-      margin: 20,
-      color: 'silver',
+
       backgroundColor: 'darkred',
     },
     words: {
-      fontFamily: 'serif',
-      fontWeight: 'bold',
+
       color: 'white',
     }
   })
