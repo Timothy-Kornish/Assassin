@@ -27,7 +27,7 @@ export default function reducer(state, action){
         theta: undefined,
         distance: undefined,
         listObj: undefined,
-        time: undefined,
+        time: undefined
       }
     case 'locate':
       //console.log("locate reducer firing", action);
