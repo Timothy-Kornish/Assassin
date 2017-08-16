@@ -3,6 +3,7 @@ package com.assassins;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.evollu.react.fcm.FIRMessagingPackage;
 import com.ocetnik.timer.BackgroundTimerPackage;
 import com.reactlibrary.RNSimpleCompassPackage;
 import com.facebook.react.ReactNativeHost;
@@ -25,6 +26,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new FIRMessagingPackage(),
             new BackgroundTimerPackage(),
             new RNSimpleCompassPackage()
 

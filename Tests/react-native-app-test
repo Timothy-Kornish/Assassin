@@ -1,0 +1,42 @@
+import 'react-native';
+import React from 'react';
+import App from './App.js'
+
+
+import renderer from 'react-test-renderer';
+
+test('renders correctly', () => {
+  const tree = renderer.create(
+    <Intro />
+  ).toJSON();
+  expect(tree).toMatchSnapshot();
+});
+
+
+
+export default class Intro extends Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.welcome}>
+          Welcome to React Native!
+        </Text>
+        <Text style={styles.instructions}>
+          This is a React Native snapshot test.
+        </Text>
+      </View>
+    );
+  }
+}
+
+jest.mock('Text', () => {
+  const RealComponent = require.requireActual('Text');
+  const React = require('React');
+  class Text extends React.Component {
+    render() {
+      return React.createElement('Text', this.props, this.props.children);
+    }
+  }
+  Text.propTypes = RealComponent.propTypes;
+  return Text;
+});

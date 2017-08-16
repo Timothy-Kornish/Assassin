@@ -64,6 +64,10 @@ class CreateRoom extends Component {
      <View>
        <Text>Create Room</Text>
        <Button
+<<<<<<< HEAD
+=======
+         color= 'darkred'
+>>>>>>> 20589bc105ebf7f4ffa3739b3d36d7e7616dbf84
         onPress={this.createOnClick.bind(this)}
         title={'Create Game'}>
       </Button>
