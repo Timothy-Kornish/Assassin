@@ -16,7 +16,6 @@ class Game extends Component {
     super(props);
     let self = this;
     const heartbeatTimer = BackgroundTimer.setInterval (() => {
-        console.log("BEFORE FETCH  lat? lng? ", self.props.latitude, self.props.longitude)
           fetch(apiUrl + '/user/heartbeat', {
             method: 'PUT',
             headers: {
@@ -29,9 +28,7 @@ class Game extends Component {
                                 })
           })
           .then(response => response.json())
-          .then(result => console.log("RESULT ", result))
-          .then(()=>{
-            console.log("timeNOT? lat? lng? ", self.props.latitude, self.props.longitude)
+          .then((result)=>{
             fetch(apiUrl + `/user/game/data/${self.props.username}`,{
               method: 'GET',
               headers: {
@@ -41,7 +38,6 @@ class Game extends Component {
             })
             .then(response => response.json())
             .then(result => {
-              console.log("did it work? ", result)
               self.props.heartbeat(result.theta, result.distance, result.target, result.targetsTarget, result.listObj)
               if(result.listObj[self.props.username].alive === 'dead') {
                 console.log("HE GOT GOT ", self.props.navigation, self.props)

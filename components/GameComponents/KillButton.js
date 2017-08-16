@@ -2,14 +2,14 @@ import React, { Component } from 'react'
 import { Button, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import killTarget from '../../redux/actions'
+import {apiUrl} from '../../localConfig'
 
 
 class KillButton extends Component {
 
   handleKill(){
-
-//this first route needs to be changed
-    fetch(`/user/list/${this.props.roomCode}`,{
+    console.log("handleKill fired")
+    fetch(apiUrl + `/user/list/${this.props.roomCode}`,{
       method: 'GET',
       headers:{
         'Content-Type': 'application/json',
@@ -18,7 +18,8 @@ class KillButton extends Component {
     })
     .then(response => response.json())
     .then(result => {
-      fetch('/user/kill', {
+      console.log("kill fired")
+      fetch(apiUrl + '/user/kill', {
         method : 'POST',
         headers: {
           'Content-Type': 'application/json',
