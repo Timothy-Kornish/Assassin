@@ -83,6 +83,7 @@ class GhostRoom extends Component {
         return(
         <View>
           <View style = {style.container}>
+            <Image style = {{height = 25, width = 25}} source = {require(./calvinsarts/ghostroomimage.png)}
 
             <Text style = {styles.words}>The Fallen: {names}</Text>
             <Text style = {styles.words}>Through me you go into a city of weeping; through me you go into eternal pain; through me you go amongst the lost people</Text>
