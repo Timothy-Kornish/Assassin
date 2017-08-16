@@ -43,10 +43,16 @@ class Game extends Component {
             .then(result => {
               console.log("did it work? ", result)
               self.props.heartbeat(result.theta, result.distance, result.target, result.targetsTarget, result.listObj)
+              if(result.listObj[self.props.username].alive === 'dead') {
+                console.log("HE GOT GOT ", self.props.navigation, self.props)
+                self.props.navigation.navigate('GhostRoom')
+              }
             })
           })
     }, 1500);
+
   }
+
 
   kill(){
     fetch('/user/kill', {
@@ -88,7 +94,7 @@ class Game extends Component {
   render(){
     return (
       <View style = {styles.container}>
-        <Button title='Rules' onPress={()=> Alert.alert('Rules', 
+        <Button title='Rules' onPress={()=> Alert.alert('Rules',
           `Be advised that Mother has laid out a set of rules in her last will and testament.  The rules must be
           followed and obeyed or you will be disqualified from the pool of potential heirs. Mother has gifted you with a
           locator to aid you in your quest.  I must also disclose that you have also been tagged with a locator and are
