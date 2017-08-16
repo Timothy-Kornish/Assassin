@@ -483,7 +483,7 @@ app.post('/user/kill', (req, res) => {
                   END`
 
   //might need to change false on line 174
-    req.query(sql, [target, username, username, targetsTarget, target, 'dne'], (err, result) => {
+    req.query(sql, [target, username, username, targetsTarget, target, target], (err, result) => {
       if (err){
         res.status(500).json({message: "Shudda ate more of them there gator brains, they make you smart", err})
 
