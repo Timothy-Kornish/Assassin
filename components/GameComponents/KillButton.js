@@ -9,8 +9,6 @@ import {apiUrl} from '../../localConfig'
 class KillButton extends Component {
 
   handleKill(){
-    console.log("handlekill fired")
-//this first route needs to be changed
     fetch(apiUrl + `/user/list/${this.props.roomCode}/${this.props.username}`,{
       method: 'GET',
       headers:{
@@ -20,24 +18,22 @@ class KillButton extends Component {
     })
     .then(response => response.json())
     .then(result => {
-      console.log("results ", result)
       fetch(apiUrl + '/user/kill', {
         method : 'POST',
         headers: {
           'Content-Type': 'application/json',
           'x-access-token': this.props.token
         },
-        body: JSON.stringify({username: this.props.username,
+        body: JSON.stringify({
+                              username: this.props.username,
                               list: result.playersInRoomArr
         })
       })
     })
-
-    //this.props.killTargetButton(this.props.target, this.props.username, this.props.targetsTarget)
   }
 
   render(){
-    return <Button disabled={this.props.distance > 500} onPress={() => this.handleKill()} title='KILL TARGET'/>
+    return <Button disabled={this.props.distance > 500 || this.props.hireable === 'true'} onPress={() => this.handleKill()} title='KILL TARGET'/>
   }
 }
 
@@ -49,14 +45,13 @@ const mapStateToProps = (state) => {
     isAlive : state.alive,
     distance: state.distance,
     roomCode: state.roomCode,
-    token: state.token
-
+    token: state.token,
+    hireable: state.hireable
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
     killTargetButton: (target, username, targetsTarget) => {dispatch(killTarget(target, username, targetsTarget))}
 })
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(KillButton)

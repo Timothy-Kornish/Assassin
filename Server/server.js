@@ -56,7 +56,6 @@ const SQLgen = (array) => {
   return SQLval
 }
 
-
 //organizer function that flattens an array of objects to an array of names
 const organizer = (arr) => {
 	for(var i = 0; i < arr.length; i++){
@@ -102,18 +101,18 @@ app.post('/signup', (req, res) => {
       req.query(sql, [username, password], (err, result) => {
 
         if(err){
-          res.status(500).json({message: 'Da database done broke, cuz', err})
+          res.status(500).json({message: 'Da database done broke, cuz', success:false, err})
 
         } else {
           var token = jwt.sign({username}, app.get('superSecret'), {
             expiresIn: "2days"
           });
 
-          res.json({sucess: "well done, butch!", result, token})
+          res.json({success:true, message: "well done, butch!", result, token})
         }
       })
     } else if(result[0]){
-      res.status(500).json({message: 'That there user already exists hog'})
+      res.status(500).json({success:false, message: 'That there user already exists hog'})
     }
   })
 })
@@ -124,7 +123,6 @@ app.post('/authenticate', (req, res) => {
   const {username, password} = req.body
   const userQuery = `SELECT username FROM players WHERE username = ?`
   const passQuery = `SELECT password FROM players WHERE username = ?`
-
 
   req.query(userQuery, [username], (err, result) => {
     if(err){
@@ -152,7 +150,7 @@ app.post('/authenticate', (req, res) => {
 
           res.json({success: true, message: "you're in", token })
         } else {
-          res.json({message: "something went very wrong"})
+          res.json({success: false, message: "something went very wrong"})
         }
       })
     }
@@ -164,11 +162,10 @@ app.post('/auto/authenticate', (req, res) => {
 
   const userQuery = `SELECT username FROM players WHERE username = ?`
 
-
   req.query(userQuery, [username], (err, result) => {
     if(err){
 
-      res.status(500).json({message: "dun had an error", err})
+      res.status(500).json({success:false, message: "dun had an error", err})
 
     } if(!result[0]) {
 
@@ -191,7 +188,6 @@ app.post('/auto/authenticate', (req, res) => {
     }
   })
 })
-
 
 // middleware after token is provided to front end,
 // every route then checks the token legitemacy before proceeding
@@ -227,58 +223,37 @@ app.use(function(req, res, next) {
   }
 });
 
-/*******************
-unnecessary route, never used
-********************/
-
-// join the tables on the database, probably not necesssary because of the foreign keys on database
-// foreign keys make it so playersTO
-
-app.post('/joinTables', (req, res) => {
-    let sql = `SELECT players.*, games.*
-                  FROM players
-                  JOIN PlayersToGames ON PlayersToGames.username = players.username
-                  JOIN games ON PlayersToGames.roomCode = games.roomCode`
-    req.query(sql, (err, result) => {
-      if(err){
-        res.status(500).json({message: "Quit drinkin all of meemaws good moonshine!", err})
-      } else {
-        res.json({success: "Don't forget the flashlight on yer way to the john, Butch!", result})
-      }
-    })
-})
-
 //route used to insert a new room into the database, doesn't add players or anything else
 app.post('/room', (req, res) => {
   const {roomCode} = req.body
   const code = codeGen()
   const sql = `INSERT INTO games (roomCode, active) VALUES (?, ?)`
-
   req.query(sql, [roomCode, 0], (err, result) => {
     if(err){
-      res.status(500).json({message: "Fix the damn ac, JSON! C'mon now!", err})
+      res.status(500).json({success:false, message: "Fix the damn ac, JSON! C'mon now!", err})
     }else {
-      res.json({success: "Y'all nu' gunna die today, Butch!", result})
+      res.json({success:true, message: "Y'all nu' gunna die today, Butch!", result})
     }
   })
 })
+
 // route used to set the player who creates the room as the admin on playersToGames in database
 app.put('/room/admin', (req, res) => {
   const {roomCode, username} = req.body
   const sql = `UPDATE playersToGames SET admin = 'true' WHERE username = ?`
   req.query(sql, [username], (err, result) => {
     if(err){
-      res.status(500).json({message: "Gator got yer arm, Butch!", err})
+      res.status(500).json({success:false, message: "Gator got yer arm, Butch!", err})
     } else {
-      res.json({success: 'Poke that Gators eye, Cletus!', result})
+      res.json({success:true, message: 'Poke that Gators eye, Cletus!', result})
     }
   })
 })
+
 // route used to add a player into a room on the database
 app.put('/room/add',(req, res) => {
   const {username, roomCode} = req.body
   let user = username
-  console.log("the passed in user and room are ", username, roomCode)
   const sqlQuerty = "SELECT * FROM playersToGames WHERE roomCode = ?"
   req.query(sqlQuerty, [roomCode], (err, result) => {
     if (err){
@@ -292,7 +267,7 @@ app.put('/room/add',(req, res) => {
       req.query(sql, [roomCode, username], (err2, result2) =>{
         if (err2){
           console.log("if err fired", err2)
-          res.status(500).json({message: 'Database Error', error: err2})
+          res.status(500).json({success:false, message: 'Database Error', error: err2})
         } else {
           console.log("else in query fired")
           res.json({success: true, message: 'ye-ah, got ye in thee room good sir', result2})
@@ -326,15 +301,16 @@ app.put('/room/add',(req, res) => {
       }
   })
 })
+
 // route  used when games is started to set all players alive stautus to true and the room to active
 app.put('/room/start', (req, res) => {
   const {roomCode} = req.body
   const sql = ` UPDATE players, games SET alive = 'true', active = 1 WHERE roomCode = ?`
   req.query(sql, [roomCode], (err, result) => {
     if (err){
-      res.status(500).json({message: "Imma feed you to da gators, Butch!", err})
+      res.status(500).json({success:false, message: "Imma feed you to da gators, Butch!", err})
     }else{
-      res.json({success: 'Eeeeeeeeeeeiii', result})
+      res.json({success:true, message: 'Eeeeeeeeeeeiii', result})
     }
   })
 })
@@ -343,7 +319,6 @@ app.put('/room/start', (req, res) => {
 redundant route    use : user/list:roomCode
 ********************/
 
-
 // grabs data as preparation to assign targets,
 app.put('/user/targets', (req, res) => {
   const {roomCode} = req.body
@@ -351,9 +326,9 @@ app.put('/user/targets', (req, res) => {
               WHERE roomCode = ?`
   req.query(sql, [roomCode], (err, result) => {
     if(err){
-      res.status(500).json({message: 'Ma, get out here, that Gator dun eat Butch!', err})
+      res.status(500).json({success:false, message: 'Ma, get out here, that Gator dun eat Butch!', err})
     }else{
-      res.json({success: 'Ma, get out here, Butch dun eat that Gator!', result})
+      res.json({success:true, messege: 'Ma, get out here, Butch dun eat that Gator!', result})
     }
   })
 })
@@ -367,12 +342,11 @@ app.put('/user/targets/assign', (req, res) => {
   console.log("sql name ", result, sql)
   req.query(sql, (err, answer) => {
     if(err){
-      res.status(500).json({message: "Pa, there's a damn armadill in the house!", err})
+      res.status(500).json({success: false, message: "Pa, there's a damn armadill in the house!", err})
     } else {
-      res.json({success: "Ma, this here armadill pie is de best you ever made", answer})
+      res.json({success:true, message: "Ma, this here armadill pie is de best you ever made", answer})
     }
   })
-
 })
 
 // heartbeat route for game page to send data used to update the databased
@@ -381,9 +355,9 @@ app.put('/user/heartbeat', (req, res) => {
   const sql = `UPDATE players SET latitude = ?, longitude = ? WHERE username = ?`
   req.query(sql, [latitude, longitude, username], (err, result) => {
     if(err){
-      res.status(500).json({message: "Cletus, stop peein on Butch's practicing tree!", err})
+      res.status(500).json({success:false, message: "Cletus, stop peein on Butch's practicing tree!", err})
     } else {
-      res.json({success: "This here tree is the happiest darned tree in Louisiana!", result})
+      res.json({success:true, message: "This here tree is the happiest darned tree in Louisiana!", result})
     }
   })
 })
@@ -401,7 +375,7 @@ app.get('/user/game/data/:username', (req, res) => {
      let listObj = serve.getListObj()
 
     if(err) {
-      res.status(500).json({message:"I'm Daniel Boon, checkout my coon hat", err})
+      res.status(500).json({success:false, message:"I'm Daniel Boon, checkout my coon hat", err})
     }
     else {
       res.json({success:true, message: "sup Daniel Boon", result, theta, distance, target, targetsTarget, listObj})
@@ -416,7 +390,7 @@ app.get('/user/list/:roomCode/:username', (req, res) => {
   const sql = `SELECT * FROM playersToGames WHERE roomCode = ?`
   req.query(sql,[roomCode],(err, result) => {
     if(err){
-      res.status(500).json({message: "Butch, go help yer Uncle!", err})
+      res.status(500).json({success:false, message: "Butch, go help yer Uncle!", err})
     } else {
 
       let creator = ""
@@ -457,6 +431,7 @@ app.get('/user/list/:roomCode/:username', (req, res) => {
     }
   })
 })
+
 // used on kill button being hit, check's if target is in distance to be killed.
 // if target is close enough, then sets that person's alive status to false, then assisns
 // the killer a new target
@@ -468,9 +443,7 @@ app.post('/user/kill', (req, res) => {
   let target = serve.getTarget()
   let targetsTarget = serve.getTargetsTarget()
   let listObj =serve.getListObj()
-  console.log("listObj properties required",listObj[username] )
   if(listObj[username].hireable && listObj[username].alive){
-    console.log("server if fired updating targets")
     const sql = `UPDATE players SET alive =
                   CASE username
                   WHEN ? THEN 'dead'
@@ -485,7 +458,7 @@ app.post('/user/kill', (req, res) => {
   //might need to change false on line 174
     req.query(sql, [target, username, username, targetsTarget, target, target], (err, result) => {
       if (err){
-        res.status(500).json({message: "Shudda ate more of them there gator brains, they make you smart", err})
+        res.status(500).json({success:false, message: "Shudda ate more of them there gator brains, they make you smart", err})
 
       } else { //check if timestamp is recent and if radius is small enough for a kill
         const sqlQuery = `UPDATE players SET alive =
@@ -517,9 +490,9 @@ app.put('/user/location', (req, res) => {
   const sql = `UPDATE players SET latitude = ?, longitude = ? WHERE username = ?`
   req.query(sql, [latitude, longitude, username], (err, result) => {
     if (err){
-      res.status(500).json({message: "Cletus, get on outta here, you done Butched up!", err})
+      res.status(500).json({success:false, message: "Cletus, get on outta here, you done Butched up!", err})
     } else {
-      res.json({success: "You gotta not Cletus up, and get those gator legs good and tight!", result})
+      res.json({success:true, message: "You gotta not Cletus up, and get those gator legs good and tight!", result})
     }
   })
 })
@@ -530,9 +503,9 @@ app.put('/user/startCountDown', (req, res) => {
   const sql =`UPDATE players SET hireable = 'false' WHERE username = ?`
   req.query(sql, [username], (err, result) => {
     if(err){
-      res.status(500).json({message: "Now here's where the science kicks in, you done messed it up", err})
+      res.status(500).json({success:false, message: "Now here's where the science kicks in, you done messed it up", err})
     } else {
-      res.json({success: "You done wrangled that gator gud,!", result})
+      res.json({success:true, message: "You done wrangled that gator gud,!", result})
     }
   })
 })
@@ -543,9 +516,9 @@ app.put('/user/hireable', (req, res) => {
   const sql = `UPDATE players SET hireable = 'true' WHERE username = ?`
   req.query(sql, [username], (err, result) => {
     if(err){
-      res.status(500).json({message: "Quit ridin' that sow like a horse Cletus!", err})
+      res.status(500).json({success:false, message: "Quit ridin' that sow like a horse Cletus!", err})
     } else {
-      res.json({success: "Cletus is the world champion sow rider in the lower 52", result})
+      res.json({success:true, message: "Cletus is the world champion sow rider in the lower 52", result})
     }
   })
 })
@@ -554,7 +527,6 @@ app.put('/user/hireable', (req, res) => {
 redundant route        use : user/startcountdount, maybe rename to make sense for both routes
 ************************/
 
-
 //player logs out of game.
 app.put('user/logout', (req, res) => {
   const {username} = req.body
@@ -562,9 +534,9 @@ app.put('user/logout', (req, res) => {
   const sql = `UPDATE players SET hireable = 'false' WHERE username = ?`
   req.query(sql, [username], (err, result) => {
     if(err){
-      res.status(500).json({message: "Cletus, leave that poor scarecrow alone, now!", err})
+      res.status(500).json({success:false, message: "Cletus, leave that poor scarecrow alone, now!", err})
     } else {
-      res.json({success: "Weeehooo! That there is some good shooting, Cletus. That scarecrow aint even seen that comin!", result})
+      res.json({success:true, message: "Weeehooo! That there is some good shooting, Cletus. That scarecrow aint even seen that comin!", result})
     }
   })
 })
@@ -580,9 +552,9 @@ app.put('/bringOutYerDead', (req, res) => {
   const sql = `UPDATE players SET alive = 'false' WHERE username = ?`
   req.query(sql, [username], (err, result) => {
     if(err){
-      res.status(500).json({message: "Here lies Butch, worst darned gator wrastler both sides of the Mississippi", err})
+      res.status(500).json({success:false, message: "Here lies Butch, worst darned gator wrastler both sides of the Mississippi", err})
     } else {
-      res.json({success: "Cletus done got that there Gator that kill't his best buddy Butch", result})
+      res.json({success:true, message: "Cletus done got that there Gator that kill't his best buddy Butch", result})
     }
   })
 })
@@ -597,9 +569,9 @@ app.get('/RIP/:roomCode', (req, res) => {
   const sql = `SELECT * from playersToGames where roomCode = ?`
   req.query(sql, [roomCode], (err, result) => {
     if(err){
-      res.status(500).json({message:"This joke done died", err})
+      res.status(500).json({success:false, message:"This joke done died", err})
     } else {
-      res.json({success: "Thank you, Cletus for learnin' me to help Uncle Jack, off the horse", result})
+      res.json({success:true, message: "Thank you, Cletus for learnin' me to help Uncle Jack, off the horse", result})
     }
   })
 })
@@ -615,9 +587,9 @@ app.get('/showPlayersToGamesTables', (req, res) => {
   const sql = `SELECT * from playersToGames`
   req.query(sql, (err, result) => {
     if(err){
-      res.status(500).json({message: "Git on outta here", err})
+      res.status(500).json({success:false, message: "Git on outta here", err})
     } else {
-      res.json({success: "MMM-hmmm, this here gator dick moonshine is da best in de bayou", result})
+      res.json({success:true, message: "MMM-hmmm, this here gator moonshine is da best in de bayou", result})
     }
   })
 })
@@ -627,25 +599,24 @@ app.get('/showGamesTables', (req, res) => {
   const sql = `SELECT * from GAMES`
   req.query(sql,(err, result) => {
     if(err){
-      res.status(500).json({message: "Get away from that horse!!!", err})
+      res.status(500).json({success:false, message: "Get away from that horse!!!", err})
     } else {
-      res.json({success: "Weeee-ooooo, git them glators, Cletus!", result})
+      res.json({success:true, message: "Weeee-ooooo, git them glators, Cletus!", result})
     }
   })
 })
+
 // shows all data on players table in database. Primarily for testing
 app.get('/showPlayersTables', (req, res) => {
   const sql = `SELECT * from players`
   req.query(sql,(err, result) => {
     if(err){
-      res.status(500).json({message: "errrrrrrror", err})
+      res.status(500).json({success:false, message: "errrrrrrror", err})
     } else {
-      res.json({success: "clever message, Butch", result})
+      res.json({success:true, message: "clever message, Butch", result})
     }
   })
 })
-
-
 
 app.listen(port)
 console.log("The server is working on Port", port)

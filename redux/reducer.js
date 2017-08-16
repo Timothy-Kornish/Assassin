@@ -62,7 +62,7 @@ export default function reducer(state, action){
         return{
           ...state,
           target: action.target
-        }   
+        }
       case 'newHeartBeat':
         console.log("heartbeat is thumpin", action)
           return{
@@ -71,7 +71,8 @@ export default function reducer(state, action){
             distance: action.distance,
             target: action.target,
             targetsTarget: action.targetsTarget,
-            listObj: action.listObj
+            listObj: action.listObj,
+            hireable: action.hireable
           }
       case 'newTime':
         console.log("time is ticking", action)
@@ -86,12 +87,12 @@ export default function reducer(state, action){
           target: state.target,
           targetsTarget: state.targetsTarget,
           targetDistance: state.target.distance,
-        }  
+        }
       case 'newGhostRoom':
         return {
           ...state,
           ghostRoom : action.deadPlayers
-        } 
+        }
     default:
       return state
   }
