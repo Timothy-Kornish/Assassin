@@ -19,10 +19,18 @@ class Loading extends Component {
           roomCode: this.props.roomCode,
           username: this.props.username
 
+<<<<<<< HEAD
         })
     })
     .then(()=>self.props.navigation.navigate('Game'))
  }
+=======
+    //     })
+    // })
+    // .then(
+    this.props.navigation.navigate('Game')
+  }
+>>>>>>> c8280bc3dcdde046397aa5dec58bb49e79583e8e
 
 
  render(){
@@ -54,19 +62,12 @@ class Loading extends Component {
 
 var styles = StyleSheet.create({
   container: {
-    borderRadius: 0,
-    borderWidth: 0.10,
-    borderColor: 'silver',
     backgroundColor: 'black',
-
   },
   button: {
-    margin: 10,
     color: 'darkred',
   },
   words: {
-    fontFamily: 'serif',
-    fontWeight: 'bold',
     color: 'white',
   }
 })
