@@ -18,7 +18,7 @@ import {StackNavigator} from 'react-navigation'
     return (
 
       <View style ={styles.container}>
-        <Button title="Logout" onPress={()=>props.navigation.navigate('Logout')} />
+        <Button color= 'darkred' title="Logout" onPress={()=>props.navigation.navigate('Logout')} />
         <Component {...props}/>
       </View>
     )
