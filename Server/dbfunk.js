@@ -2,7 +2,7 @@ const mysql = require('mysql')
 
 const herokuDB = {
   user: 'b558bcccc8e41b',
-  password:' adc4a96b',
+  password:'adc4a96b',
   host: 'us-cdbr-iron-east-05.cleardb.net',
   database: 'heroku_4c0523db0ad7e12'
 }
