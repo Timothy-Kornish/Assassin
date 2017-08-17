@@ -214,7 +214,7 @@ var styles = StyleSheet.create({
   },
   words: {
     fontWeight: 'bold',
-    color: 'white',
+    color: 'white'
   }
 })
 
