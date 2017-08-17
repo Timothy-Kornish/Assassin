@@ -15,7 +15,7 @@
     "ios": "react-native run-ios",
     "test": "node node_modules/jest/bin/jest.js --watch",
     "setupDB": "mysql -u root < db.sql",
-    "resetHerokuDB": "mysql -u x84vhj3681vpwz3m -ppvklc0un7j3eru77 -h cdm1s48crk8itlnr.cbetxkdyhwsb.us-east-1.rds.amazonaws.com sozrm60f6x6v2xi6 < heroku.sql" 
+    "resetHerokuDB": "mysql -u x84vhj3681vpwz3m -ppvklc0un7j3eru77 -h cdm1s48crk8itlnr.cbetxkdyhwsb.us-east-1.rds.amazonaws.com sozrm60f6x6v2xi6 < heroku.sql"
   },
   "jest": {
     "preset": "jest-expo"
