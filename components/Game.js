@@ -46,7 +46,7 @@ class Game extends Component {
         let arr = Object.values(result.listObj)
         let count = 0
         console.log("array of peeps", arr)
-        self.props.heartbeat(result.theta, result.distance, result.target, result.targetsTarget, result.listObj, hireable)
+        self.props.heartbeat(alive, result.theta, result.distance, result.target, result.targetsTarget, result.listObj, hireable)
         arr.forEach(obj => {
 
           if(obj.username == obj.target && obj.alive == 'true'){
@@ -117,7 +117,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  heartbeat: (theta, distance, target, targetsTarget, listObj, hireable)=>{dispatch(newHeartBeat(theta, distance, target, targetsTarget, listObj, hireable))}
+  heartbeat: (alive, theta, distance, target, targetsTarget, listObj, hireable)=>{dispatch(newHeartBeat(alive, theta, distance, target, targetsTarget, listObj, hireable))}
 })
 
 const GameConnector = connect(mapStateToProps, mapDispatchToProps)

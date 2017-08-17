@@ -61,9 +61,10 @@ export function newGhostRoom(deadPlayers){
   }
 }
 
-export function newHeartBeat(theta, distance, target, targetsTarget, listObj, hireable){
+export function newHeartBeat(alive, theta, distance, target, targetsTarget, listObj, hireable){
   return {
     type: 'newHeartBeat',
+    alive,
     theta,
     distance,
     target,
