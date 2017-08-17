@@ -1,6 +1,7 @@
 const mysql = require('mysql')
 
 const herokuDB = {
+  connectionLimit: 10,
   user: 'b558bcccc8e41b',
   password:'adc4a96b',
   host: 'us-cdbr-iron-east-05.cleardb.net',
@@ -20,7 +21,7 @@ var connection;
 
 function handleDisconnect() {
     console.log('1. connecting to db:');
-    connection = mysql.createConnection(db_config); // Recreate the connection, since
+    connection = mysql.createPool(db_config); // Recreate the connection, since
 													// the old one cannot be reused.
 
     connection.connect(function(err) {              	// The server is either down
