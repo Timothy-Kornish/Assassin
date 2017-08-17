@@ -54,7 +54,7 @@ export function killTarget(target, username, targetsTarget){
     //something else
   }
 }
-export function ghostRoom(deadPlayers){
+export function newGhostRoom(deadPlayers){
   return {
     type: 'newGhostRoom',
     deadPlayers
