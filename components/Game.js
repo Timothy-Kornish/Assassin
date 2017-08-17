@@ -9,11 +9,14 @@ import BackgroundTimer from 'react-native-background-timer'
 import {apiUrl} from '../localConfig'
 import {newHeartBeat} from '../redux/actions'
 
+
+
 class Game extends Component {
   constructor(props){
     super(props);
     let self = this;
     const heartbeatTimer = BackgroundTimer.setInterval (() => {
+        console.log("BEFORE FETCH  lat? lng? ", self.props.latitude, self.props.longitude)
           fetch(apiUrl + '/user/heartbeat', {
             method: 'PUT',
             headers: {
@@ -28,6 +31,7 @@ class Game extends Component {
           .then(response => response.json())
           .then(result => console.log("RESULT ", result))
           .then(()=>{
+            console.log("timeNOT? lat? lng? ", self.props.latitude, self.props.longitude)
             fetch(apiUrl + `/user/game/data/${self.props.username}`,{
               method: 'GET',
               headers: {
@@ -37,15 +41,55 @@ class Game extends Component {
             })
             .then(response => response.json())
             .then(result => {
-              self.props.heartbeat(result.theta, result.distance, result.target, result.targetsTarget, result.listObj, result.listObj[self.props.username].hireable)
-              if(result.listObj[self.props.username].alive === 'dead') {
-                self.props.navigation.navigate('GhostRoom')
-              }
+              console.log("did it work? ", result)
+              console.log("DID IT?!? ITS ALIVE!!", result.listObj[this.props.username].alive, result.listObj[this.props.target].alive)
+              self.props.heartbeat(result.theta, result.distance, result.target, result.targetsTarget, result.listObj)
             })
           })
     }, 1500);
-
   }
+
+  kill(){
+    console.log("user kill function called")
+    fetch('/user/kill', {
+     method: 'POST',
+     headers: {
+       'Content-Type': 'application/json',
+       'x-access-token' : this.props.token
+     },
+     body: JSON.stringify({latitude: this.props.latitude,
+                           longitude: this.props.longitude})
+    })
+    .then(response => response.json())
+    .then(result => {
+      console.log("result of kill", result)
+    })
+  }
+
+ listOfTheLiving() {
+   fetch('/user/list/:roomCode', {
+     method: 'GET',
+     headers: {
+       'Content-Type': 'application/json',
+       'x-access-token' : this.props.token
+     },
+     body: JSON.stringify({username: this.username})
+   })
+ }
+
+
+//do we want the ghost room to be an automatic redirect?
+
+// <Text>Be advised that Mother has laid out a set of rules in her last will and testament.  The rules must be
+//   followed and obeyed or you will be disqualified from the pool of potential heirs. Mother has gifted you with a
+//   locator to aid you in your quest.  I must also disclose that you have also been tagged with a locator and are
+//   being hunted. Do not attempt to locate or disarm your locator. Doing so will disqualify and eliminate you from
+//   the pool of heirs. Upon your login you will have a two minute wait time before you can eliminate your rival.
+//   You will be alerted when you are within a kill radius, and can be eliminated by a rival.  Be advised that this
+//   radius is smaller than the target radius, which you will also recieve when your target is near. This means, of
+//   course, that your hunter will see you before you see them. The final rule: If you do not stay active on your phone
+//   for at least 3 hours per day, you will be permanently and irrevocably eliminated from inheritance.
+// Stay alert, stay safe, stay alive.</Text>
 
   render(){
     return (
@@ -60,12 +104,12 @@ class Game extends Component {
           radius is smaller than the target radius, which you will also recieve when your target is near. This means, of
           course, that your hunter will see you before you see them. The final rule: If you do not stay active on your phone
           for at least 3 hours per day, you will be permanently and irrevocably eliminated from inheritance.
-          Stay alert, stay safe, stay alive.`)}></Button>
+        Stay alert, stay safe, stay alive.`)}></Button>
         <Button color = 'darkred' style = {styles.button} onPress={()=>this.props.navigation.navigate('GhostRoom')} title={'You Are Dead'}/>
         <Timer/>
-        <Compass />
-        <KillButton />
-      </View>
+          <Compass />
+          <KillButton />
+          </View>
     )
   }
 }
@@ -95,7 +139,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  heartbeat: (theta, distance, target, targetsTarget, listObj, hireable)=>{dispatch(newHeartBeat(theta, distance, target, targetsTarget, listObj, hireable))}
+  heartbeat: (theta, distance, target, targetsTarget, listObj)=>{dispatch(newHeartBeat(theta, distance, target, targetsTarget, listObj))}
 })
 
 const GameConnector = connect(mapStateToProps, mapDispatchToProps)
