@@ -1,12 +1,12 @@
 const mysql = require('mysql')
 
-const herokuDB = {
-  connectionLimit: 10,
-  user: 'b558bcccc8e41b',
-  password:' adc4a96b',
-  host: 'us-cdbr-iron-east-05.cleardb.net'
-  database: 'heroku_4c0523db0ad7e12'
-}
+// const herokuDB = {
+//   connectionLimit: 10,
+//   user: 'b558bcccc8e41b',
+//   password:' adc4a96b',
+//   host: 'us-cdbr-iron-east-05.cleardb.net'
+//   database: 'heroku_4c0523db0ad7e12'
+// }
 
 const localDB = {
   connectionLimit: 10,
@@ -16,7 +16,8 @@ const localDB = {
   database: "assassins"
 }
 
-const db = process.env.CLEARDB_DATABASE_URL ? herokuDB : localDB;
+//const db = process.env.CLEARDB_DATABASE_URL ? herokuDB : localDB;
+const db = localDB
 
 class DBFunk{
   constructor(){

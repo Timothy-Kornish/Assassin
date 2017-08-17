@@ -175,11 +175,16 @@ var styles = StyleSheet.create({
   },
   button: {
     backgroundColor: 'darkred',
+    marginTop: 10,
+    marginBottom: 10,
+    padding: 5
   },
   words: {
     fontWeight: 'bold',
     color: 'white',
-    margin: '20'
+    marginTop: 10,
+    marginBottom: 10,
+    padding: 5
   }
 })
 
