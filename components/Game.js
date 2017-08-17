@@ -13,46 +13,8 @@ import {newHeartBeat} from '../redux/actions'
 
 class Game extends Component {
   constructor(props){
-<<<<<<< HEAD
-    super(props);
-    let self = this;
-    const heartbeatTimer = BackgroundTimer.setInterval (() => {
-        console.log("BEFORE FETCH  lat? lng? ", self.props.latitude, self.props.longitude)
-          fetch(apiUrl + '/user/heartbeat', {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-              'x-access-token' : self.props.token
-            },
-            body: JSON.stringify({username: self.props.username,
-                                  latitude: self.props.latitude,
-                                  longitude: self.props.longitude
-                                })
-          })
-          .then(response => response.json())
-          .then(result => console.log("RESULT ", result))
-          .then(()=>{
-            console.log("timeNOT? lat? lng? ", self.props.latitude, self.props.longitude)
-            fetch(apiUrl + `/user/game/data/${self.props.username}`,{
-              method: 'GET',
-              headers: {
-                'Content-Type': 'application/json',
-                'x-access-token' : self.props.token
-              }
-            })
-            .then(response => response.json())
-            .then(result => {
-              console.log("did it work? ", result)
-              console.log("DID IT?!? ITS ALIVE!!", result.listObj[this.props.username].alive, result.listObj[this.props.target].alive)
-              self.props.heartbeat(result.theta, result.distance, result.target, result.targetsTarget, result.listObj)
-            })
-          })
-    }, 1500);
-  }
-=======
     super(props)
     this.heartbeatTimer = BackgroundTimer.setInterval (this.heartBeat.bind(this), 1500);
->>>>>>> dcee7fdbde3fef602ccdeeab8eeba1372dc70cff
 
   kill(){
     console.log("user kill function called")
@@ -71,32 +33,6 @@ class Game extends Component {
     })
   }
 
-<<<<<<< HEAD
- listOfTheLiving() {
-   fetch('/user/list/:roomCode', {
-     method: 'GET',
-     headers: {
-       'Content-Type': 'application/json',
-       'x-access-token' : this.props.token
-     },
-     body: JSON.stringify({username: this.username})
-   })
- }
-
-
-//do we want the ghost room to be an automatic redirect?
-
-// <Text>Be advised that Mother has laid out a set of rules in her last will and testament.  The rules must be
-//   followed and obeyed or you will be disqualified from the pool of potential heirs. Mother has gifted you with a
-//   locator to aid you in your quest.  I must also disclose that you have also been tagged with a locator and are
-//   being hunted. Do not attempt to locate or disarm your locator. Doing so will disqualify and eliminate you from
-//   the pool of heirs. Upon your login you will have a two minute wait time before you can eliminate your rival.
-//   You will be alerted when you are within a kill radius, and can be eliminated by a rival.  Be advised that this
-//   radius is smaller than the target radius, which you will also recieve when your target is near. This means, of
-//   course, that your hunter will see you before you see them. The final rule: If you do not stay active on your phone
-//   for at least 3 hours per day, you will be permanently and irrevocably eliminated from inheritance.
-// Stay alert, stay safe, stay alive.</Text>
-=======
   heartBeat(){
     let self = this
     fetch(apiUrl + '/user/heartbeat', {
@@ -149,7 +85,6 @@ class Game extends Component {
       })
     })
   }
->>>>>>> dcee7fdbde3fef602ccdeeab8eeba1372dc70cff
 
   render(){
     return (

@@ -214,14 +214,10 @@ var styles = StyleSheet.create({
   },
   words: {
     fontWeight: 'bold',
-<<<<<<< HEAD
     color: 'white',
     marginTop: 10,
     marginBottom: 10,
     padding: 5
-=======
-    color: 'white'
->>>>>>> dcee7fdbde3fef602ccdeeab8eeba1372dc70cff
   }
 })
 
