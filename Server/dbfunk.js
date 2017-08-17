@@ -1,7 +1,6 @@
 const mysql = require('mysql')
 
 const herokuDB = {
-  connectionLimit: 10,
   user: 'b558bcccc8e41b',
   password:' adc4a96b',
   host: 'us-cdbr-iron-east-05.cleardb.net',
