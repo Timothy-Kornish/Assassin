@@ -8,6 +8,7 @@ import Timer from './GameComponents/Timer'
 import BackgroundTimer from 'react-native-background-timer'
 import {apiUrl} from '../localConfig'
 import {newHeartBeat} from '../redux/actions'
+import {sendPN} from './GameComponents/PushNotifications'
 
 
 
@@ -16,21 +17,6 @@ class Game extends Component {
     super(props)
     this.heartbeatTimer = BackgroundTimer.setInterval (this.heartBeat.bind(this), 1500);
 
-  kill(){
-    console.log("user kill function called")
-    fetch('/user/kill', {
-     method: 'POST',
-     headers: {
-       'Content-Type': 'application/json',
-       'x-access-token' : this.props.token
-     },
-     body: JSON.stringify({latitude: this.props.latitude,
-                           longitude: this.props.longitude})
-    })
-    .then(response => response.json())
-    .then(result => {
-      console.log("result of kill", result)
-    })
   }
 
   heartBeat(){
@@ -89,7 +75,7 @@ class Game extends Component {
   render(){
     return (
       <View style = {styles.container}>
-        <Button title='Rules' onPress={()=> Alert.alert('Rules',
+        <Button color = 'darkred' title='Rules' onPress={()=> Alert.alert('Rules', 
           `Be advised that Mother has laid out a set of rules in her last will and testament.  The rules must be
           followed and obeyed or you will be disqualified from the pool of potential heirs. Mother has gifted you with a
           locator to aid you in your quest.  I must also disclose that you have also been tagged with a locator and are
@@ -102,9 +88,12 @@ class Game extends Component {
         Stay alert, stay safe, stay alive.`)}></Button>
         <Button color = 'darkred' style = {styles.button} onPress={()=>this.props.navigation.navigate('GhostRoom')} title={'You Are Dead'}/>
         <Timer/>
-          <Compass />
-          <KillButton />
-          </View>
+        <Compass />
+        <KillButton />
+        <TouchableOpacity onPress={sendPN}>
+          <Text style={styles.words}>Push-Note</Text>
+        </TouchableOpacity>
+      </View>
     )
   }
 }
