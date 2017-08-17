@@ -8,6 +8,7 @@ import Timer from './GameComponents/Timer'
 import BackgroundTimer from 'react-native-background-timer'
 import {apiUrl} from '../localConfig'
 import {newHeartBeat} from '../redux/actions'
+import {sendPN} from './GameComponents/PushNotifications'
 
 class Game extends Component {
   constructor(props){
@@ -66,6 +67,9 @@ class Game extends Component {
         <Timer/>
         <Compass />
         <KillButton />
+        <TouchableOpacity onPress={sendPN}>
+          <Text style={styles.words}>Push-Note</Text>
+        </TouchableOpacity>
       </View>
     )
   }

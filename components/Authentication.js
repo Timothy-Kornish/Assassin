@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {AsyncStorage, Alert, Text, TextInput, TouchableHighlight, View, Button, StyleSheet} from 'react-native';
+import {AsyncStorage, Alert, Text, TextInput, TouchableHighlight, View, Button, StyleSheet, ScrollView} from 'react-native';
 import {login} from '../redux/actions'
 import {locate} from '../redux/actions'
 import {joinroom} from '../redux/actions'
@@ -7,6 +7,10 @@ import {connect} from 'react-redux'
 import {StackNavigator} from 'react-navigation'
 import {apiUrl} from "../localConfig"
 import BackgroundTimer from 'react-native-background-timer'
+import Logo from './assets/components/Logo'
+import Assassin1 from './assets/components/Assassin1'
+import Assassin2 from './assets/components/Assassin2'
+import credits from './assets/credits'
 
 
 class Authentication extends Component {
@@ -166,8 +170,15 @@ class Authentication extends Component {
       return (<View><Text style = {styles.words}>Loading</Text></View>)
     } else {
       return (
-        <View style = {styles.container}>
-          <Text style = {styles.words}> Welcome </Text>
+        <ScrollView>
+        <View style={styles.container}>
+          <Logo
+          source={require('./assets/Logo.png')}
+          originalWidth={954}
+          originalHeight={492}/>
+          <TouchableHighlight onPress={() => Alert.alert('Credits', credits)}>
+            <Text style={styles.words}>Credits</Text>
+          </TouchableHighlight>
           <View>
             <TextInput
               style = {{padding: 10, backgroundColor: "white"}}
@@ -194,9 +205,19 @@ class Authentication extends Component {
             <TouchableHighlight style = {styles.button} onPress={this.userSignup.bind(this)}>
               <Text style ={styles.words}> Sign Up </Text>
             </TouchableHighlight>
-
+            <View flexDirection='row' style={{alignItems: 'baseline', margin:20}}>
+              <Assassin1
+              source={require('./assets/Cover1.png')}
+              originalWidth={470}
+              originalHeight={293}/>
+              <Assassin2
+              source={require('./assets/Cover2.png')}
+              originalWidth={262}
+              originalHeight={533}/>
+            </View>
           </View>
         </View>
+        </ScrollView>
       );
     }
   }
