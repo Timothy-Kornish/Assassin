@@ -13,16 +13,18 @@
     // console.log(this.listObj)
     if(this.listObj[username].target){
       this.target = this.listObj[username].target
-      this.targetsTarget = this.listObj[this.target].target
-      console.log("target ", this.target, "tt", this.targetsTarget)
-      this.user1X = parseFloat(this.listObj[username].longitude)
-      this.user1Y = parseFloat(this.listObj[username].latitude)
-      this.user2X = parseFloat(this.listObj[this.target].longitude)
-      this.user2Y = parseFloat(this.listObj[this.target].latitude)
-      console.log("users ", this.user1X, this.user1Y, this.user2X, this.user2Y)
-      this.distance = this.dist(this.user1X, this.user1Y, this.user2X, this.user2Y)
-      this.theta = this.vectorAngle(this.user1X, this.user1Y, this.user2X, this.user2Y)
-      console.log("theta",this.theta)
+      if(this.listObj[this.target])  {
+        this.targetsTarget = this.listObj[this.target].target
+        console.log("target ", this.target, "tt", this.targetsTarget)
+        this.user1X = parseFloat(this.listObj[username].longitude)
+        this.user1Y = parseFloat(this.listObj[username].latitude)
+        this.user2X = parseFloat(this.listObj[this.target].longitude)
+        this.user2Y = parseFloat(this.listObj[this.target].latitude)
+        console.log("users ", this.user1X, this.user1Y, this.user2X, this.user2Y)
+        this.distance = this.dist(this.user1X, this.user1Y, this.user2X, this.user2Y)
+        this.theta = this.vectorAngle(this.user1X, this.user1Y, this.user2X, this.user2Y)
+        console.log("theta",this.theta)
+      }
     }
   }
 

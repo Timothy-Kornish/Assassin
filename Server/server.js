@@ -558,34 +558,75 @@ redundant route         use : user/kill/
 ************************/
 
 // sets player alive status to false, this is already updated in the route user/kill/
-app.put('/bringOutYerDead', (req, res) => {
-  const {username} = req.body
-  const sql = `UPDATE players SET alive = 'false' WHERE username = ?`
-  req.query(sql, [username], (err, result) => {
+// app.post('/bringOutYerDead', (req, res) => {
+//   const sql = `SELECT * FROM players WHERE alive = 'dead'`
+//   req.query(sql, [username], (err, result) => {
+//     if(err){
+//       res.status(500).json({success:false, message: "Here lies Butch, worst darned gator wrastler both sides of the Mississippi", err})
+//     } else {
+//       res.json({success:true, message: "Cletus done got that there Gator that kill't his best buddy Butch", result})
+//     }
+//   })
+// })
+
+app.post('/bringOutYerDead', (req, res) => {
+  const {roomCode, username} = req.body;
+  const sql = `SELECT * from playersToGames where roomCode = ?`
+  req.query(sql, [roomCode], (err, result) => {
     if(err){
       res.status(500).json({success:false, message: "Here lies Butch, worst darned gator wrastler both sides of the Mississippi", err})
     } else {
-      res.json({success:true, message: "Cletus done got that there Gator that kill't his best buddy Butch", result})
+      const sql2 = `SELECT * FROM players WHERE alive = 'dead'`
+      req.query(sql2, [roomCode], (err2, result2) => {
+        if(err){
+          res.status(500).json({success:false, message: "I'm not dead"})
+        } else {
+          console.log("result ", result)
+          console.log("result2 ", result2)
+          let serve = new ServerFunk(result2, username)
+          let listObj = serve.getListObj()
+          let listArr = serve.getListArr()
+          console.log("listObj from players", listObj)
+          console.log("listArr form players", listArr)
+          let people = result.slice()
+          let deadPeopleObj = {}
+          let deadPeopleArr = []
+          people.forEach(obj => {
+            user = obj.username
+            if(listObj[user]){
+              deadPeopleObj[user] = listObj[user]
+            }
+          })
+          console.log("GET OUT OF HERE GHOSTS! obj", deadPeopleObj )
+          deadPeopleArr = Object.values(deadPeopleObj)
+          console.log("ALLLLLL THE DEADS", deadPeopleArr)
+          deadPeopleArr.map(val => val = val.username)
+          console.log("ALLLLLL THE DEADS 2.0", deadPeopleArr)
+          return res.json({
+                          success:true,
+                          message: "here ye be dead",
+                          deadPeopleArr })
+        }
+      })
     }
   })
-})
-
+  })
 /************************
 redundant route        use : user/kill/:roomCode
 ************************/
 
 // selects all players in a spceific room, already existing route called user/list/:roomCode
-app.get('/RIP/:roomCode', (req, res) => {
-  let roomCode = req.params.roomCode
-  const sql = `SELECT * from playersToGames where roomCode = ?`
-  req.query(sql, [roomCode], (err, result) => {
-    if(err){
-      res.status(500).json({success:false, message:"This joke done died", err})
-    } else {
-      res.json({success:true, message: "Thank you, Cletus for learnin' me to help Uncle Jack, off the horse", result})
-    }
-  })
-})
+// app.get('/RIP/:roomCode', (req, res) => {
+//   let roomCode = req.params.roomCode
+//   const sql = `SELECT * from playersToGames where roomCode = ?`
+//   req.query(sql, [roomCode], (err, result) => {
+//     if(err){
+//       res.status(500).json({success:false, message:"This joke done died", err})
+//     } else {
+//       res.json({success:true, message: "Thank you, Cletus for learnin' me to help Uncle Jack, off the horse", result})
+//     }
+//   })
+// })
 
 /********************************
 routes for showing table data stored in database.
