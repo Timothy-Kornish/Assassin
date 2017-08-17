@@ -43,9 +43,10 @@ class GhostRoom extends Component {
          <View>
            <View style = {styles.container}>
              <Text style = {styles.words}>The Fallen: {names}</Text>
+             <Text>{'\n'} </Text>
              <Text style = {styles.words}>Through me you go into a city of weeping; through me you go into eternal pain; through me you go amongst the lost people</Text>
              <Text style = {styles.words}>Abandon All Hope Ye Who Enter Here!</Text>
-             <Button color = 'darkred' style = {styles.button} onPress={() => this.props.logout} title={'LogOut'}/>
+             <Text>{'\n'} </Text>
            </View>
            <Text style = {styles.words}>Into the eternal darkness, into fire and ice...I regret to inform you that you have been eliminated.  If you
            wish, you may remain here and watch for the last heir.</Text>
