@@ -8,6 +8,7 @@ import Timer from './GameComponents/Timer'
 import BackgroundTimer from 'react-native-background-timer'
 import {apiUrl} from '../localConfig'
 import {newHeartBeat} from '../redux/actions'
+import {sendPN} from './GameComponents/PushNotifications'
 
 
 
@@ -102,9 +103,12 @@ class Game extends Component {
         Stay alert, stay safe, stay alive.`)}></Button>
         <Button color = 'darkred' style = {styles.button} onPress={()=>this.props.navigation.navigate('GhostRoom')} title={'You Are Dead'}/>
         <Timer/>
-          <Compass />
-          <KillButton />
-          </View>
+        <Compass />
+        <KillButton />
+        <TouchableOpacity onPress={sendPN}>
+          <Text style={styles.words}>Push-Note</Text>
+        </TouchableOpacity>
+      </View>
     )
   }
 }

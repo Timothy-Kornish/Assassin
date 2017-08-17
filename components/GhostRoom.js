@@ -3,6 +3,7 @@ import {Button, View, Text, StyleSheet} from 'react-native'
 import {connect} from 'react-redux'
 import {StackNavigator} from 'react-navigation'
 import {apiUrl} from '../localConfig'
+import Assassin3 from './assets/components/Assassin3'
 import {newGhostRoom} from '../redux/actions'
 
 class GhostRoom extends Component {
@@ -48,6 +49,10 @@ class GhostRoom extends Component {
            </View>
            <Text style = {styles.words}>Into the eternal darkness, into fire and ice...I regret to inform you that you have been eliminated.  If you
            wish, you may remain here and watch for the last heir.</Text>
+           <Assassin3
+             source={require('./assets/GhostRoom.png')}
+             originalWidth={485}
+             originalHeight={562}/>
          </View>
         )
 
