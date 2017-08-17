@@ -11,6 +11,7 @@ class Timer extends Component{
     this.state = {
       time: 0
     }
+    this.twoMinutes = 30
   }
 
 countDown(){
@@ -18,8 +19,7 @@ countDown(){
   this.secondCounter = (Date.now() - this.startTimer) /1000
   this.setState({time: this.secondCounter})
   console.log("we have started the countdown", this.secondCounter)
-  let twoMinutes = 5
-  if (this.secondCounter > twoMinutes) {
+  if (this.secondCounter > this.twoMinutes) {
     fetch(apiUrl + `/user/hireable`, {
       method: 'PUT',
       headers: {
@@ -40,7 +40,7 @@ countDown(){
   componentWillMount(){
     this.startTimer = Date.now()
     this.secondCounter = (Date.now() - this.startTimer) /1000
-    this.interval = setInterval(this.countDown.bind(this), 3000)
+    this.interval = setInterval(this.countDown.bind(this), 1000)
     console.log("here be your countdown to death", this.secondCounter)
    }
 
@@ -48,7 +48,7 @@ countDown(){
    return(
     <View>
 
-      <Text style = {styles.words}>Termination Transponder active in {(5 - parseInt(this.secondCounter))} Seconds</Text>
+      {(this.twoMinutes - parseInt(this.secondCounter)) <= 0 ?  <Text> </Text> : <Text style = {styles.words}>Termination Transponder active in {(this.twoMinutes - parseInt(this.secondCounter))} Seconds</Text>}
 
     </View>
   )

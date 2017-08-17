@@ -16,21 +16,6 @@ class Game extends Component {
     super(props)
     this.heartbeatTimer = BackgroundTimer.setInterval (this.heartBeat.bind(this), 1500);
 
-  kill(){
-    console.log("user kill function called")
-    fetch('/user/kill', {
-     method: 'POST',
-     headers: {
-       'Content-Type': 'application/json',
-       'x-access-token' : this.props.token
-     },
-     body: JSON.stringify({latitude: this.props.latitude,
-                           longitude: this.props.longitude})
-    })
-    .then(response => response.json())
-    .then(result => {
-      console.log("result of kill", result)
-    })
   }
 
   heartBeat(){
