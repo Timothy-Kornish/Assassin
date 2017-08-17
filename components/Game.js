@@ -10,43 +10,81 @@ import {apiUrl} from '../localConfig'
 import {newHeartBeat} from '../redux/actions'
 import {sendPN} from './GameComponents/PushNotifications'
 
+
+
 class Game extends Component {
   constructor(props){
-    super(props);
-    let self = this;
-    const heartbeatTimer = BackgroundTimer.setInterval (() => {
-          fetch(apiUrl + '/user/heartbeat', {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-              'x-access-token' : self.props.token
-            },
-            body: JSON.stringify({username: self.props.username,
-                                  latitude: self.props.latitude,
-                                  longitude: self.props.longitude
-                                })
-          })
-          .then(response => response.json())
-          .then(result => console.log("RESULT ", result))
-          .then(()=>{
-            fetch(apiUrl + `/user/game/data/${self.props.username}`,{
-              method: 'GET',
-              headers: {
-                'Content-Type': 'application/json',
-                'x-access-token' : self.props.token
-              }
-            })
-            .then(response => response.json())
-            .then(result => {
-              console.log("all the stuff: theta: ", result.theta,"\n distance: ", result.distance,"\n target: ", result.target,"\n tt ", result.targetsTarget,"\n listObj", result.listObj,"\n hireable", result.listObj[self.props.username].hireable)
-              self.props.heartbeat(result.theta, result.distance, result.target, result.targetsTarget, result.listObj, result.listObj[self.props.username].hireable)
-              if(result.listObj[self.props.username].alive === 'dead') {
-                self.props.navigation.navigate('GhostRoom')
-              }
-            })
-          })
-    }, 1500);
+    super(props)
+    this.heartbeatTimer = BackgroundTimer.setInterval (this.heartBeat.bind(this), 1500);
 
+  kill(){
+    console.log("user kill function called")
+    fetch('/user/kill', {
+     method: 'POST',
+     headers: {
+       'Content-Type': 'application/json',
+       'x-access-token' : this.props.token
+     },
+     body: JSON.stringify({latitude: this.props.latitude,
+                           longitude: this.props.longitude})
+    })
+    .then(response => response.json())
+    .then(result => {
+      console.log("result of kill", result)
+    })
+  }
+
+  heartBeat(){
+    let self = this
+    fetch(apiUrl + '/user/heartbeat', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token' : self.props.token
+      },
+      body: JSON.stringify({username: self.props.username,
+                            latitude: self.props.latitude,
+                            longitude: self.props.longitude
+                          })
+    })
+    .then(response => response.json())
+    .then(result => console.log("RESULT ", result))
+    .then(()=>{
+      fetch(apiUrl + `/user/game/data/${self.props.username}`,{
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-access-token' : self.props.token
+        }
+      })
+      .then(response => response.json())
+      .then(result => {
+        let {hireable, alive} = result.listObj[self.props.username]
+        let target = result.target
+        let arr = Object.values(result.listObj)
+        let count = 0
+        console.log("array of peeps", arr)
+        self.props.heartbeat(alive, result.theta, result.distance, result.target, result.targetsTarget, result.listObj, hireable)
+        arr.forEach(obj => {
+
+          if(obj.username == obj.target && obj.alive == 'true'){
+            count++
+          }
+        })
+
+        if((count == 1 && this.props.username == result.target) && alive == "true"){
+
+          BackgroundTimer.clearInterval(this.heartbeatTimer)
+          console.log("interval cleared", this.heartbeatTimer)
+          Alert.alert('Victory', `You El ${this.props.username} have defeated all the heirs.`)
+        }
+        if(alive === 'dead') {
+          BackgroundTimer.clearInterval(this.heartbeatTimer)
+          console.log("interval cleared", this.heartbeatTimer)
+          self.props.navigation.navigate('GhostRoom')
+        }
+      })
+    })
   }
 
   render(){
@@ -62,7 +100,7 @@ class Game extends Component {
           radius is smaller than the target radius, which you will also recieve when your target is near. This means, of
           course, that your hunter will see you before you see them. The final rule: If you do not stay active on your phone
           for at least 3 hours per day, you will be permanently and irrevocably eliminated from inheritance.
-          Stay alert, stay safe, stay alive.`)}></Button>
+        Stay alert, stay safe, stay alive.`)}></Button>
         <Button color = 'darkred' style = {styles.button} onPress={()=>this.props.navigation.navigate('GhostRoom')} title={'You Are Dead'}/>
         <Timer/>
         <Compass />
@@ -100,7 +138,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  heartbeat: (theta, distance, target, targetsTarget, listObj, hireable)=>{dispatch(newHeartBeat(theta, distance, target, targetsTarget, listObj, hireable))}
+  heartbeat: (alive, theta, distance, target, targetsTarget, listObj, hireable)=>{dispatch(newHeartBeat(alive, theta, distance, target, targetsTarget, listObj, hireable))}
 })
 
 const GameConnector = connect(mapStateToProps, mapDispatchToProps)

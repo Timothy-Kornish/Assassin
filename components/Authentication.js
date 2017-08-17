@@ -235,7 +235,10 @@ var styles = StyleSheet.create({
   },
   words: {
     fontWeight: 'bold',
-    color: 'white'
+    color: 'white',
+    marginTop: 10,
+    marginBottom: 10,
+    padding: 5
   }
 })
 
