@@ -132,14 +132,11 @@ app.post('/authenticate', (req, res) => {
     if(!result[0]) {
       res.json({success: false, message: 'theys not from round here'})
     } else if(result[0]) {
-
       req.query(passQuery, [username], (err, result) => {
         if(err){
           console.log(err)
           throw err
         }
-
-        //TODO: check the hashed value of the stored pwd against sent hash
         if(!bcrypt.compareSync(password, result[0].password)) {
           console.log(result[0].password)
           res.json({success: false, message: 'password not found'})
@@ -147,7 +144,6 @@ app.post('/authenticate', (req, res) => {
           var token = jwt.sign({username}, app.get('superSecret'), {
             expiresIn: "2days"
           });
-
           res.json({success: true, message: "you're in", token })
         } else {
           res.json({success: false, message: "something went very wrong"})
@@ -157,37 +153,38 @@ app.post('/authenticate', (req, res) => {
   })
 })
 
-app.post('/auto/authenticate', (req, res) => {
+ app.post('/auto/authenticate', (req, res) => {
   const {username, token} = req.body;
-
-  const userQuery = `SELECT username FROM players WHERE username = ?`
-
+  const userQuery = `SELECT * FROM players WHERE username = ?`
   req.query(userQuery, [username], (err, result) => {
     if(err){
-
-      res.status(500).json({success:false, message: "dun had an error", err})
-
+      res.status(500).json({message: "dun had an error", err})
     } if(!result[0]) {
-
       res.json({success: false, message: 'user not found'})
-
     } else {
-
-      jwt.verify(token, app.get('superSecret'), function(err, decoded) {
-        if (err) {
-
-          return res.json({ success: false, message: 'Failed to authenticate token.' });
-
+      let sqlQuery = `SELECT roomCode FROM playersToGames WHERE username = ?`
+      req.query(sqlQuery, [username], (err2, result2) => {
+        if(err){
+          res.status(500).json({success: false, err2})
         } else {
-
-          return res.json({ success: true})
-
+          jwt.verify(token, app.get('superSecret'), function(err2, decoded ){
+            if (err) {
+              return res.json({ success: false, message: 'Failed to authenticate token.'});
+            } else {
+              return res.json({
+                                success: true,
+                                username: username,
+                                roomCode: result2[0] && result2[0].roomCode,
+                                alive: result[0].alive,
+                              })
+            }
+          })
         }
       })
-
     }
   })
 })
+
 
 // middleware after token is provided to front end,
 // every route then checks the token legitemacy before proceeding
@@ -314,6 +311,18 @@ app.put('/room/start', (req, res) => {
     }
   })
 })
+// checking if the room is active or not to redirect people in room.js to loading.js
+app.get('/room/redirect/:roomCode', (req, res) => {
+  let {roomCode} = req.params
+  const sql = `SELECT * from GAMES WHERE roomCode = ?`
+  req.query(sql,[roomCode], (err, result) => {
+    if(err){
+      res.status(500).json({success:false, message: "Get away from that horse!!!", err})
+    } else {
+      res.json({success:true, message: "Weeee, git them glators, Cletus!", active: result[0].active, result})
+    }
+  })
+})
 
 /********************
 redundant route    use : user/list:roomCode
@@ -366,8 +375,9 @@ app.put('/user/heartbeat', (req, res) => {
 app.get('/user/game/data/:username', (req, res) => {
   let username = req.params.username
   let sql = `SELECT * FROM players`
-  req.query(sql, (err, result) => {
-     let serve = new ServerFunk(result,username)
+  req.query(sql, (err, allPlayers) => {
+     console.log('allplayers', allPlayers, username)
+     let serve = new ServerFunk(allPlayers,username)
      let theta = serve.getTheta()
      let distance = serve.getDistance()
      let target = serve.getTarget()
@@ -378,7 +388,7 @@ app.get('/user/game/data/:username', (req, res) => {
       res.status(500).json({success:false, message:"I'm Daniel Boon, checkout my coon hat", err})
     }
     else {
-      res.json({success:true, message: "sup Daniel Boon", result, theta, distance, target, targetsTarget, listObj})
+      res.json({success:true, message:  "sup Daniel Boon", allPlayers, theta, distance, target, targetsTarget, listObj})
     }
   })
 })
@@ -437,6 +447,7 @@ app.get('/user/list/:roomCode/:username', (req, res) => {
 // the killer a new target
 app.post('/user/kill', (req, res) => {
   const {list, username} = req.body
+  console.log('listkill', list)
   let serve = new ServerFunk(list, username)
   let theta = serve.getTheta()
   let distance = serve.getDistance()
@@ -547,34 +558,75 @@ redundant route         use : user/kill/
 ************************/
 
 // sets player alive status to false, this is already updated in the route user/kill/
-app.put('/bringOutYerDead', (req, res) => {
-  const {username} = req.body
-  const sql = `UPDATE players SET alive = 'false' WHERE username = ?`
-  req.query(sql, [username], (err, result) => {
+// app.post('/bringOutYerDead', (req, res) => {
+//   const sql = `SELECT * FROM players WHERE alive = 'dead'`
+//   req.query(sql, [username], (err, result) => {
+//     if(err){
+//       res.status(500).json({success:false, message: "Here lies Butch, worst darned gator wrastler both sides of the Mississippi", err})
+//     } else {
+//       res.json({success:true, message: "Cletus done got that there Gator that kill't his best buddy Butch", result})
+//     }
+//   })
+// })
+
+app.post('/bringOutYerDead', (req, res) => {
+  const {roomCode, username} = req.body;
+  const sql = `SELECT * from playersToGames where roomCode = ?`
+  req.query(sql, [roomCode], (err, result) => {
     if(err){
       res.status(500).json({success:false, message: "Here lies Butch, worst darned gator wrastler both sides of the Mississippi", err})
     } else {
-      res.json({success:true, message: "Cletus done got that there Gator that kill't his best buddy Butch", result})
+      const sql2 = `SELECT * FROM players WHERE alive = 'dead'`
+      req.query(sql2, [roomCode], (err2, result2) => {
+        if(err){
+          res.status(500).json({success:false, message: "I'm not dead"})
+        } else {
+          console.log("result ", result)
+          console.log("result2 ", result2)
+          let serve = new ServerFunk(result2, username)
+          let listObj = serve.getListObj()
+          let listArr = serve.getListArr()
+          console.log("listObj from players", listObj)
+          console.log("listArr form players", listArr)
+          let people = result.slice()
+          let deadPeopleObj = {}
+          let deadPeopleArr = []
+          people.forEach(obj => {
+            user = obj.username
+            if(listObj[user]){
+              deadPeopleObj[user] = listObj[user]
+            }
+          })
+          console.log("GET OUT OF HERE GHOSTS! obj", deadPeopleObj )
+          deadPeopleArr = Object.values(deadPeopleObj)
+          console.log("ALLLLLL THE DEADS", deadPeopleArr)
+          deadPeopleArr.map(val => val = val.username)
+          console.log("ALLLLLL THE DEADS 2.0", deadPeopleArr)
+          return res.json({
+                          success:true,
+                          message: "here ye be dead",
+                          deadPeopleArr })
+        }
+      })
     }
   })
-})
-
+  })
 /************************
 redundant route        use : user/kill/:roomCode
 ************************/
 
 // selects all players in a spceific room, already existing route called user/list/:roomCode
-app.get('/RIP/:roomCode', (req, res) => {
-  let roomCode = req.params.roomCode
-  const sql = `SELECT * from playersToGames where roomCode = ?`
-  req.query(sql, [roomCode], (err, result) => {
-    if(err){
-      res.status(500).json({success:false, message:"This joke done died", err})
-    } else {
-      res.json({success:true, message: "Thank you, Cletus for learnin' me to help Uncle Jack, off the horse", result})
-    }
-  })
-})
+// app.get('/RIP/:roomCode', (req, res) => {
+//   let roomCode = req.params.roomCode
+//   const sql = `SELECT * from playersToGames where roomCode = ?`
+//   req.query(sql, [roomCode], (err, result) => {
+//     if(err){
+//       res.status(500).json({success:false, message:"This joke done died", err})
+//     } else {
+//       res.json({success:true, message: "Thank you, Cletus for learnin' me to help Uncle Jack, off the horse", result})
+//     }
+//   })
+// })
 
 /********************************
 routes for showing table data stored in database.

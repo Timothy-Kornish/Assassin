@@ -54,21 +54,22 @@ export function killTarget(target, username, targetsTarget){
     //something else
   }
 }
-export function ghostRoom(deadPlayers){
+export function newGhostRoom(deadPlayers){
   return {
     type: 'newGhostRoom',
     deadPlayers
   }
 }
 
-export function newHeartBeat(theta, distance, target, targetsTarget, listObj){
+export function newHeartBeat(theta, distance, target, targetsTarget, listObj, hireable){
   return {
     type: 'newHeartBeat',
     theta,
     distance,
     target,
     targetsTarget,
-    listObj
+    listObj,
+    hireable
   }
 }
 
@@ -77,5 +78,12 @@ export function newTime(time){
   return {
     type: 'newTime',
     time
+  }
+}
+
+export function newLoadPlayers(active){
+  return{
+    type: 'newLoadPlayers',
+    active
   }
 }

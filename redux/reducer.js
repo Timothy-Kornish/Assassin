@@ -26,6 +26,7 @@ export default function reducer(state, action){
         targetDistance: undefined,
         theta: undefined,
         distance: undefined,
+        deadPlayers: undefined,
         listObj: undefined,
         time: undefined
       }
@@ -84,14 +85,19 @@ export default function reducer(state, action){
       console.log("killTarget is firing", action)
         return{
           ...state,
-          target: state.target,
-          targetsTarget: state.targetsTarget,
-          targetDistance: state.target.distance,
+          target: action.target,
+          targetsTarget: action.targetsTarget,
+          targetDistance: action.target.distance,
         }
       case 'newGhostRoom':
         return {
           ...state,
-          ghostRoom : action.deadPlayers
+          deadPlayers : action.deadPlayers
+        }
+      case 'newLoadPlayers':
+        return{
+          ...state,
+          active: action.active
         }
     default:
       return state

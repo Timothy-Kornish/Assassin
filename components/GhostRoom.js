@@ -3,62 +3,27 @@ import {Button, View, Text, StyleSheet} from 'react-native'
 import {connect} from 'react-redux'
 import {StackNavigator} from 'react-navigation'
 import {apiUrl} from '../localConfig'
+import {newGhostRoom} from '../redux/actions'
 
 class GhostRoom extends Component {
-  logout(){
-    fetch(apiUrl + '/logout', {
-      method: 'PUT',
-      headers: {
-        "Content-Type": 'application/json',
-        'x-access-token': this.props.token
-      },
-      body: JSON.stringify({username: this.props.username})
-    })
-  }
 
   bringOutYerDead(){
-    let players, playerDataList, deadPlayers = []
+    // let players, playerDataList, deadPlayers = []
     let self = this
     fetch(apiUrl + `/bringOutYerDead`, {
-      method: 'PUT',
+      method: 'POST',
       headers: {
        'Content-Type' : 'application/json',
        'x-access-token' : this.props.token
       },
       body: JSON.stringify({
-       username: this.props.username
-      })
-    })
-    .then(()=> {
-      fetch(apiUrl + `/user/game/data/${self.props.username}`, {
-        method: 'GET',
-        headers: {
-          "Content-Type": 'application/json',
-          'x-access-token': self.props.token
-        },
+       username: self.props.username,
+       roomCode: self.props.roomCode
       })
     })
     .then(response => response.json())
     .then(result => {
-      playerDataList = result.listObj
-    })
-    fetch(apiUrl + `/RIP/${this.props.roomCode}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-access-token': self.props.token
-      }
-    })
-    .then(response => response.json())
-    .then(result =>{
-      players = result.result
-      players.forEach(val=> val = val.username)
-      players.forEach(username => {
-        if(playerDataList[username].alive == 'false'){
-          deadPlayers.concat([username])
-        }
-      })
-      this.props.deadPlayers(deadPlayers)
+      this.props.ghostRoom(result.deadPeopleArr)
     })
   }
 
@@ -71,7 +36,8 @@ class GhostRoom extends Component {
   }
 
   render(){
-    //const names = this.props.deadPlayers.map(names => (<Text styles = {styles.words} key={names}> {names + '\n'} </Text>))
+    console.log("deadPlayers ", this.props.deadPlayers)
+    const names = this.props.deadPlayers.map(names => (<Text style = {styles.words} key={names.username}> {'\n' + names.username } </Text>))
         return(
          <View>
            <View style = {styles.container}>
@@ -105,11 +71,12 @@ class GhostRoom extends Component {
 const mapStateToProps = (state) => ({
  token : state.token,
  roomCode: state.roomCode,
- username: state.username
+ username: state.username,
+ deadPlayers: state.deadPlayers
 })
 
 const mapDispatchToProps = (dispatch) => ({
- ghostRoom : (deadPlayers) => {dispatch(newGhostRoom(deadPlayers))}
+ ghostRoom : (deadPeopleArr) => {dispatch(newGhostRoom(deadPeopleArr))}
 })
 
 const RoomConnector = connect(mapStateToProps, mapDispatchToProps)

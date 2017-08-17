@@ -13,6 +13,7 @@ import {newHeartBeat} from '../redux/actions'
 
 class Game extends Component {
   constructor(props){
+<<<<<<< HEAD
     super(props);
     let self = this;
     const heartbeatTimer = BackgroundTimer.setInterval (() => {
@@ -48,6 +49,10 @@ class Game extends Component {
           })
     }, 1500);
   }
+=======
+    super(props)
+    this.heartbeatTimer = BackgroundTimer.setInterval (this.heartBeat.bind(this), 1500);
+>>>>>>> dcee7fdbde3fef602ccdeeab8eeba1372dc70cff
 
   kill(){
     console.log("user kill function called")
@@ -66,6 +71,7 @@ class Game extends Component {
     })
   }
 
+<<<<<<< HEAD
  listOfTheLiving() {
    fetch('/user/list/:roomCode', {
      method: 'GET',
@@ -90,6 +96,60 @@ class Game extends Component {
 //   course, that your hunter will see you before you see them. The final rule: If you do not stay active on your phone
 //   for at least 3 hours per day, you will be permanently and irrevocably eliminated from inheritance.
 // Stay alert, stay safe, stay alive.</Text>
+=======
+  heartBeat(){
+    let self = this
+    fetch(apiUrl + '/user/heartbeat', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token' : self.props.token
+      },
+      body: JSON.stringify({username: self.props.username,
+                            latitude: self.props.latitude,
+                            longitude: self.props.longitude
+                          })
+    })
+    .then(response => response.json())
+    .then(result => console.log("RESULT ", result))
+    .then(()=>{
+      fetch(apiUrl + `/user/game/data/${self.props.username}`,{
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-access-token' : self.props.token
+        }
+      })
+      .then(response => response.json())
+      .then(result => {
+        let {hireable, alive} = result.listObj[self.props.username]
+        let target = result.target
+        let arr = Object.values(result.listObj)
+        let count = 0
+        console.log("array of peeps", arr)
+        self.props.heartbeat(result.theta, result.distance, result.target, result.targetsTarget, result.listObj, hireable)
+        arr.forEach(obj => {
+
+          if(obj.username == obj.target && obj.alive == 'true'){
+            count++
+          }
+        })
+
+        if((count == 1 && this.props.username == result.target) && alive == "true"){
+
+          BackgroundTimer.clearInterval(this.heartbeatTimer)
+          console.log("interval cleared", this.heartbeatTimer)
+          Alert.alert('Victory', `You El ${this.props.username} have defeated all the heirs.`)
+        }
+        if(alive === 'dead') {
+          BackgroundTimer.clearInterval(this.heartbeatTimer)
+          console.log("interval cleared", this.heartbeatTimer)
+          self.props.navigation.navigate('GhostRoom')
+        }
+      })
+    })
+  }
+>>>>>>> dcee7fdbde3fef602ccdeeab8eeba1372dc70cff
 
   render(){
     return (

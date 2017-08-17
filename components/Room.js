@@ -2,8 +2,7 @@ import React, {Component} from 'react'
 import {Button, View, Text, FlatList, StyleSheet} from 'react-native'
 import {connect} from 'react-redux'
 import {StackNavigator} from 'react-navigation'
-import {newPlayersWaiting} from '../redux/actions'
-import {newAssignedTarget} from '../redux/actions'
+import {newPlayersWaiting, newLoadPlayers, newAssignedTarget} from '../redux/actions'
 import {apiUrl} from '../localConfig'
 
 class Room extends Component {
@@ -25,6 +24,25 @@ class Room extends Component {
     .then(response => response.json())
     .then(result => {
       self.props.playersWaiting(result.players, result.creator)
+      fetch(apiUrl + `/room/redirect/${this.props.roomCode}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type' : 'application/json',
+          'x-access-token' : self.props.token
+        }
+      })
+      .then(response => response.json())
+      .then(result => {
+        console.log("game active: ",result.active, result)
+        self.props.loadPlayers(result.active)
+        console.log("this.props.active", this.props.active)
+        if(this.props.active == 1){
+          console.log("active fired")
+          clearInterval(this.interval)
+          self.props.navigation.navigate('Loading')
+
+        }
+      })
     })
   }
 
@@ -93,7 +111,7 @@ class Room extends Component {
           <Text style = {styles.words}>{names}</Text>
           <Text style = {styles.words}>Room Creator: {this.props.roomCreator}</Text>
           <View>
-          {this.props.waitingPlayers.length > 1 ?
+          {(this.props.waitingPlayers.length > 1 && this.props.username == this.props.roomCreator) ?
             <Button color = 'darkred' style = {styles.button}onPress={this.pressButton.bind(this)} title={'start game'}/>
             : <Text style = {styles.words}> Waiting for more players to join </Text> }
           </View>
@@ -120,12 +138,14 @@ const mapStateToProps = (state) => ({
   roomCode: state.roomCode,
   waitingPlayers: state.waitingPlayers,
   roomCreator: state.roomCreator,
-  username: state.username
+  username: state.username,
+  active: state.active
 })
 
 const mapDispatchToProps = (dispatch) => ({
   assignTarget : (target) => {dispatch(newAssignedTarget(target))},
-  playersWaiting : (players, creator) => {dispatch(newPlayersWaiting(players, creator))}
+  playersWaiting : (players, creator) => {dispatch(newPlayersWaiting(players, creator))},
+  loadPlayers : (active) => {dispatch(newLoadPlayers(active))}
 })
 
 const RoomConnector = connect(mapStateToProps, mapDispatchToProps)
