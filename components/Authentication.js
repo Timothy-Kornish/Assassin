@@ -1,12 +1,16 @@
 import React, {Component} from 'react';
-import {AsyncStorage, Alert, Text, TextInput, TouchableHighlight, View, Button, StyleSheet} from 'react-native';
+import {AsyncStorage, Alert, Text, TextInput, TouchableHighlight, View, Button, StyleSheet, ScrollView} from 'react-native';
 import {login} from '../redux/actions'
 import {locate} from '../redux/actions'
-
+import {joinroom} from '../redux/actions'
 import {connect} from 'react-redux'
 import {StackNavigator} from 'react-navigation'
 import {apiUrl} from "../localConfig"
 import BackgroundTimer from 'react-native-background-timer'
+import Logo from './assets/components/Logo'
+import Assassin1 from './assets/components/Assassin1'
+import Assassin2 from './assets/components/Assassin2'
+import credits from './assets/credits'
 
 
 class Authentication extends Component {
@@ -46,7 +50,6 @@ class Authentication extends Component {
 
   userSignup() {
     if (!this.state.username || !this.state.password) return;
-      // localhost doesn't work because the app is running inside an emulator. Get the IP address with ifconfig.
       fetch(apiUrl + '/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -68,7 +71,6 @@ class Authentication extends Component {
 
   userLogin() {
     if (!this.state.username || !this.state.password) return;
-    // localhost doesn't work because the app is running inside an emulator. Get the IP address with ifconfig.
       fetch(apiUrl + '/authenticate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -80,10 +82,10 @@ class Authentication extends Component {
       .then((response) => response.json())
       .then((responseData) => {
         if(responseData.success){
-          this.saveItem('x-access-token', responseData.token),
-          this.saveItem('username', this.state.username),
-          Alert.alert('Login Success!', responseData.token),
-          this.goToLobby(responseData.token, this.state.username);
+          this.saveItem('x-access-token', responseData.token)
+          this.saveItem('username', this.state.username)
+          Alert.alert('Login Success!', responseData.token)
+          this.loginRedirect(this.state.username, responseData.token)
         }else{
           Alert.alert('Login Failed', 'Incorrect username or password')
         }
@@ -91,10 +93,26 @@ class Authentication extends Component {
       .done();
   }
 
-
   goToLobby(token, username){
     this.props.login(username, token)
     this.props.navigation.navigate('Lobby')
+  }
+
+  goToGame(token, username, roomCode){
+    this.props.login(username, token)
+    this.props.joinroom(username, roomCode)
+    this.props.navigation.navigate('Game')
+  }
+
+  goToRoom(token, username, roomCode) {
+    this.props.login(username, token)
+    this.props.joinroom(username, roomCode)
+    this.props.navigation.navigate('Room')
+  }
+  goToGhost(token, username, roomCode){
+    this.props.login(username, token)
+    this.props.joinroom(username, roomCode)
+    this.props.navigation.navigate('GhostRoom')
   }
 
   async componentWillMount(){
@@ -111,41 +129,57 @@ class Authentication extends Component {
     console.log("componentWillMount fired")
     var username  = await self.getItem("username")
     var token = await self.getItem("x-access-token")
-
-    console.log("Token and username ", token, username)
-
-    fetch(apiUrl + '/auto/authenticate', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        username: username,
-        token: token
-      })
-    })
-    .then((response) => response.json())
-    .then((responseData) => {
-      console.log("responseData ", responseData)
-      if(responseData.success){
-        self.goToLobby(token, username);
-      } else if(!responseData.success){
-        self.setState({isLoaded: true})
-        return null;
-      }
-    })
+    if (!username || !token){
+      this.setState({isLoaded: true})
+    } else {
+      console.log("Token and username ", token, username)
+      this.loginRedirect(username, token)
   }
+}
+
+  loginRedirect(username, token){
+    fetch(apiUrl + '/auto/authenticate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: username,
+          token: token
+        })
+      })
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log("responseData ", responseData)
+        if(responseData.success && !responseData.roomCode){
+          console.log('GETTIN TO the autolobby ', token, username)
+          this.goToLobby(token, username);
+        } else if (responseData.success && responseData.alive === 'true') {
+          this.goToGame(token, username, responseData.roomCode)
+        } else if (responseData.success && responseData.alive === 'false') {
+          this.goToRoom(token, username, responseData.roomCode)
+        } else if (responseData.success && responseData.alive === 'dead') {
+          this.goToGhost(token, username, responseData.roomCode)
+        } else if(!responseData.success){
+          this.setState({isLoaded: true})
+          return null;
+        }
+      })
+    }
 
   render() {
     if(!this.state.isLoaded){
       return (<View><Text style = {styles.words}>Loading</Text></View>)
     } else {
       return (
-        <View style = {styles.container}>
-
-
-          <Text style = {styles.words}> Welcome </Text>
-
+        <ScrollView>
+        <View style={styles.container}>
+          <Logo
+          source={require('./assets/Logo.png')}
+          originalWidth={954}
+          originalHeight={492}/>
+          <TouchableHighlight onPress={() => Alert.alert('Credits', credits)}>
+            <Text style={styles.words}>Credits</Text>
+          </TouchableHighlight>
           <View>
-
             <TextInput
               style = {{padding: 10, backgroundColor: "white"}}
               editable={true}
@@ -155,7 +189,6 @@ class Authentication extends Component {
               returnKeyType='next'
               value={this.state.username}
             />
-
             <TextInput
               style = {{padding: 10, backgroundColor: "white"}}
               editable={true}
@@ -166,27 +199,25 @@ class Authentication extends Component {
               secureTextEntry={true}
               value={this.state.password}
             />
-
             <TouchableHighlight style={styles.button} onPress={this.userLogin.bind(this)}>
               <Text style ={styles.words}> Log In </Text>
             </TouchableHighlight>
-
-
-
             <TouchableHighlight style = {styles.button} onPress={this.userSignup.bind(this)}>
               <Text style ={styles.words}> Sign Up </Text>
             </TouchableHighlight>
-
-
-
-            <Button color="darkred" fontFamily = 'serif' onPress={() => this.props.navigation.navigate('Lobby')} title='Go To Lobby'/>
-            <Button color="darkred" fontFamily = 'serif'  onPress={() => this.props.navigation.navigate('Room')} title='Go To Room'/>
-            <Button color="darkred" fontFamily = 'serif' onPress={() => this.props.navigation.navigate('Loading')} title='Go To Loading'/>
-            <Button color="darkred" fontFamily = 'serif' onPress={() => this.props.navigation.navigate('Game')} title='Go To Game'/>
-            <Button color="darkred" fontFamily = 'serif' onPress={() => this.props.navigation.navigate('GhostRoom')} title='Youre Dead to me'/>
-
+            <View flexDirection='row' style={{alignItems: 'baseline', margin:20}}>
+              <Assassin1
+              source={require('./assets/Cover1.png')}
+              originalWidth={470}
+              originalHeight={293}/>
+              <Assassin2
+              source={require('./assets/Cover2.png')}
+              originalWidth={262}
+              originalHeight={533}/>
+            </View>
           </View>
         </View>
+        </ScrollView>
       );
     }
   }
@@ -197,21 +228,23 @@ var styles = StyleSheet.create({
     backgroundColor: 'black',
   },
   button: {
-    color: 'darkred',
     backgroundColor: 'darkred',
+    marginTop: 10,
+    marginBottom: 10,
+    padding: 5
   },
   words: {
     fontWeight: 'bold',
     color: 'white',
+    marginTop: 10,
+    marginBottom: 10,
+    padding: 5
   }
-
 })
-
-
-
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    joinroom: (username, roomCode) => {dispatch(joinroom(roomCode, username))},
     login : (username, token) => {dispatch(login(username, token))},
     locate : (latitude, longitude, error) => {dispatch(locate(latitude, longitude, error))}
   }

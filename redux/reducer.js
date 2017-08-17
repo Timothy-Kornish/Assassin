@@ -12,7 +12,23 @@ export default function reducer(state, action){
       return {
         ...state,
         username: undefined,
-        token: undefined
+        token: undefined,
+        latitude: undefined,
+        longitude: undefined,
+        locationError: undefined,
+        roomCode: undefined,
+        roomCreator: undefined,
+        waitingPlayers: undefined,
+        roomCreator: undefined,
+        target: undefined,
+        targetsTarget: undefined,
+        ghostRoom: undefined,
+        targetDistance: undefined,
+        theta: undefined,
+        distance: undefined,
+        deadPlayers: undefined,
+        listObj: undefined,
+        time: undefined
       }
     case 'locate':
       //console.log("locate reducer firing", action);
@@ -47,16 +63,18 @@ export default function reducer(state, action){
         return{
           ...state,
           target: action.target
-        }   
+        }
       case 'newHeartBeat':
         console.log("heartbeat is thumpin", action)
           return{
             ...state,
+            alive: action.alive,
             theta: action.theta,
             distance: action.distance,
             target: action.target,
             targetsTarget: action.targetsTarget,
-            listObj: action.listObj
+            listObj: action.listObj,
+            hireable: action.hireable
           }
       case 'newTime':
         console.log("time is ticking", action)
@@ -68,15 +86,20 @@ export default function reducer(state, action){
       console.log("killTarget is firing", action)
         return{
           ...state,
-          target: state.target,
-          targetsTarget: state.targetsTarget,
-          targetDistance: state.target.distance,
-        }  
+          target: action.target,
+          targetsTarget: action.targetsTarget,
+          targetDistance: action.target.distance,
+        }
       case 'newGhostRoom':
         return {
           ...state,
-          ghostRoom : action.deadPlayers
-        } 
+          deadPlayers : action.deadPlayers
+        }
+      case 'newLoadPlayers':
+        return{
+          ...state,
+          active: action.active
+        }
     default:
       return state
   }

@@ -3,73 +3,33 @@ import {Button, View, Text, StyleSheet} from 'react-native'
 import {connect} from 'react-redux'
 import {StackNavigator} from 'react-navigation'
 import {apiUrl} from '../localConfig'
-
+import Assassin3 from './assets/components/Assassin3'
+import {newGhostRoom} from '../redux/actions'
 
 class GhostRoom extends Component {
-  logout(){
-    fetch(apiUrl + '/logout', {
-      method: 'PUT',
-      headers: {
-        "Content-Type": 'application/json',
-        'x-access-token': this.props.token
-
-      },
-      body: JSON.stringify({username: this.props.username})
-    })
-  }
-
 
   bringOutYerDead(){
-    let players, playerDataList, deadPlayers = []
+    // let players, playerDataList, deadPlayers = []
     let self = this
     fetch(apiUrl + `/bringOutYerDead`, {
-     method: 'PUT',
-     headers: {
+      method: 'POST',
+      headers: {
        'Content-Type' : 'application/json',
        'x-access-token' : this.props.token
-     },
-     body: JSON.stringify({
-       username: this.props.username
-     })
-
-    })
-    .then(()=> {
-      fetch(apiURL + `user/game/data/${self.props.username}`, {
-        method: 'GET',
-        headers: {
-          "Content-Type": 'application/json',
-          'x-access-token': self.props.token
-        },
+      },
+      body: JSON.stringify({
+       username: self.props.username,
+       roomCode: self.props.roomCode
       })
     })
     .then(response => response.json())
     .then(result => {
-      playerDataList = result.listObj
+      this.props.ghostRoom(result.deadPeopleArr)
     })
-    fetch(apiURL + `RIP/${this.props.roomCode}`, {
-      method: 'Get',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-access-token': self.props.token
-      }
-    })
-    .then(response => response.json())
-    .then(result =>{
-      players = result.result
-      players.forEach(val=> val = val.username)
-      players.forEach(username => {
-        if(playerDataList[username].alive == 'false'){
-          deadPlayers.concat([username])
-        }
-      })
-      this.props.deadPlayers(deadPlayers)
-    })
-     console.log('GhostRoom is haunting', this.props.deadPlayers, (Date.now() - startTime) /1000);
-   }
+  }
 
   componentDidMount(){
     this.interval = setInterval(this.bringOutYerDead.bind(this), 3000)
-    console.log("the bell tolls every 3 seconds")
   }
 
   componentWillUnmount(){
@@ -77,30 +37,31 @@ class GhostRoom extends Component {
   }
 
   render(){
-    const names = this.props.deadPlayers.map(names => (<Text styles = {styles.words} key={names}> {names + '\n'} </Text>))
-    console.log("happy haunting", this.props.deadPlayers)
-
+    console.log("deadPlayers ", this.props.deadPlayers)
+    const names = this.props.deadPlayers.map(names => (<Text style = {styles.words} key={names.username}> {'\n' + names.username } </Text>))
         return(
-        <View>
-          <View style = {style.container}>
-
-            <Text style = {styles.words}>The Fallen: {names}</Text>
-            <Text style = {styles.words}>Through me you go into a city of weeping; through me you go into eternal pain; through me you go amongst the lost people</Text>
-            <Text style = {styles.words}>Abandon All Hope Ye Who Enter Here!</Text>
-            <Button color = 'darkred' style = {styles.button} onPress={() => this.props.logout} title={'LogOut'}/>
-          </View>
-          <Text style = {styles.words}>Into the eternal darkness, into fire and ice...I regret to inform you that you have been eliminated.  If you
-          wish, you may remain here and watch for the last heir.</Text>
-        </View>
-          )
+         <View>
+           <View style = {styles.container}>
+             <Text style = {styles.words}>The Fallen: {names}</Text>
+             <Text>{'\n'} </Text>
+             <Text style = {styles.words}>Through me you go into a city of weeping; through me you go into eternal pain; through me you go amongst the lost people</Text>
+             <Text style = {styles.words}>Abandon All Hope Ye Who Enter Here!</Text>
+             <Text>{'\n'} </Text>
+           </View>
+           <Text style = {styles.words}>Into the eternal darkness, into fire and ice...I regret to inform you that you have been eliminated.  If you
+           wish, you may remain here and watch for the last heir.</Text>
+           <Assassin3
+             source={require('./assets/GhostRoom.png')}
+             originalWidth={485}
+             originalHeight={562}/>
+         </View>
+        )
 
     }
   }
   var styles = StyleSheet.create({
     container: {
-
       backgroundColor: 'black',
-
     },
     button: {
       margin: 20,
@@ -116,11 +77,12 @@ class GhostRoom extends Component {
 const mapStateToProps = (state) => ({
  token : state.token,
  roomCode: state.roomCode,
- username: state.username
+ username: state.username,
+ deadPlayers: state.deadPlayers
 })
 
 const mapDispatchToProps = (dispatch) => ({
- ghostRoom : (deadPlayers) => {dispatch(newGhostRoom(deadPlayers))}
+ ghostRoom : (deadPeopleArr) => {dispatch(newGhostRoom(deadPeopleArr))}
 })
 
 const RoomConnector = connect(mapStateToProps, mapDispatchToProps)

@@ -2,8 +2,7 @@ import React, {Component} from 'react'
 import {Button, View, Text, FlatList, StyleSheet} from 'react-native'
 import {connect} from 'react-redux'
 import {StackNavigator} from 'react-navigation'
-import {newPlayersWaiting} from '../redux/actions'
-import {newAssignedTarget} from '../redux/actions'
+import {newPlayersWaiting, newLoadPlayers, newAssignedTarget} from '../redux/actions'
 import {apiUrl} from '../localConfig'
 
 class Room extends Component {
@@ -11,12 +10,11 @@ class Room extends Component {
   componentWillMount(){
     this.startTime = Date.now()
     this.interval = setInterval(this.updatePlayers.bind(this), 3000)
-    console.log("interval is firing every 3 seconds", (Date.now() - this.startTime) /1000)
     }
 
   updatePlayers(){
     var self = this;
-    fetch(apiUrl + `/user/list/${self.props.roomCode}`, {
+    fetch(apiUrl + `/user/list/${self.props.roomCode}/${self.props.username}`, {
      method: 'GET',
      headers: {
        'Content-Type' : 'application/json',
@@ -25,13 +23,30 @@ class Room extends Component {
     })
     .then(response => response.json())
     .then(result => {
-      console.log(result)
       self.props.playersWaiting(result.players, result.creator)
-    })
-    console.log('updatePlayers is firing with', (Date.now() - self.startTime) /1000);
-   }
+      fetch(apiUrl + `/room/redirect/${this.props.roomCode}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type' : 'application/json',
+          'x-access-token' : self.props.token
+        }
+      })
+      .then(response => response.json())
+      .then(result => {
+        console.log("game active: ",result.active, result)
+        self.props.loadPlayers(result.active)
+        console.log("this.props.active", this.props.active)
+        if(this.props.active == 1){
+          console.log("active fired")
+          clearInterval(this.interval)
+          self.props.navigation.navigate('Loading')
 
- pressButton(){
+        }
+      })
+    })
+  }
+
+  pressButton(){
     var self = this;
     fetch(apiUrl + '/room/start', {
      method: 'PUT',
@@ -44,7 +59,6 @@ class Room extends Component {
         })
      })
     .then(()=> {
-        console.log("user/targets fired ")
         fetch(apiUrl + `/user/targets`, {
           method: 'PUT',
           headers: {
@@ -57,8 +71,6 @@ class Room extends Component {
         })
       .then(response => response.json())
       .then((responseData) =>{
-            console.log("grab targets ", responseData)
-            console.log("token before user/targets/assign ", self.props.token)
             fetch(apiUrl + `/user/targets/assign`, {
                 method: 'PUT',
                 headers:{
@@ -99,7 +111,7 @@ class Room extends Component {
           <Text style = {styles.words}>{names}</Text>
           <Text style = {styles.words}>Room Creator: {this.props.roomCreator}</Text>
           <View>
-          {this.props.waitingPlayers.length > 1 ? 
+          {(this.props.waitingPlayers.length > 1 && this.props.username == this.props.roomCreator) ?
             <Button color = 'darkred' style = {styles.button}onPress={this.pressButton.bind(this)} title={'start game'}/>
             : <Text style = {styles.words}> Waiting for more players to join </Text> }
           </View>
@@ -119,7 +131,6 @@ var styles = StyleSheet.create({
   words: {
     color: 'white',
   }
-
 })
 
 const mapStateToProps = (state) => ({
@@ -127,12 +138,14 @@ const mapStateToProps = (state) => ({
   roomCode: state.roomCode,
   waitingPlayers: state.waitingPlayers,
   roomCreator: state.roomCreator,
-  username: state.username
+  username: state.username,
+  active: state.active
 })
 
 const mapDispatchToProps = (dispatch) => ({
   assignTarget : (target) => {dispatch(newAssignedTarget(target))},
-  playersWaiting : (players, creator) => {dispatch(newPlayersWaiting(players, creator))}
+  playersWaiting : (players, creator) => {dispatch(newPlayersWaiting(players, creator))},
+  loadPlayers : (active) => {dispatch(newLoadPlayers(active))}
 })
 
 const RoomConnector = connect(mapStateToProps, mapDispatchToProps)
