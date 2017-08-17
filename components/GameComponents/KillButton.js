@@ -34,7 +34,7 @@ class KillButton extends Component {
 
   render(){
 
-    return <Button disabled={(this.props.distance > 500 || this.props.hireable === 'false') } onPress={() => this.handleKill()} title='KILL TARGET'/>
+    return <Button disabled={(this.props.distance > 500 || this.props.hireable === 'false') || (this.props.username == this.props.target && this.props.alive == 'true') } onPress={() => this.handleKill()} title='KILL TARGET'/>
   }
 }
 
@@ -43,7 +43,7 @@ const mapStateToProps = (state) => {
     username: state.username,
     target: state.target,
     targetsTarget: state.targetsTarget,
-    isAlive : state.alive,
+    alive : state.alive,
     distance: state.distance,
     roomCode: state.roomCode,
     token: state.token,
