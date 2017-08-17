@@ -26,6 +26,7 @@ export default function reducer(state, action){
         targetDistance: undefined,
         theta: undefined,
         distance: undefined,
+        deadPlayers: undefined,
         listObj: undefined,
         time: undefined
       }
@@ -91,7 +92,7 @@ export default function reducer(state, action){
       case 'newGhostRoom':
         return {
           ...state,
-          ghostRoom : action.deadPlayers
+          deadPlayers : action.deadPlayers
         }
       case 'newLoadPlayers':
         return{
