@@ -171,8 +171,8 @@ app.post('/authenticate', (req, res) => {
             if (err) {
               return res.json({ success: false, message: 'Failed to authenticate token.'});
             } else {
-              return res.json({ 
-                                success: true, 
+              return res.json({
+                                success: true,
                                 username: username,
                                 roomCode: result2[0] && result2[0].roomCode,
                                 alive: result[0].alive,
@@ -184,7 +184,7 @@ app.post('/authenticate', (req, res) => {
     }
   })
 })
- 
+
 
 // middleware after token is provided to front end,
 // every route then checks the token legitemacy before proceeding
@@ -308,6 +308,18 @@ app.put('/room/start', (req, res) => {
       res.status(500).json({success:false, message: "Imma feed you to da gators, Butch!", err})
     }else{
       res.json({success:true, message: 'Eeeeeeeeeeeiii', result})
+    }
+  })
+})
+// checking if the room is active or not to redirect people in room.js to loading.js
+app.get('/room/redirect/:roomCode', (req, res) => {
+  let {roomCode} = req.params
+  const sql = `SELECT * from GAMES WHERE roomCode = ?`
+  req.query(sql,[roomCode], (err, result) => {
+    if(err){
+      res.status(500).json({success:false, message: "Get away from that horse!!!", err})
+    } else {
+      res.json({success:true, message: "Weeee, git them glators, Cletus!", active: result[0].active, result})
     }
   })
 })

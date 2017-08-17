@@ -80,3 +80,10 @@ export function newTime(time){
     time
   }
 }
+
+export function newLoadPlayers(active){
+  return{
+    type: 'newLoadPlayers',
+    active
+  }
+}
