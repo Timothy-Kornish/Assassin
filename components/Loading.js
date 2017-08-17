@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Button, View, Text, StyleSheet} from 'react-native'
+import {Button, View, Text, StyleSheet, ScrollView} from 'react-native'
 import {connect} from 'react-redux'
 import {StackNavigator} from 'react-navigation'
 import {apiUrl} from '../localConfig'
@@ -8,6 +8,7 @@ class Loading extends Component {
 
  render(){
     return (
+      <ScrollView>
      <View style = {styles.container}>
        <Text style = {styles.words} >From the offices of Gamboni and Valenicci</Text>
        <Text style = {styles.words} > In the matter of the estate of "Mother"...
@@ -29,6 +30,7 @@ class Loading extends Component {
        </Text>
        <Button color = 'darkred' style = {styles.button} onPress={()=>this.props.navigation.navigate('Game')} title={'Continue'}/>
       </View>
+      </ScrollView>
      )
   }
 }
