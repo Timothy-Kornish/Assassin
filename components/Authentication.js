@@ -132,7 +132,7 @@ class Authentication extends Component {
       this.loginRedirect(username, token)
   }
 }
-  
+
   loginRedirect(username, token){
     fetch(apiUrl + '/auto/authenticate', {
         method: 'POST',
@@ -208,6 +208,9 @@ var styles = StyleSheet.create({
   },
   button: {
     backgroundColor: 'darkred',
+    marginTop: 10,
+    marginBottom: 10,
+    padding: 5
   },
   words: {
     fontWeight: 'bold',

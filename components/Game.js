@@ -37,6 +37,7 @@ class Game extends Component {
             })
             .then(response => response.json())
             .then(result => {
+              console.log("all the stuff: theta: ", result.theta,"\n distance: ", result.distance,"\n target: ", result.target,"\n tt ", result.targetsTarget,"\n listObj", result.listObj,"\n hireable", result.listObj[self.props.username].hireable)
               self.props.heartbeat(result.theta, result.distance, result.target, result.targetsTarget, result.listObj, result.listObj[self.props.username].hireable)
               if(result.listObj[self.props.username].alive === 'dead') {
                 self.props.navigation.navigate('GhostRoom')
@@ -91,7 +92,8 @@ const mapStateToProps = (state) => ({
   target: state.target,
   targetsTarget: state.targetsTarget,
   distance: state.distance,
-  theta: state.theta
+  theta: state.theta,
+  hireable: state.hireable
 })
 
 const mapDispatchToProps = (dispatch) => ({
