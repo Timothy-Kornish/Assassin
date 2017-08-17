@@ -7,11 +7,11 @@ import {
 
 const Assassin3 = ({source, originalWidth, originalHeight}) => {
   let windowWidth = Dimensions.get('window').width
-  let widthChange = ((windowWidth-10)/originalWidth)/6
+  let widthChange = ((windowWidth-10)/originalWidth)
   let newWidth = originalWidth * widthChange
   let newHeight = originalHeight * widthChange
   return (
-    <Image source={source} style={{width:newWidth, height:newHeight, bottom:0}}/>
+    <Image source={source} style={{width:newWidth, height:newHeight, }}/>
   )
 }
 

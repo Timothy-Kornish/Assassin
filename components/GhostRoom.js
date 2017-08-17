@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Button, View, Text, StyleSheet} from 'react-native'
+import {Button, View, Text, StyleSheet, ScrollView} from 'react-native'
 import {connect} from 'react-redux'
 import {StackNavigator} from 'react-navigation'
 import {apiUrl} from '../localConfig'
@@ -40,6 +40,7 @@ class GhostRoom extends Component {
     console.log("deadPlayers ", this.props.deadPlayers)
     const names = this.props.deadPlayers.map(names => (<Text style = {styles.words} key={names.username}> {'\n' + names.username } </Text>))
         return(
+          <ScrollView>
          <View>
            <View style = {styles.container}>
              <Text style = {styles.words}>The Fallen: {names}</Text>
@@ -55,6 +56,7 @@ class GhostRoom extends Component {
              originalWidth={485}
              originalHeight={562}/>
          </View>
+       </ScrollView>
         )
 
     }
