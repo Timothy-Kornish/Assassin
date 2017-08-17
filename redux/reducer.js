@@ -68,6 +68,7 @@ export default function reducer(state, action){
         console.log("heartbeat is thumpin", action)
           return{
             ...state,
+            alive: action.alive,
             theta: action.theta,
             distance: action.distance,
             target: action.target,
