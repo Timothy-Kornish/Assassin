@@ -9,11 +9,28 @@ import BackgroundTimer from 'react-native-background-timer'
 import {apiUrl} from '../localConfig'
 import {newHeartBeat} from '../redux/actions'
 
+
+
 class Game extends Component {
   constructor(props){
     super(props)
     this.heartbeatTimer = BackgroundTimer.setInterval (this.heartBeat.bind(this), 1500);
 
+  kill(){
+    console.log("user kill function called")
+    fetch('/user/kill', {
+     method: 'POST',
+     headers: {
+       'Content-Type': 'application/json',
+       'x-access-token' : this.props.token
+     },
+     body: JSON.stringify({latitude: this.props.latitude,
+                           longitude: this.props.longitude})
+    })
+    .then(response => response.json())
+    .then(result => {
+      console.log("result of kill", result)
+    })
   }
 
   heartBeat(){
@@ -82,12 +99,12 @@ class Game extends Component {
           radius is smaller than the target radius, which you will also recieve when your target is near. This means, of
           course, that your hunter will see you before you see them. The final rule: If you do not stay active on your phone
           for at least 3 hours per day, you will be permanently and irrevocably eliminated from inheritance.
-          Stay alert, stay safe, stay alive.`)}></Button>
+        Stay alert, stay safe, stay alive.`)}></Button>
         <Button color = 'darkred' style = {styles.button} onPress={()=>this.props.navigation.navigate('GhostRoom')} title={'You Are Dead'}/>
         <Timer/>
-        <Compass />
-        <KillButton />
-      </View>
+          <Compass />
+          <KillButton />
+          </View>
     )
   }
 }
@@ -117,7 +134,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  heartbeat: (theta, distance, target, targetsTarget, listObj, hireable)=>{dispatch(newHeartBeat(theta, distance, target, targetsTarget, listObj, hireable))}
+  heartbeat: (theta, distance, target, targetsTarget, listObj)=>{dispatch(newHeartBeat(theta, distance, target, targetsTarget, listObj))}
 })
 
 const GameConnector = connect(mapStateToProps, mapDispatchToProps)
