@@ -92,8 +92,7 @@ const mapStateToProps = (state) => ({
   target: state.target,
   targetsTarget: state.targetsTarget,
   distance: state.distance,
-  theta: state.theta,
-  hireable: state.hireable
+  theta: state.theta
 })
 
 const mapDispatchToProps = (dispatch) => ({
