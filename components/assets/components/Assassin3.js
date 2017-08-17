@@ -11,7 +11,7 @@ const Assassin3 = ({source, originalWidth, originalHeight}) => {
   let newWidth = originalWidth * widthChange
   let newHeight = originalHeight * widthChange
   return (
-    <Image source={source} style={{width:newWidth, height:newHeight, }}/>
+    <Image source={source} style={{width:newWidth, height:newHeight}}/>
   )
 }
 
