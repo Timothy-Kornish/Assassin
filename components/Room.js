@@ -111,8 +111,8 @@ class Room extends Component {
           <Text style = {styles.words}>{names}</Text>
           <Text style = {styles.words}>Room Creator: {this.props.roomCreator}</Text>
           <View>
-          {this.props.waitingPlayers.length > 1 ?
-            <Button disabled = {this.props.username !== this.props.roomCreator} color = 'darkred' style = {styles.button}onPress={this.pressButton.bind(this)} title={'start game'}/>
+          {(this.props.waitingPlayers.length > 1 && this.props.username == this.props.roomCreator) ?
+            <Button color = 'darkred' style = {styles.button}onPress={this.pressButton.bind(this)} title={'start game'}/>
             : <Text style = {styles.words}> Waiting for more players to join </Text> }
           </View>
         </View>
