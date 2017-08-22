@@ -14,7 +14,6 @@ CREATE TABLE players(
   latitude VARCHAR(255) DEFAULT '' NOT NULL,
   alive VARCHAR(5) DEFAULT 'false',
   target VARCHAR(100) DEFAULT '',
-  targetStatus VARCHAR(5) DEFAULT 'false',
   hireable VARCHAR(5) DEFAULT 'false',
   created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   lastUpdated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
