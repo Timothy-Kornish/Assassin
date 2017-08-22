@@ -8,6 +8,7 @@ const ServerFunk = require('./server_funcs')
 const app = express()
 const players = []
 
+2
 const port = process.env.PORT || 3001;
 const Database = require('./dbfunk')
 const db = new Database()
@@ -93,7 +94,7 @@ app.post('/signup', (req, res) => {
 
   req.query(userQuery, [username], (err, result) => {
     if(err){
-      console.log(err)
+      res.status(500).json({err: err})
       throw err
     }
     if(!result[0]) {
@@ -101,18 +102,18 @@ app.post('/signup', (req, res) => {
       req.query(sql, [username, password], (err, result) => {
 
         if(err){
-          res.status(500).json({message: 'Da database done broke, cuz', success:false, err})
+          res.status(500).json({message:'could not insert user into players table on DB', joke: 'Da database done broke, cuz', success:false, err})
 
         } else {
           var token = jwt.sign({username}, app.get('superSecret'), {
             expiresIn: "2days"
           });
 
-          res.json({success:true, message: "well done, butch!", result, token})
+          res.json({success:true, message: "player successfully inserted into players table on DB", joke: "well done, butch!", result, token})
         }
       })
     } else if(result[0]){
-      res.status(500).json({success:false, message: 'That there user already exists hog'})
+      res.status(500).json({success:false, message: "user already exists on players table", joke:'That there user already exists hog'})
     }
   })
 })
@@ -126,15 +127,15 @@ app.post('/authenticate', (req, res) => {
 
   req.query(userQuery, [username], (err, result) => {
     if(err){
-      console.log(err)
+      res.staus(500).json({err})
       throw err
     }
     if(!result[0]) {
-      res.json({success: false, message: 'theys not from round here'})
+      res.json({success: false, message: "player does not exist in players table on DB", joke: 'theys not from round here'})
     } else if(result[0]) {
       req.query(passQuery, [username], (err, result) => {
         if(err){
-          console.log(err)
+          res.status(500).json({err})
           throw err
         }
         if(!bcrypt.compareSync(password, result[0].password)) {
@@ -146,7 +147,7 @@ app.post('/authenticate', (req, res) => {
           });
           res.json({success: true, message: "you're in", token })
         } else {
-          res.json({success: false, message: "something went very wrong"})
+          res.json({success: false, message: "something went very wrong with the token"})
         }
       })
     }
@@ -171,12 +172,8 @@ app.post('/authenticate', (req, res) => {
             if (err) {
               return res.json({ success: false, message: 'Failed to authenticate token.'});
             } else {
-              return res.json({
-                                success: true,
-                                username: username,
-                                roomCode: result2[0] && result2[0].roomCode,
-                                alive: result[0].alive,
-                              })
+              return res.json({success: true,  username: username,
+                roomCode: result2[0] && result2[0].roomCode, alive: result[0].alive})
             }
           })
         }
@@ -207,16 +204,10 @@ app.use(function(req, res, next) {
         next();
       }
     });
-
   } else {
-
     // if there is no token
     // return an error
-    return res.status(403).send({
-        success: false,
-        message: 'No token provided.'
-    });
-
+    return res.status(403).send({success: false, message: 'No token provided.'});
   }
 });
 
@@ -227,7 +218,7 @@ app.post('/room', (req, res) => {
   const sql = `INSERT INTO games (roomCode, active) VALUES (?, ?)`
   req.query(sql, [roomCode, 0], (err, result) => {
     if(err){
-      res.status(500).json({success:false, message: "Fix the damn ac, JSON! C'mon now!", err})
+      res.status(500).json({success:false, message: "error creating new game in database", joke: "Fix the damn ac, JSON! C'mon now!", err})
     }else {
       res.json({success:true, message: "Y'all nu' gunna die today, Butch!", result})
     }
@@ -240,9 +231,11 @@ app.put('/room/admin', (req, res) => {
   const sql = `UPDATE playersToGames SET admin = 'true' WHERE username = ?`
   req.query(sql, [username], (err, result) => {
     if(err){
-      res.status(500).json({success:false, message: "Gator got yer arm, Butch!", err})
+      res.status(500).json({success:false, message: "error setting administrator property to player" + username + "in room "+roomCode,
+       joke:"Gator got yer arm, Butch!", err})
     } else {
-      res.json({success:true, message: 'Poke that Gators eye, Cletus!', result})
+      res.json({success:true, message: "Update "+ username +" admin status to true in game "+roomCode,
+       joke:'Poke that Gators eye, Cletus!', result})
     }
   })
 })
@@ -254,7 +247,8 @@ app.put('/room/add',(req, res) => {
   const sqlQuerty = "SELECT * FROM playersToGames WHERE roomCode = ?"
   req.query(sqlQuerty, [roomCode], (err, result) => {
     if (err){
-      res.status(500).json({message: "sup Nerds",err, success: false})
+      res.status(500).json({message: "error grabbing data of players in room "+roomCode,
+       joke:"sup Nerds",err, success: false})
     }
     else if(!result[0]){
       console.log("no indexs")
@@ -267,7 +261,7 @@ app.put('/room/add',(req, res) => {
           res.status(500).json({success:false, message: 'Database Error', error: err2})
         } else {
           console.log("else in query fired")
-          res.json({success: true, message: 'ye-ah, got ye in thee room good sir', result2})
+          res.json({success: true, message: "added player to room on database", joke:'ye-ah, got ye in thee room good sir', result2})
         }
       })
     }
@@ -305,9 +299,10 @@ app.put('/room/start', (req, res) => {
   const sql = ` UPDATE players, games SET alive = 'true', active = 1 WHERE roomCode = ?`
   req.query(sql, [roomCode], (err, result) => {
     if (err){
-      res.status(500).json({success:false, message: "Imma feed you to da gators, Butch!", err})
+      res.status(500).json({success:false, message: "error setting player alive status at beginning of game",
+       joke:"Imma feed you to da gators, Butch!", err})
     }else{
-      res.json({success:true, message: 'Eeeeeeeeeeeiii', result})
+      res.json({success:true, message:"successfully set players alive status to true", joke: 'Eeeeeeeeeeeiii', result})
     }
   })
 })
@@ -317,9 +312,10 @@ app.get('/room/redirect/:roomCode', (req, res) => {
   const sql = `SELECT * from GAMES WHERE roomCode = ?`
   req.query(sql,[roomCode], (err, result) => {
     if(err){
-      res.status(500).json({success:false, message: "Get away from that horse!!!", err})
+      res.status(500).json({success:false, message: "err grabbing data from game table",joke:"Get away from that horse!!!", err})
     } else {
-      res.json({success:true, message: "Weeee, git them glators, Cletus!", active: result[0].active, result})
+      res.json({success:true, message:"successfully grabbed data from game table to check if active",
+      joke: "Weeee, git them glators, Cletus!", active: result[0].active, result})
     }
   })
 })
@@ -351,9 +347,11 @@ app.put('/user/targets/assign', (req, res) => {
   console.log("sql name ", result, sql)
   req.query(sql, (err, answer) => {
     if(err){
-      res.status(500).json({success: false, message: "Pa, there's a damn armadill in the house!", err})
+      res.status(500).json({success: false, message: "could not properly assign targets for players",
+       joke:"Pa, there's a damn armadill in the house!", err})
     } else {
-      res.json({success:true, message: "Ma, this here armadill pie is de best you ever made", answer})
+      res.json({success:true, message: "correctly assigned targets randomly to each person",
+       joke:"Ma, this here armadill pie is de best you ever made", answer})
     }
   })
 })
@@ -364,9 +362,11 @@ app.put('/user/heartbeat', (req, res) => {
   const sql = `UPDATE players SET latitude = ?, longitude = ? WHERE username = ?`
   req.query(sql, [latitude, longitude, username], (err, result) => {
     if(err){
-      res.status(500).json({success:false, message: "Cletus, stop peein on Butch's practicing tree!", err})
+      res.status(500).json({success:false, message: "could not properly update players data from phone",
+      joke:"Cletus, stop peein on Butch's practicing tree!", err})
     } else {
-      res.json({success:true, message: "This here tree is the happiest darned tree in Louisiana!", result})
+      res.json({success:true, message: "successfully updated database with player location data",
+        joke:"This here tree is the happiest darned tree in Louisiana!", result})
     }
   })
 })
@@ -385,10 +385,12 @@ app.get('/user/game/data/:username', (req, res) => {
      let listObj = serve.getListObj()
 
     if(err) {
-      res.status(500).json({success:false, message:"I'm Daniel Boon, checkout my coon hat", err})
+      res.status(500).json({success:false, message: "could not grab data of players",
+        joke:"I'm Daniel Boon, checkout my coon hat", err})
     }
     else {
-      res.json({success:true, message:  "sup Daniel Boon", allPlayers, theta, distance, target, targetsTarget, listObj})
+      res.json({success:true, message: "successfully grabbed player data",
+       joke:"sup Daniel Boon", allPlayers, theta, distance, target, targetsTarget, listObj})
     }
   })
 })
@@ -415,7 +417,7 @@ app.get('/user/list/:roomCode/:username', (req, res) => {
       let sqlQuery = `SELECT * FROM players`
       req.query(sqlQuery, (err, result2) => {
         if (err){
-          res.status(500).json({success: false, message:"blah blah blah", err })
+          res.status(500).json({success: false, message:"couldn't grab data from players table in DB", err })
         }
         else{
           let serve = new ServerFunk(result2, username)
@@ -435,7 +437,8 @@ app.get('/user/list/:roomCode/:username', (req, res) => {
           })
 
           playersInRoomArr = Object.values(playersInRoomObj)
-          res.json({success:true, message: "That horse needs help, Cletus",  playersInRoomObj, playersInRoomArr, targets, players, creator})
+          res.json({success:true, message: "Sending data over for game page",
+            joke:"That horse needs help, Cletus",  playersInRoomObj, playersInRoomArr, targets, players, creator})
         }
       })
     }
@@ -469,23 +472,11 @@ app.post('/user/kill', (req, res) => {
   //might need to change false on line 174
     req.query(sql, [target, username, username, targetsTarget, target, target], (err, result) => {
       if (err){
-        res.status(500).json({success:false, message: "Shudda ate more of them there gator brains, they make you smart", err})
-
+        res.status(500).json({success:false, message: "error assigning new target to assassin after a kill",
+          joke:"Shudda ate more of them there gator brains, they make you smart", err})
       } else { //check if timestamp is recent and if radius is small enough for a kill
-        const sqlQuery = `UPDATE players SET alive =
-                      CASE username
-                      WHEN ? THEN 'taco'
-                      END,
-                      target =
-                      CASE username
-                      WHEN ? THEN ?
-                      END`
-        req.query(sql, [username, target, 'es a taco'], (err2, result) => {
-          if (err){
-            res.status(500).json({success: false, message: "sup dwarf", err})
-          }
-        })
-        res.json({success: true, message: 'Take a swig of this here moonshine, and party it up, Butch', result})
+        res.json({success: true, message: "properly assigned players alive status and new target after a kill",
+        joke:'Take a swig of this here moonshine, and party it up, Butch', result})
       }
     })
   }
@@ -514,9 +505,11 @@ app.put('/user/startCountDown', (req, res) => {
   const sql =`UPDATE players SET hireable = 'false' WHERE username = ?`
   req.query(sql, [username], (err, result) => {
     if(err){
-      res.status(500).json({success:false, message: "Now here's where the science kicks in, you done messed it up", err})
+      res.status(500).json({success:false, message: "error setting players initial hireable status to be disable kill button",
+       joke:"Now here's where the science kicks in, you done messed it up", err})
     } else {
-      res.json({success:true, message: "You done wrangled that gator gud,!", result})
+      res.json({success:true, message: "properly instantiated players hireable status",
+      joke:"You done wrangled that gator gud,!", result})
     }
   })
 })
@@ -527,9 +520,11 @@ app.put('/user/hireable', (req, res) => {
   const sql = `UPDATE players SET hireable = 'true' WHERE username = ?`
   req.query(sql, [username], (err, result) => {
     if(err){
-      res.status(500).json({success:false, message: "Quit ridin' that sow like a horse Cletus!", err})
+      res.status(500).json({success:false, message: "couldn't set hireable to true enabling player to begin killing others",
+      joke:"Quit ridin' that sow like a horse Cletus!", err})
     } else {
-      res.json({success:true, message: "Cletus is the world champion sow rider in the lower 52", result})
+      res.json({success:true, message: "successfuly set hireable to true allowing player to begin killing other players",
+      joke:"Cletus is the world champion sow rider in the lower 52", result})
     }
   })
 })
@@ -552,42 +547,23 @@ app.put('user/logout', (req, res) => {
   })
 })
 
-
-/************************
-redundant route         use : user/kill/
-************************/
-
-// sets player alive status to false, this is already updated in the route user/kill/
-// app.post('/bringOutYerDead', (req, res) => {
-//   const sql = `SELECT * FROM players WHERE alive = 'dead'`
-//   req.query(sql, [username], (err, result) => {
-//     if(err){
-//       res.status(500).json({success:false, message: "Here lies Butch, worst darned gator wrastler both sides of the Mississippi", err})
-//     } else {
-//       res.json({success:true, message: "Cletus done got that there Gator that kill't his best buddy Butch", result})
-//     }
-//   })
-// })
-
 app.post('/bringOutYerDead', (req, res) => {
   const {roomCode, username} = req.body;
   const sql = `SELECT * from playersToGames where roomCode = ?`
   req.query(sql, [roomCode], (err, result) => {
     if(err){
-      res.status(500).json({success:false, message: "Here lies Butch, worst darned gator wrastler both sides of the Mississippi", err})
+      res.status(500).json({success:false, message: "couldn't retrieve info from database",
+      joke: "Here lies Butch, worst darned gator wrastler both sides of the Mississippi", err})
     } else {
       const sql2 = `SELECT * FROM players WHERE alive = 'dead'`
       req.query(sql2, [roomCode], (err2, result2) => {
         if(err){
-          res.status(500).json({success:false, message: "I'm not dead"})
+          res.status(500).json({success:false, joke: "I'm not dead",
+          message: "could not grab dead players from databse"})
         } else {
-          console.log("result ", result)
-          console.log("result2 ", result2)
           let serve = new ServerFunk(result2, username)
           let listObj = serve.getListObj()
           let listArr = serve.getListArr()
-          console.log("listObj from players", listObj)
-          console.log("listArr form players", listArr)
           let people = result.slice()
           let deadPeopleObj = {}
           let deadPeopleArr = []
@@ -597,15 +573,10 @@ app.post('/bringOutYerDead', (req, res) => {
               deadPeopleObj[user] = listObj[user]
             }
           })
-          console.log("GET OUT OF HERE GHOSTS! obj", deadPeopleObj )
           deadPeopleArr = Object.values(deadPeopleObj)
-          console.log("ALLLLLL THE DEADS", deadPeopleArr)
           deadPeopleArr.map(val => val = val.username)
-          console.log("ALLLLLL THE DEADS 2.0", deadPeopleArr)
-          return res.json({
-                          success:true,
-                          message: "here ye be dead",
-                          deadPeopleArr })
+          return res.json({success:true, message: "successfully grabbed a list of dead players",
+          joke:"here ye be dead", deadPeopleArr })
         }
       })
     }
@@ -641,7 +612,8 @@ app.get('/showPlayersToGamesTables', (req, res) => {
     if(err){
       res.status(500).json({success:false, message: "Git on outta here", err})
     } else {
-      res.json({success:true, message: "MMM-hmmm, this here gator moonshine is da best in de bayou", result})
+      res.json({success:true, message: "got data from playersToGames table in DB",
+        joke:"MMM-hmmm, this here gator moonshine is da best in de bayou", result})
     }
   })
 })
@@ -653,7 +625,8 @@ app.get('/showGamesTables', (req, res) => {
     if(err){
       res.status(500).json({success:false, message: "Get away from that horse!!!", err})
     } else {
-      res.json({success:true, message: "Weeee-ooooo, git them glators, Cletus!", result})
+      res.json({success:true, message: "got data from games table in DB",
+        joke:"Weeee-ooooo, git them glators, Cletus!", result})
     }
   })
 })
@@ -665,7 +638,8 @@ app.get('/showPlayersTables', (req, res) => {
     if(err){
       res.status(500).json({success:false, message: "errrrrrrror", err})
     } else {
-      res.json({success:true, message: "clever message, Butch", result})
+      res.json({success:true, message: "got data from players table in DB",
+        joke:"clever message, Butch", result})
     }
   })
 })
