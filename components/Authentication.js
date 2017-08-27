@@ -16,8 +16,12 @@ import credits from './assets/credits'
 class Authentication extends Component {
 
   constructor() {
-    super();
-    this.state = { username: null, password: null, isLoaded: false };
+    super()
+    this.state = {
+      username: null,
+      password: null,
+      isLoaded: false
+    }
   }
 
   async saveItem(item, selectedValue) {
