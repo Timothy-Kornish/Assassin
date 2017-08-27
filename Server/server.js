@@ -8,7 +8,6 @@ const ServerFunk = require('./server_funcs')
 const app = express()
 const players = []
 
-2
 const port = process.env.PORT || 3001;
 const Database = require('./dbfunk')
 const db = new Database()
@@ -20,14 +19,7 @@ const users = {}
 
 
 // 4-character random generator for roomCode/testing
-const codeGen = () => {
-  const codeVal = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-  let val = ""
-  for (var i = 0; i < 4; i++){
-    val += codeVal[Math.floor(Math.random()* 36)]
-  }
-  return val
-}
+
 
 // shuffles array into new order, for target assignment
 const shuffle = (array) => {
@@ -82,6 +74,11 @@ app.use(express.static(path.join(__dirname, '..', 'build')))
 
 // setting the superSceret for sign up and login
 app.set('superSecret', "secretTUNNELthroughTHEmountain");
+
+//------------------------------------------------------------------------------
+//                      Authentication component uses:
+//                      signup, authenticate, auto/authenticate, all seperate actions
+//------------------------------------------------------------------------------
 
 // sign up page when user hits sign up button after entering username and password
 // first checks if user exists in the database, if username exists, sends a message that user exists
@@ -211,6 +208,18 @@ app.use(function(req, res, next) {
   }
 });
 
+//------------------------------------------------------------------------------
+//                CreateRoom.js uses:
+//                 room, room/add, room/admin
+
+//                 new singleRoute --> room/create
+
+//                JoinRoom.js  uses:
+//                 showGamesTables, room/add
+
+//                 new singleRoute --> room/join
+//------------------------------------------------------------------------------
+
 //route used to insert a new room into the database, doesn't add players or anything else
 app.post('/room', (req, res) => {
   const {roomCode} = req.body
@@ -293,19 +302,6 @@ app.put('/room/add',(req, res) => {
   })
 })
 
-// route  used when games is started to set all players alive stautus to true and the room to active
-app.put('/room/start', (req, res) => {
-  const {roomCode} = req.body
-  const sql = ` UPDATE players, games SET alive = 'true', active = 1 WHERE roomCode = ?`
-  req.query(sql, [roomCode], (err, result) => {
-    if (err){
-      res.status(500).json({success:false, message: "error setting player alive status at beginning of game",
-       joke:"Imma feed you to da gators, Butch!", err})
-    }else{
-      res.json({success:true, message:"successfully set players alive status to true", joke: 'Eeeeeeeeeeeiii', result})
-    }
-  })
-})
 // checking if the room is active or not to redirect people in room.js to loading.js
 app.get('/room/redirect/:roomCode', (req, res) => {
   let {roomCode} = req.params
@@ -319,6 +315,32 @@ app.get('/room/redirect/:roomCode', (req, res) => {
     }
   })
 })
+
+//------------------------------------------------------------------------------
+//               Room.js use:
+// updateplayers interval: user/list/:roomCode/:username, room/redirect/:roomCode
+//
+//    new single route --> room/player/update
+//
+// start game button:  room/start, user/targets, uesr/targers/assign, user/game/data/:username
+//
+//    new single route --> room/start
+//------------------------------------------------------------------------------
+
+// route  used when games is started to set all players alive stautus to true and the room to active
+app.put('/room/start', (req, res) => {
+  const {roomCode} = req.body
+  const sql = ` UPDATE players, games SET alive = 'true', active = 1 WHERE roomCode = ?`
+  req.query(sql, [roomCode], (err, result) => {
+    if (err){
+      res.status(500).json({success:false, message: "error setting player alive status at beginning of game",
+       joke:"Imma feed you to da gators, Butch!", err})
+    }else{
+      res.json({success:true, message:"successfully set players alive status to true", joke: 'Eeeeeeeeeeeiii', result})
+    }
+  })
+})
+
 
 /********************
 redundant route    use : user/list:roomCode

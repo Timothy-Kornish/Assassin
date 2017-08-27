@@ -8,7 +8,6 @@ const ServerFunk = require('./server_funcs')
 const app = express()
 const players = []
 
-2
 const port = process.env.PORT || 3001;
 const Database = require('./dbfunk')
 const db = new Database()
