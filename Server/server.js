@@ -212,13 +212,19 @@ app.use(function(req, res, next) {
 //                CreateRoom.js uses:
 //                 room, room/add, room/admin
 
-//                 new singleRoute --> room/create
+//                 new singleRoute --> room/create,
+//                 front-end progress: incomplete
 
 //                JoinRoom.js  uses:
 //                 showGamesTables, room/add
 
 //                 new singleRoute --> room/join
+//                 front-end progress: incomplete
 //------------------------------------------------------------------------------
+
+
+
+
 
 //route used to insert a new room into the database, doesn't add players or anything else
 app.post('/room', (req, res) => {
@@ -320,11 +326,13 @@ app.get('/room/redirect/:roomCode', (req, res) => {
 //               Room.js use:
 // updateplayers interval: user/list/:roomCode/:username, room/redirect/:roomCode
 //
-//    new single route --> room/player/update
+//    new single route --> room/update
+//    front-end progress: incomplete
 //
 // start game button:  room/start, user/targets, uesr/targers/assign, user/game/data/:username
 //
-//    new single route --> room/start
+//    new single route --> room/game/start
+//    front-end progress: incomplete
 //------------------------------------------------------------------------------
 
 // route  used when games is started to set all players alive stautus to true and the room to active
@@ -378,6 +386,14 @@ app.put('/user/targets/assign', (req, res) => {
   })
 })
 
+//------------------------------------------------------------------------------
+//              game.js use:
+//              user/heartbeat and user/game/data/:username
+//
+//              new single route --> room/game/update
+//              front-end progress: incomplete
+//------------------------------------------------------------------------------
+
 // heartbeat route for game page to send data used to update the databased
 app.put('/user/heartbeat', (req, res) => {
   const {username, latitude, longitude} = req.body
@@ -416,6 +432,14 @@ app.get('/user/game/data/:username', (req, res) => {
     }
   })
 })
+
+//------------------------------------------------------------------------------
+//            killButton.js use:
+//            user/list/:roomCode/:username, user kill
+//
+//            new single route --> room/game/killStatus
+//            front-end status: incomplete
+//------------------------------------------------------------------------------
 
 // grabs all players with their admin property inside a specific room
 app.get('/user/list/:roomCode/:username', (req, res) => {
