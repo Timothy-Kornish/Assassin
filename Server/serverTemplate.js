@@ -19,7 +19,14 @@ const users = {}
 
 
 // 4-character random generator for roomCode/testing
-
+const codeGen = () => {
+  const codeVal = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+  let val = ""
+  for (var i = 0; i < 4; i++){
+    val += codeVal[Math.floor(Math.random()* 36)]
+  }
+  return val
+}
 
 // shuffles array into new order, for target assignment
 const shuffle = (array) => {
@@ -74,11 +81,6 @@ app.use(express.static(path.join(__dirname, '..', 'build')))
 
 // setting the superSceret for sign up and login
 app.set('superSecret', "secretTUNNELthroughTHEmountain");
-
-//------------------------------------------------------------------------------
-//                      Authentication component uses:
-//                      signup, authenticate, auto/authenticate, all seperate actions
-//------------------------------------------------------------------------------
 
 // sign up page when user hits sign up button after entering username and password
 // first checks if user exists in the database, if username exists, sends a message that user exists
@@ -208,24 +210,6 @@ app.use(function(req, res, next) {
   }
 });
 
-//------------------------------------------------------------------------------
-//                CreateRoom.js uses:
-//                 room, room/add, room/admin
-
-//                 new singleRoute --> room/create,
-//                 front-end progress: incomplete
-
-//                JoinRoom.js  uses:
-//                 showGamesTables, room/add
-
-//                 new singleRoute --> room/join
-//                 front-end progress: incomplete
-//------------------------------------------------------------------------------
-
-
-
-
-
 //route used to insert a new room into the database, doesn't add players or anything else
 app.post('/room', (req, res) => {
   const {roomCode} = req.body
@@ -308,33 +292,6 @@ app.put('/room/add',(req, res) => {
   })
 })
 
-// checking if the room is active or not to redirect people in room.js to loading.js
-app.get('/room/redirect/:roomCode', (req, res) => {
-  let {roomCode} = req.params
-  const sql = `SELECT * from GAMES WHERE roomCode = ?`
-  req.query(sql,[roomCode], (err, result) => {
-    if(err){
-      res.status(500).json({success:false, message: "err grabbing data from game table",joke:"Get away from that horse!!!", err})
-    } else {
-      res.json({success:true, message:"successfully grabbed data from game table to check if active",
-      joke: "Weeee, git them glators, Cletus!", active: result[0].active, result})
-    }
-  })
-})
-
-//------------------------------------------------------------------------------
-//               Room.js use:
-// updateplayers interval: user/list/:roomCode/:username, room/redirect/:roomCode
-//
-//    new single route --> room/update
-//    front-end progress: incomplete
-//
-// start game button:  room/start, user/targets, uesr/targers/assign, user/game/data/:username
-//
-//    new single route --> room/game/start
-//    front-end progress: incomplete
-//------------------------------------------------------------------------------
-
 // route  used when games is started to set all players alive stautus to true and the room to active
 app.put('/room/start', (req, res) => {
   const {roomCode} = req.body
@@ -348,7 +305,19 @@ app.put('/room/start', (req, res) => {
     }
   })
 })
-
+// checking if the room is active or not to redirect people in room.js to loading.js
+app.get('/room/redirect/:roomCode', (req, res) => {
+  let {roomCode} = req.params
+  const sql = `SELECT * from GAMES WHERE roomCode = ?`
+  req.query(sql,[roomCode], (err, result) => {
+    if(err){
+      res.status(500).json({success:false, message: "err grabbing data from game table",joke:"Get away from that horse!!!", err})
+    } else {
+      res.json({success:true, message:"successfully grabbed data from game table to check if active",
+      joke: "Weeee, git them glators, Cletus!", active: result[0].active, result})
+    }
+  })
+})
 
 /********************
 redundant route    use : user/list:roomCode
@@ -385,14 +354,6 @@ app.put('/user/targets/assign', (req, res) => {
     }
   })
 })
-
-//------------------------------------------------------------------------------
-//              game.js use:
-//              user/heartbeat and user/game/data/:username
-//
-//              new single route --> room/game/update
-//              front-end progress: incomplete
-//------------------------------------------------------------------------------
 
 // heartbeat route for game page to send data used to update the databased
 app.put('/user/heartbeat', (req, res) => {
@@ -432,14 +393,6 @@ app.get('/user/game/data/:username', (req, res) => {
     }
   })
 })
-
-//------------------------------------------------------------------------------
-//            killButton.js use:
-//            user/list/:roomCode/:username, user kill
-//
-//            new single route --> room/game/killStatus
-//            front-end status: incomplete
-//------------------------------------------------------------------------------
 
 // grabs all players with their admin property inside a specific room
 app.get('/user/list/:roomCode/:username', (req, res) => {
