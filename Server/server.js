@@ -628,7 +628,7 @@ app.post('/bringOutYerDead', (req, res) => {
       })
     }
   })
-  })
+})
 /************************
 /Rip/:roomCode
 redundant route        use : user/kill/:roomCode
