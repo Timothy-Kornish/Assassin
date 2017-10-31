@@ -2,15 +2,11 @@
   constructor(list, username){
     this.list = list
     this.username = username
-    //console.log(this.list)
 
-    console.log('List', list, username)
     this.listVal = this._organize(this.list)
     this.listArr = this.listVal.arr
     this.listObj = this.listVal.obj
 
-    // console.log(this.listArr)
-    // console.log(this.listObj)
     if(this.listObj[username].target){
       this.target = this.listObj[username].target
       if(this.listObj[this.target])  {
@@ -34,7 +30,6 @@
       let username = arr[i].username
       obj[username] = arr[i]
   		arr[i]  = username
-      //console.log("i ", i ,"\nusername ",username, "\nobj ", obj, "\narr ", arr)
   	}
     return {arr, obj}
   }
@@ -64,47 +59,22 @@
   }
 
   getTheta(){
-    if(this.theta){
       return this.theta
-    }
-    else {
-      return null
-    }
   }
   getDistance(){
-    if(this.distance){
       return this.distance
-    } else {
-      return null
-    }
   }
   getTarget(){
-    if (this.target){
       return this.target
-    } else {
-      return null
-    }
   }
   getTargetsTarget(){
-    if(this.targetsTarget){
       return this.targetsTarget
-    } else {
-      return null
-    }
   }
   getListObj(){
-    if(this.listObj){
       return this.listObj
-    } else {
-      return null
-    }
   }
   getListArr(){
-    if(this.listArr){
       return this.listArr
-    } else {
-      return null
-    }
   }
 }
 module.exports = ServerFunk

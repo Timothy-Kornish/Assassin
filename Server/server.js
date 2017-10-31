@@ -351,7 +351,8 @@ app.put('/room/start', (req, res) => {
 
 
 /********************
-redundant route    use : user/list:roomCode
+/user/targets
+redundant route    use : /user/list:roomCode
 ********************/
 
 // grabs data as preparation to assign targets,
@@ -498,8 +499,6 @@ app.post('/user/kill', (req, res) => {
   const {list, username} = req.body
   console.log('listkill', list)
   let serve = new ServerFunk(list, username)
-  let theta = serve.getTheta()
-  let distance = serve.getDistance()
   let target = serve.getTarget()
   let targetsTarget = serve.getTargetsTarget()
   let listObj =serve.getListObj()
@@ -529,7 +528,8 @@ app.post('/user/kill', (req, res) => {
 })
 
 /**********************
-redundant route       use : user/heartbeat
+/user/location
+redundant route       use : /user/heartbeat
 **********************/
 
 // updates players location on database, gets location from front-end
@@ -576,11 +576,12 @@ app.put('/user/hireable', (req, res) => {
 })
 
 /************************
+/user/logout
 redundant route        use : user/startcountdount, maybe rename to make sense for both routes
 ************************/
 
 //player logs out of game.
-app.put('user/logout', (req, res) => {
+app.put('/user/logout', (req, res) => {
   const {username} = req.body
   //if lastUpdated is greater than two hours then set automatically to logged out
   const sql = `UPDATE players SET hireable = 'false' WHERE username = ?`
@@ -627,8 +628,9 @@ app.post('/bringOutYerDead', (req, res) => {
       })
     }
   })
-  })
+})
 /************************
+/Rip/:roomCode
 redundant route        use : user/kill/:roomCode
 ************************/
 
@@ -646,7 +648,7 @@ redundant route        use : user/kill/:roomCode
 // })
 
 /********************************
-routes for showing table data stored in database.
+routes below for showing table data stored in database.
 primarily for testing
 ********************************/
 
