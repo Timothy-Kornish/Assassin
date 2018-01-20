@@ -484,8 +484,7 @@ app.get('/user/list/:roomCode/:username', (req, res) => {
           })
 
           playersInRoomArr = Object.values(playersInRoomObj)
-          res.json({success:true, message: "Sending data over for game page",
-            joke:"That horse needs help, Cletus",  playersInRoomObj, playersInRoomArr, targets, players, creator})
+          res.json({success: true, message: "Sending data over for game page", joke:"That horse needs help, Cletus",  playersInRoomObj, playersInRoomArr, targets, players, creator})
         }
       })
     }

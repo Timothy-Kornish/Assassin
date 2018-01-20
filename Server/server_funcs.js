@@ -55,7 +55,7 @@
     let num = y/x
     let theta = Math.atan(num) *180/Math.PI
 
-    return ((360 + theta) % 360) //
+    return ((360 + theta) % 360) 
   }
 
   getTheta(){

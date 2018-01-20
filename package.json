@@ -27,6 +27,7 @@
     "expo": "^19.0.1",
     "express": "^4.15.4",
     "jsonwebtoken": "^7.4.2",
+    "knex": "^0.14.2",
     "mysql": "^2.14.1",
     "react": "16.0.0-alpha.12",
     "react-native": "^0.46.1",

@@ -67,7 +67,7 @@ class Authentication extends Component {
       console.log("responseData ", responseData)
       this.saveItem('x-access-token', responseData.token),
       this.saveItem('username', this.state.username),
-      Alert.alert( 'Signup Success!', responseData.token),
+      Alert.alert( 'Signup Success!', responseData.token)
       this.goToLobby(responseData.token, this.state.username);
     })
     .done();
